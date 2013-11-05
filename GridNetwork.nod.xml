@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Data/GridNetwork/GridNetwork.nod.xml">
+	
+		<node id="nod_0_1" x="-500.000000" y="1500.000000" type="priority"		/>
+		<node id="nod_0_2" x="500.000000" y="1500.000000" type="priority"		/>
+		<node id="nod_1_0" x="-1500.000000" y="500.000000" type="priority"		/>
+		<node id="nod_1_1" x="-500.000000" y="500.000000" type="traffic_light"		/>
+		<node id="nod_1_2" x="500.000000" y="500.000000" type="traffic_light"		/>
+		<node id="nod_1_3" x="1500.000000" y="500.000000" type="priority"		/>
+		<node id="nod_2_0" x="-1500.000000" y="-500.000000" type="priority"		/>
+		<node id="nod_2_1" x="-500.000000" y="-500.000000" type="traffic_light"		/>
+		<node id="nod_2_2" x="500.000000" y="-500.000000" type="traffic_light"		/>
+		<node id="nod_2_3" x="1500.000000" y="-500.000000" type="priority"		/>
+		<node id="nod_3_1" x="-500.000000" y="-1500.000000" type="priority"		/>
+		<node id="nod_3_2" x="500.000000" y="-1500.000000" type="priority"		/>
+</nodes>

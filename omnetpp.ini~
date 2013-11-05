@@ -1,0 +1,189 @@
+[General]
+cmdenv-express-mode = false #false for debug, true for long simulation runs
+cmdenv-autoflush = true
+cmdenv-event-banners = true
+cmdenv-module-messages = true
+#cmdenv-status-frequency = 100s #When cmdenv-express-mode=true: print status update every n seconds.
+
+network = GCRSNetwork
+
+#random number generator
+rng-class="cMersenneTwister"
+num-rngs=5000 #equal or larger than sim-time-limit
+
+##########################################################
+#			Simulation parameters                        #
+##########################################################
+debug-on-errors = true
+print-undisposed = false
+
+sim-time-limit = 2100s #Stops the simulation when simulation time reaches the given limit. The default is no limit.
+
+**.udpapp.*.vector-recording = true
+**.vector-recording = true
+
+**.debug = true
+**.**.coreDebug = false
+
+**.playgroundSizeX = 3500m
+**.playgroundSizeY = 3500m
+**.playgroundSizeZ = 50m
+
+##########################################################
+# Annotation parameters                                  #
+##########################################################
+*.annotations.draw = true
+
+##########################################################
+# Obstacle parameters                                    #
+##########################################################
+*.obstacles.debug = true
+#*.obstacles.obstacles = xmldoc("GridNetwork.poly.xml") 
+##########################################################
+#			WorldUtility parameters                      #
+##########################################################
+**.world.useTorus = false
+#**.world.use2D = false
+
+##########################################################
+#			TraCIScenarioManager parameters              #
+##########################################################
+*.manager.updateInterval = 0.1s
+*.manager.host = "localhost"
+*.manager.port = 9999
+*.manager.moduleType = "gcrs.src.base.ned.GCRSBaseVehicle"
+*.manager.moduleName = "node"
+*.manager.moduleDisplayString = ""
+*.manager.autoShutdown = true
+*.manager.margin = 25
+*.manager.launchConfig = xmldoc("GridNetwork.launchd.xml")
+
+##########################################################
+#       Parameters for the ConnectionManager             #
+##########################################################
+*.connectionManager.sendDirect = false
+*.connectionManager.pMax = 0mW #If set InterfDistance, the pMax should be set 0
+*.connectionManager.InterfDistance = 300m
+*.connectionManager.sat = -94dBm
+*.connectionManager.alpha = 2.0
+*.connectionManager.carrierFrequency = 5.890e9 Hz
+*.connectionManager.drawMaxIntfDist = false
+
+##########################################################
+#          Parameters for the VehicleManager             #
+##########################################################
+*.vehicleManager.NUM_VEHICLES = 900
+*.vehicleManager.RAND_SEED = 0
+*.vehicleManager.NUM_EVENT = 900
+*.vehicleManager.EVENT_TYPE = 0 #0 Accident evnet; 1  Emergency event
+*.vehicleManager.EVENT_AREA_RANGE = 500
+*.vehicleManager.MAX_EVENT_OCCUR_RATIO = 0.8
+*.vehicleManager.MAX_EVENT_START = 1.0
+*.vehicleManager.EVENT_DURATION_MODIFY_TIMES = 1 #if network layer is DTSG, it can be more than 1. Otherwise, it is 1 
+*.vehicleManager.EVENT_DURATION_MIN = 60.0
+*.vehicleManager.EVENT_DURATION_MAX = 240.0
+##########################################################
+#          Parameters for the Coolection Service         #
+##########################################################
+*.collectService.PROTOCOL = "Flooding"
+*.collectService.ZOR_SHAPE = 1 #0:Circle, 1:Rectangle, 2:Ellipse
+*.collectService.ZOF_SHAPE = 1
+*.collectService.ZOR_LENGTH = 1000#Circle: diameter, Rectangle:length, Ellipse:long Axis
+*.collectService.ZOF_LENGTH = 1000
+*.collectService.LANE_WIDTH = 3.25
+#Circle: diameter, Rectangle:width=(number of lane * width of each lane: Example:2*3.25), Ellipse:short Axis
+*.collectService.ZOR_WIDTH = 2*3.25
+*.collectService.ZOF_WIDTH = 4*3.25
+*.collectService.BUILDINGINTERVAL = 3.0
+*.collectService.UPDATEINTERVAL = 0.01s
+##########################################################
+#       Parameters for the Host                          #
+##########################################################
+
+############# Phy parameters #############################
+#The sensitivity describes the minimum strength a signal must have to be received.
+*.node[*].nic.phy.sensitivity = -94dBm # an abbreviation for the power ratio. 1000mW = 30dBm
+*.node[*].nic.phy.maxTXPower = 20mW	#Maybe no effect
+*.node[*].nic.phy.useThermalNoise = true
+*.node[*].nic.phy.thermalNoise = -110dBm
+*.node[*].nic.phy.decider = xmldoc("config.xml")
+*.node[*].nic.phy.analogueModels = xmldoc("config.xml")
+*.node[*].nic.phy.usePropagationDelay = true
+
+############# Mac parameters #############################
+*.node[*].nic.mac.useServiceChannel = true
+*.node[*].nic.mac.serviceChannel = 2
+*.node[*].nic.mac.txPower = 20mW	#The singal power is setting here!!!!
+*.node[*].nic.mac.bitrate = 18Mbps
+
+############# Network Layer parameters ####################
+#Flooding
+*.node[*].netwType = "GCRSFloodingNetLayer"
+*.node[*].net.headerLength = 32 bit
+*.node[*].net.debug = true
+*.node[*].net.stats = false
+*.node[*].net.MAXMESSAGEBUFFERSIZE = 100
+*.node[*].net.CWMAX = 0.5
+*.node[*].net.ST = 1.0
+############# Network Layer parameters ####################
+#DRG
+#*.node[*].netwType = "GCRSDRGNetLayer"
+#*.node[*].net.headerLength = 32 bit
+#*.node[*].net.debug = true
+#*.node[*].net.stats = false
+#*.node[*].net.MAXBOD = 0.01s
+#*.node[*].net.LONGBOD = 2.5s
+#*.node[*].net.MAXRETX = 2
+#*.node[*].net.MINCW = 0.0s
+#*.node[*].net.MAXCW = 0.002s
+#*.node[*].net.SD = 1.0
+#*.node[*].net.EPSILON = 0.5
+#*.node[*].net.MAXCRITERIONANGLE = 135 degree
+#*.node[*].net.MAXMESSAGEBUFFERSIZE = 100
+############# Network Layer parameters ####################
+#ROVER
+#*.node[*].netwType = "GCRSROVERNetLayer"
+#*.node[*].net.headerLength = 32 bit
+#*.node[*].net.debug = true
+#*.node[*].net.stats = false
+#*.node[*].net.MAXMESSAGEBUFFERSIZE = 100
+#*.node[*].net.CWMAX = 0.5
+#*.node[*].net.ST = 1.0
+############# Network Layer parameters ####################
+#DTSG
+#*.node[*].netwType = "GCRSDTSGNetLayer"
+#*.node[*].net.headerLength = 32 bit
+#*.node[*].net.debug = true
+#*.node[*].net.stats = false
+#*.node[*].net.MAXMESSAGEBUFFERSIZE = 100
+############# Application Layer parameters ################
+*.node[*].applType = "GCRSBaseAppLayer"
+*.node[*].appl.headerLength = 256 bit
+*.node[*].appl.MAXGEOBUFFERSIZE = 30
+*.node[*].appl.SELFMSGINTERVAL = 0.01s
+*.node[*].appl.INDIVIDUALOFFSET = 0.05s
+*.node[*].appl.ISONSCH = true
+*.node[*].appl.PRIORITYCLASS = 3
+*.node[*].appl.TTL = 15.0s
+*.node[*].appl.OFFSET = 450
+################ Mobility parameters #####################
+*.node[*].mobilityType = "GCRSBaseTraCIMobility"
+*.node[*].mobility.debug = true
+*.node[*].mobility.speed = 1mps
+#*.node[*].mobility.antennaPositionOffset = 3.47m
+*.node[*].mobility.x = 0
+*.node[*].mobility.y = 0
+*.node[*].mobility.z = 0
+*.node[*].mobility.EventInterval = 0.1s
+
+[Config nodebug]
+description = "default settings"
+**.debug = false
+**.coreDebug = false
+*.annotations.draw = false
+
+[Config debug]
+description = "(very slow!) draw and print additional debug information"
+**.debug = true
+**.coreDebug = true
+*.annotations.draw = true

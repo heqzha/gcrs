@@ -1,0 +1,6 @@
+netconvert --node-files=GridNetwork.nod.xml --edge-files=GridNetwork.edg.xml --type-files=GridNetwork.typ.xml --output-file=GridNetwork.net.xml
+
+
+netconvert -c GridNetwork.netccfg
+sumo-gui GridNetwork.sumocfg
+

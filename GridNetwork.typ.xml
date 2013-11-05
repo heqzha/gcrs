@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Data/GridNetwork/GridNetwork.typ.xml">
+	
+		<type id="secondary.rural" numLanes="1" width="3.250000" priority="10" speed="27.778000"		/>
+		<type id="road.rural" numLanes="1" width="3.250000" priority="7" speed="27.778000"		/>
+		<type id="road.urban" numLanes="2" width="3.250000" priority="7" speed="13.889000"		/>
+		<type id="secondary.urban" numLanes="2" width="3.250000" priority="10" speed="13.889000"		/>
+</types>

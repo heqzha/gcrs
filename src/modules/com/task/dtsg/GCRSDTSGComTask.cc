@@ -1,0 +1,36 @@
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+// 
+
+#include "GCRSDTSGComTask.h"
+
+GCRSDTSGComTask::GCRSDTSGComTask():GCRSBaseComTask() {
+    this->m_State = SC_IDLE;
+    this->m_AckFromHelpVehicle = 0;
+    this->m_AckFromIntendedVehicle = 0;
+    this->m_isBroadcastOnce = false;
+}
+
+GCRSDTSGComTask::GCRSDTSGComTask(long taskId, long runningEventId, long expireEventId,
+        GCRSBaseNetPkt* pkt):GCRSBaseComTask(taskId, runningEventId, expireEventId, pkt){
+    this->m_State = SC_IDLE;
+    this->m_AckFromHelpVehicle = 0;
+    this->m_AckFromIntendedVehicle = 0;
+    this->m_isBroadcastOnce = false;
+}
+
+GCRSDTSGComTask::~GCRSDTSGComTask() {
+    // TODO Auto-generated destructor stub
+}
+
