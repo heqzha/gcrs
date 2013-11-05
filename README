@@ -1,7 +1,11 @@
 #run sumo server python sumo-launchd.py -vv -c sumo(sumo-gui)
 test
+<<<<<<< HEAD
 testrui
 
+=======
+testHequn
+>>>>>>> f1fb53d81e9fc1a17654e2feee046da34f6dc811
 Change Log:
 TODO:
 1. Investage results.
