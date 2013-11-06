@@ -45,3 +45,10 @@ std::string Convert::CoordToString(Coord c) {
             + Convert::DoubleToString(c.y) + "," + Convert::DoubleToString(c.z);
     return strCoord;
 }
+
+double Convert::StringToDouble(std::string s){
+    std::stringstream strs(s);
+    double d = 0.0f;
+    strs >> d;
+    return d;
+}

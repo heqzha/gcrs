@@ -1,14 +1,9 @@
 #run sumo server python sumo-launchd.py -vv -c sumo(sumo-gui)
+test
 
 Change Log:
 TODO:
 1. Investage results.
-
-Version: GCRS_v1.0.0_06_11_2013
-1. <Modification> Modify event trigger mode. Add event trigger time. 
-					When current time > event trigger time, the vehicles can trigger event.
-2. <Bug Fixed> Fixed the ZOR/ZOF expire time more than simulation time.
-
 Version: GCRS_v0.6.8_03_11_2013
 1. <Bug Fixed> Print out bugs fixed.
 2. <Modification> Instand of SimpleObstacleShadowing to GCRSBaseSimpleObstacleShadowing.

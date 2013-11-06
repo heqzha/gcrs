@@ -16,6 +16,7 @@
 #include "GCRSBaseVehicleManager.h"
 #include "GCRSBaseComMath.h"
 #include <iterator>     // std::advance
+#include "Convert.h"
 
 Define_Module(GCRSBaseVehicleManager)
 ;
@@ -64,11 +65,12 @@ void GCRSBaseVehicleManager::handleMessage(cMessage* msg) {
             int eventType = hasPar("EVENT_TYPE")?par("EVENT_TYPE").longValue():EC_ACCIDENT;
             double eventAreaRange = hasPar("EVENT_AREA_RANGE")?par("EVENT_AREA_RANGE").doubleValue():0.0f;
             double maxEventOccurRatio = hasPar("MAX_EVENT_OCCUR_RATIO")?par("MAX_EVENT_OCCUR_RATIO").doubleValue():0.5f;
-            double maxEventStart = hasPar("MAX_EVENT_START") ? par("MAX_EVENT_START").doubleValue() : 0.0f;
+            double simulationTime = Convert::StringToDouble(ev.getConfig()->getConfigValue("sim-time-limit"));
+            double eventTriggerInterval = simulationTime/numEvent;
             std::list<Coord> listCrossRoads = this->traciManager->getCrossRoads();
             for(unsigned int i=0; i < numEvent; ++i){
                 double eventOccurRatio = GCRSBaseComMath::geDoubleRandomNumber(0.5f, maxEventOccurRatio, this->rand_seed);
-                double eventStart = GCRSBaseComMath::geDoubleRandomNumber(0.0, maxEventStart, this->rand_seed);
+                double eventStart = static_cast<double>(i) * eventTriggerInterval;
                 unsigned indexCrossRoad = GCRSBaseComMath::geUnsignedRandomNumer(0,listCrossRoads.size(), this->rand_seed);
                 std::list<Coord>::iterator iter = listCrossRoads.begin();
                 if(indexCrossRoad < listCrossRoads.size()){
@@ -172,11 +174,6 @@ int GCRSBaseVehicleManager::getEventType(GCRSBaseComVin::VinL3Type vin){
     return this->eCtrl.getEventType(eventId);
 }
 
-simtime_t GCRSBaseVehicleManager::getEventStart(
-        GCRSBaseComVin::VinL3Type vin) {
-    long eventId = this->vCtrl.getVehicleEventId(vin);
-    return this->eCtrl.getEventStartTime(eventId);
-}
 simtime_t GCRSBaseVehicleManager::getEventDuration(
         GCRSBaseComVin::VinL3Type vin) {
     long eventId = this->vCtrl.getVehicleEventId(vin);

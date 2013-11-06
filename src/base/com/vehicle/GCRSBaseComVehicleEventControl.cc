@@ -63,6 +63,8 @@ long GCRSBaseComVehicleEventControl::isEventOccur(GCRSBaseComVin::VinL3Type vin,
             ++iter) {
         if ((*iter) == NULL)
             continue;
+        if(simTime() < (*iter)->getEventStartTime())
+            continue;
         if((*iter)->getEventState() == GCRSBaseComVehicleEvent::SC_EVENT_OCCURED)
             continue;
         Coord eventLoc = (*iter)->getEventLocation();
@@ -125,13 +127,6 @@ double GCRSBaseComVehicleEventControl::getEventAreaRange(long eventId) {
     if (event == NULL)
         return 0.0f;
     return event->getEventAreaRange();
-}
-
-simtime_t GCRSBaseComVehicleEventControl::getEventStartTime(long eventId) {
-    GCRSBaseComVehicleEvent* event = this->searchEvent(eventId);
-    if (event == NULL)
-        return 0.0f;
-    return event->getEventStartTime();
 }
 
 simtime_t GCRSBaseComVehicleEventControl::getEventDurationTime(long eventId) {

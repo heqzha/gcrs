@@ -27,6 +27,8 @@ public:
     static std::string LongToString(long l);
     static std::string DoubleToString(double d);
     static std::string CoordToString(Coord c);
+
+    static double StringToDouble(std::string s);
 };
 
 #endif /* CONVERT_H_ */

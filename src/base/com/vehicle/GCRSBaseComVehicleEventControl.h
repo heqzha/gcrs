@@ -36,7 +36,6 @@ public:
     virtual double getEventOccurRatio(long eventId);
     virtual Coord getEventLocation(long eventId);
     virtual double getEventAreaRange(long eventId);
-    virtual simtime_t getEventStartTime(long eventId);
     virtual simtime_t getEventDurationTime(long eventId);
     virtual unsigned int getNumEventDurationTime(long eventId);
 

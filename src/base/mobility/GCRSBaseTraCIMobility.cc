@@ -71,7 +71,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
             if(eventId >= 0){
                 this->vManager->updateVehicleState(this->vin,GCRSBaseComVehicleState::SC_EVENT_INITIAL);
                 this->selfMsg_EVENT->setKind(MC_SELFMSG_EVENT_START);
-                scheduleAt(simTime() + this->vManager->getEventStart(this->vin), this->selfMsg_EVENT);
+                scheduleAt(simTime() + 0.1, this->selfMsg_EVENT);
             }else{
                 scheduleAt(simTime() + this->eventInterval, this->selfMsg_EVENT);
             }

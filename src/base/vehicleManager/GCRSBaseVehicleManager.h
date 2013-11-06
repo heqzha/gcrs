@@ -53,7 +53,6 @@ public:
     virtual simtime_t isModifyEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual unsigned int getNumEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual int getEventType(GCRSBaseComVin::VinL3Type vin);
-    virtual simtime_t getEventStart(GCRSBaseComVin::VinL3Type vin);
     virtual simtime_t getEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual GCRSBaseComVehicleState::state_category getVehicleState(GCRSBaseComVin::VinL3Type vin);
     virtual std::list<GCRSBaseComVin::VinL3Type> getAllVin();

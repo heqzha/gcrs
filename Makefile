@@ -57,7 +57,6 @@ INCLUDE_PATH = \
     -Isrc/base/vehicleManager \
     -Isrc/base/world \
     -Isrc/modules \
-    -Isrc/modules/app \
     -Isrc/modules/com \
     -Isrc/modules/com/task \
     -Isrc/modules/com/task/drg \
@@ -247,7 +246,6 @@ clean:
 	$(Q)-rm -f src/base/vehicleManager/*_m.cc src/base/vehicleManager/*_m.h
 	$(Q)-rm -f src/base/world/*_m.cc src/base/world/*_m.h
 	$(Q)-rm -f src/modules/*_m.cc src/modules/*_m.h
-	$(Q)-rm -f src/modules/app/*_m.cc src/modules/app/*_m.h
 	$(Q)-rm -f src/modules/com/*_m.cc src/modules/com/*_m.h
 	$(Q)-rm -f src/modules/com/task/*_m.cc src/modules/com/task/*_m.h
 	$(Q)-rm -f src/modules/com/task/drg/*_m.cc src/modules/com/task/drg/*_m.h
@@ -263,7 +261,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc results/*.cc src/*.cc src/base/*.cc src/base/analogueModel/*.cc src/base/app/*.cc src/base/collectionService/*.cc src/base/com/*.cc src/base/com/collection/*.cc src/base/com/geoInfo/*.cc src/base/com/lib/*.cc src/base/com/lib/tinyxml/*.cc src/base/com/task/*.cc src/base/com/vehicle/*.cc src/base/com/zone/*.cc src/base/connectionManager/*.cc src/base/const/*.cc src/base/mac/*.cc src/base/mobility/*.cc src/base/ned/*.cc src/base/net/*.cc src/base/nic/*.cc src/base/phy/*.cc src/base/pkt/*.cc src/base/traci/*.cc src/base/vehicleManager/*.cc src/base/world/*.cc src/modules/*.cc src/modules/app/*.cc src/modules/com/*.cc src/modules/com/task/*.cc src/modules/com/task/drg/*.cc src/modules/com/task/dtsg/*.cc src/modules/com/task/flooding/*.cc src/modules/com/task/rover/*.cc src/modules/const/*.cc src/modules/net/*.cc src/modules/pkt/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc results/*.cc src/*.cc src/base/*.cc src/base/analogueModel/*.cc src/base/app/*.cc src/base/collectionService/*.cc src/base/com/*.cc src/base/com/collection/*.cc src/base/com/geoInfo/*.cc src/base/com/lib/*.cc src/base/com/lib/tinyxml/*.cc src/base/com/task/*.cc src/base/com/vehicle/*.cc src/base/com/zone/*.cc src/base/connectionManager/*.cc src/base/const/*.cc src/base/mac/*.cc src/base/mobility/*.cc src/base/ned/*.cc src/base/net/*.cc src/base/nic/*.cc src/base/phy/*.cc src/base/pkt/*.cc src/base/traci/*.cc src/base/vehicleManager/*.cc src/base/world/*.cc src/modules/*.cc src/modules/com/*.cc src/modules/com/task/*.cc src/modules/com/task/drg/*.cc src/modules/com/task/dtsg/*.cc src/modules/com/task/flooding/*.cc src/modules/com/task/rover/*.cc src/modules/const/*.cc src/modules/net/*.cc src/modules/pkt/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.o: src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.cc \
@@ -299,6 +297,7 @@ $O/src/base/app/GCRSBaseAppLayer.o: src/base/app/GCRSBaseAppLayer.cc \
 	src/base/com/collection/GCRSBaseComNin.h \
 	src/base/com/geoInfo/GCRSBaseComGeoInfo.h \
 	src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.h \
+	src/base/com/lib/Convert.h \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
@@ -841,6 +840,7 @@ $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o: src/base/traci/GCRSBase
 	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
 	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h
 $O/src/base/vehicleManager/GCRSBaseVehicleManager.o: src/base/vehicleManager/GCRSBaseVehicleManager.cc \
+	src/base/com/lib/Convert.h \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
