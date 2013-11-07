@@ -80,7 +80,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
         case MC_SELFMSG_EVENT_START: {
             //Event happened
             if(this->vManager->isAccidentEvent(this->vin)){
-                this->commandSetSpeed(2.0f);
+                this->commandSetSpeed(0.0f);
             }else if(this->vManager->isEmergencyEvent(this->vin)){
                 this->commandSetSpeed(this->getSpeedMax());
             }
