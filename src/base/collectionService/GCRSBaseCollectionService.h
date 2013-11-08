@@ -77,8 +77,22 @@ public:
     int getNumVehiclePassThroughZof(GCRSBaseComNin::NinL3Type nin);
 
 protected:
+    class SearchVehicleOutCity{
+    public:
+        SearchVehicleOutCity(GCRSBaseComVin::VinL3Type vin):m_Vin(vin){}
+        bool operator()(GCRSBaseComVin::VinL3Type vin){
+            if(vin == m_Vin)
+                return true;
+            return false;
+        }
+    private:
+        GCRSBaseComVin::VinL3Type m_Vin;
+    };
+
+protected:
     double calcRoadBuidingDensityRatio(double roadLength, int numPolygons, double interval);
-    void checkNetworkRanges();
+    void checkVehicleState();
+    GCRSBaseComVin::VinL3Type searchVehicleOutCity(GCRSBaseComVin::VinL3Type vin);
     GCRSBaseComNin::NinL3Type getUniqueNin();
     void conclusion();
 
@@ -89,7 +103,8 @@ protected:
 protected:
     GCRSBaseComCollectNetworkController* networkCtrl;
     GCRSBaseComCollectNetworkRangeController *networkRangeCtrl;
-    GCRSBaseComCollectPrintOut* printOut;
+    GCRSBaseComCollectPrintOut* printOutProtocol;
+    GCRSBaseComCollectPrintOut* printOutVehicleInCity;
 
     GCRSBaseTraCIScenarioManagerLaunchd* traciManager;
     GCRSBaseVehicleManager* vManager;
@@ -111,7 +126,7 @@ protected:
     time_t simStart;
     time_t simEnd;
 
-    //std::list<GCRSBaseComNin::NinL3Type> listAllNetworkNin;
+    std::vector<GCRSBaseComVin::VinL3Type> vecVehicleOutCity;
     GCRSBaseComNin::NinL3Type ninCounter;
 
 };

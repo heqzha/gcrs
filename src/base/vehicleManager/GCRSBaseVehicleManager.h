@@ -59,6 +59,7 @@ public:
     virtual Coord getLocation(GCRSBaseComVin::VinL3Type vin);
     virtual bool isAccidentEvent(GCRSBaseComVin::VinL3Type vin);
     virtual bool isEmergencyEvent(GCRSBaseComVin::VinL3Type vin);
+    virtual void vehicleOutCity(GCRSBaseComVin::VinL3Type vin);
     int getNumVehicles(){
         return this->vCtrl.getVehicleNum();
     }

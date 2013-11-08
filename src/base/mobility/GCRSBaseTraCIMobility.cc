@@ -43,6 +43,7 @@ void GCRSBaseTraCIMobility::initialize(int stage) {
 }
 
 void GCRSBaseTraCIMobility::finish() {
+    this->vManager->vehicleOutCity(this->vin);
     TraCIMobility::finish();
     if (this->selfMsg_EVENT->isScheduled()) {
         cancelAndDelete(this->selfMsg_EVENT);

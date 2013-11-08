@@ -21,7 +21,7 @@
 class GCRSBaseComVehicleState {
 public:
     enum state_category {
-        SC_NORMAL = 0, SC_EVENT_INITIAL = 1, SC_EVENT_HANDLING = 2
+        SC_NORMAL = 0, SC_EVENT_INITIAL = 1, SC_EVENT_HANDLING = 2, SC_OUT_CITY = 3
     };
     GCRSBaseComVehicleState() {
         this->vin = GCRSBaseComVin::VINL3NULL;

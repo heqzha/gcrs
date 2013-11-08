@@ -201,3 +201,10 @@ bool GCRSBaseVehicleManager::isAccidentEvent(GCRSBaseComVin::VinL3Type vin){
 bool GCRSBaseVehicleManager::isEmergencyEvent(GCRSBaseComVin::VinL3Type vin){
     return this->getEventType(vin) == EC_EMERGENCY?true:false;
 }
+
+void GCRSBaseVehicleManager::vehicleOutCity(GCRSBaseComVin::VinL3Type vin){
+    this->vCtrl.updateState(vin, GCRSBaseComVehicleState::SC_OUT_CITY);
+    /*
+     * TODO add a vehicle
+     */
+}
