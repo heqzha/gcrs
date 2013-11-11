@@ -98,6 +98,7 @@ OBJS = \
     $O/src/base/com/lib/Convert.o \
     $O/src/base/com/lib/GCRSBaseRealWorldTimer.o \
     $O/src/base/com/lib/GCRSBaseComTTL.o \
+    $O/src/base/com/lib/GCRSReadXml.o \
     $O/src/base/com/lib/tinyxml/tinyxmlerror.o \
     $O/src/base/com/lib/tinyxml/tinyxml.o \
     $O/src/base/com/lib/tinyxml/tinyxmlparser.o \
@@ -302,6 +303,7 @@ $O/src/base/app/GCRSBaseAppLayer.o: src/base/app/GCRSBaseAppLayer.cc \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
@@ -357,6 +359,7 @@ $O/src/base/collectionService/GCRSBaseCollectionService.o: src/base/collectionSe
 	src/base/com/lib/Convert.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
@@ -493,6 +496,8 @@ $O/src/base/com/lib/GCRSBaseComTTL.o: src/base/com/lib/GCRSBaseComTTL.cc \
 	src/base/com/lib/GCRSBaseComTTL.h
 $O/src/base/com/lib/GCRSBaseRealWorldTimer.o: src/base/com/lib/GCRSBaseRealWorldTimer.cc \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h
+$O/src/base/com/lib/GCRSReadXml.o: src/base/com/lib/GCRSReadXml.cc \
+	src/base/com/lib/GCRSReadXml.h
 $O/src/base/com/lib/tinyxml/tinystr.o: src/base/com/lib/tinyxml/tinystr.cc \
 	src/base/com/lib/tinyxml/tinystr.h
 $O/src/base/com/lib/tinyxml/tinyxml.o: src/base/com/lib/tinyxml/tinyxml.cc \
@@ -678,6 +683,7 @@ $O/src/base/mac/GCRSBaseMacLayer.o: src/base/mac/GCRSBaseMacLayer.cc \
 	$(MIXIM_PROJ)/src/modules/phy/SNRThresholdDecider.h \
 	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h
 $O/src/base/mobility/GCRSBaseTraCIMobility.o: src/base/mobility/GCRSBaseTraCIMobility.cc \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEventControl.h \
@@ -717,6 +723,7 @@ $O/src/base/net/GCRSBaseNetLayer.o: src/base/net/GCRSBaseNetLayer.cc \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/task/GCRSBaseComTask.h \
@@ -828,6 +835,7 @@ $O/src/base/pkt/GCRSBasePkt_m.o: src/base/pkt/GCRSBasePkt_m.cc \
 	src/base/pkt/GCRSBasePkt_m.h
 $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o: src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
 	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
@@ -842,6 +850,7 @@ $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o: src/base/traci/GCRSBase
 $O/src/base/vehicleManager/GCRSBaseVehicleManager.o: src/base/vehicleManager/GCRSBaseVehicleManager.cc \
 	src/base/com/lib/Convert.h \
 	src/base/com/lib/GCRSBaseComMath.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEventControl.h \
@@ -1008,6 +1017,7 @@ $O/src/modules/net/GCRSDRGNetLayer.o: src/modules/net/GCRSDRGNetLayer.cc \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/task/GCRSBaseComTask.h \
@@ -1069,6 +1079,7 @@ $O/src/modules/net/GCRSDTSGNetLayer.o: src/modules/net/GCRSDTSGNetLayer.cc \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/task/GCRSBaseComTask.h \
@@ -1133,6 +1144,7 @@ $O/src/modules/net/GCRSFloodingNetLayer.o: src/modules/net/GCRSFloodingNetLayer.
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/task/GCRSBaseComTask.h \
@@ -1194,6 +1206,7 @@ $O/src/modules/net/GCRSROVERNetLayer.o: src/modules/net/GCRSROVERNetLayer.cc \
 	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
 	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/lib/tinyxml/tinystr.h \
 	src/base/com/lib/tinyxml/tinyxml.h \
 	src/base/com/task/GCRSBaseComTask.h \

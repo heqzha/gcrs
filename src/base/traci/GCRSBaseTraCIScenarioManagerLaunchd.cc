@@ -23,6 +23,17 @@ void GCRSBaseTraCIScenarioManagerLaunchd::initialize(int stage) {
     TraCIScenarioManagerLaunchd::initialize(stage);
     if(stage == 0){
         this->numJunctions = 0;
+        //Test Code
+        this->xmlRoutes = par("XML_ROUTES");
+        this->xmlReader = new GCRSReadXml("routes", this->xmlRoutes);
+        std::string edge = this->xmlReader->readAttribute("route", "edges", "rou_1");
+        std::list<std::string> ids = this->xmlReader->readAllIdsByTag("route");
+        std::list<std::string>::iterator iter;
+        for(iter = ids.begin(); iter != ids.end(); ++iter){
+            EV<<*iter<<endl;
+        }
+        EV<<edge<<endl;
+        //Test Code
     }
 }
 

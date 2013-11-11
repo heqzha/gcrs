@@ -13,10 +13,27 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package gcrs.src.base.traci;
-import org.mixim.modules.mobility.traci.TraCIScenarioManagerLaunchd;
-simple GCRSBaseTraCIScenarioManagerLaunchd extends TraCIScenarioManagerLaunchd{
-    parameters:
-        xml XML_ROUTES = default(xml("<routes/>"));
-        @class(GCRSBaseTraCIScenarioManagerLaunchd);
-}
+#ifndef GCRSREADXML_H_
+#define GCRSREADXML_H_
+#include <omnetpp.h>
+#include <list>
+
+class GCRSReadXml {
+public:
+    GCRSReadXml();
+    GCRSReadXml(std::string rootTag, cXMLElement* xml);
+    virtual ~GCRSReadXml();
+
+    std::string readAttribute(std::string tag, std::string attr, std::string id);
+    std::list<std::string> readAllIdsByTag(std::string tag);
+protected:
+    std::string readXml(cXMLElement* e, std::string tag, std::string attr, std::string id = "");
+
+protected:
+    std::string rootTag;
+    cXMLElement* xml;
+
+    std::list<std::string> listAttributes;
+};
+
+#endif /* GCRSREADXML_H_ */

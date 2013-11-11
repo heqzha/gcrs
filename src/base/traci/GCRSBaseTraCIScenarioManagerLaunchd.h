@@ -17,6 +17,7 @@
 #define GCRSBASETRACISCENARIOMANAGERLAUNCHD_H_
 
 #include <TraCIScenarioManagerLaunchd.h>
+#include "GCRSReadXml.h"
 
 class GCRSBaseTraCIScenarioManagerLaunchd: public TraCIScenarioManagerLaunchd {
 public:
@@ -42,6 +43,9 @@ protected:
 protected:
     int numJunctions;
     bool isInitialized;
+
+    cXMLElement* xmlRoutes;
+    GCRSReadXml* xmlReader;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {
