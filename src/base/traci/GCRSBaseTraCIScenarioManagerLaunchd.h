@@ -42,9 +42,10 @@ protected:
     bool isInJunction(Coord loc, Coord locJunction, double roadWidth);
     int calcNumCrossRoads(int j);
 
-    std::string getRandVehicleTypeId();
-    std::string getRandRouteId();
-    std::string getRandLaneId();
+    std::string getVehicleTypeId();
+    std::string getRouteId();
+    std::string getEdgeId(std::string route);
+    std::string getLaneId(std::string edge);
 
 protected:
     int numJunctions;
@@ -55,13 +56,14 @@ protected:
     GCRSReadXml* xmlRoutesReader;
     GCRSReadXml* xmlNetworkReader;
 
-    std::list<std::string> listVehicleTypeIds;
-    std::list<std::string> listRouteIds;
-    std::list<std::string> listLandIds;
+    std::vector<std::string> vecVehicleTypeIds;
+    std::vector<std::string> vecRouteIds;
+    std::vector<std::string> vecLandIds;
 
-    std::list<int> listVehicleTypeIdsIndex;
-    std::list<int> listRouteIdsIndex;
-    std::list<int> listLandIdsIndex;
+    long vehicleIdIndex;
+    unsigned int vehicleTypeIdsIndex;
+    unsigned int routeIdsIndex;
+    unsigned int laneIdsIndex;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {

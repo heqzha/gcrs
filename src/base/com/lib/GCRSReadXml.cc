@@ -14,6 +14,7 @@
 // 
 
 #include "GCRSReadXml.h"
+#include "GCRSBaseString.h"
 
 GCRSReadXml::GCRSReadXml() {
     this->rootTag = "";
@@ -37,51 +38,67 @@ GCRSReadXml::~GCRSReadXml() {
     if (this->xml == NULL)
         delete this->xml;
 }
-//TODO test
+
 std::string GCRSReadXml::readAttribute(std::string tag, std::string attr,
         std::string id) {
     return this->readXmlAttributeValue(this->xml, tag, attr, id);
 }
 
-std::list<std::string> GCRSReadXml::readAllRouteIds() {
-/*    this->listAttributes.clear();
-    this->readXmlAttributeValue(this->xml, "route", "id");
-    return this->listAttributes;*/
-    this->listAttributes.clear();
-    this->listChildrenElement.clear();
+std::vector<std::string> GCRSReadXml::readAllRouteIds() {
+    this->vecAttributes.clear();
+    this->vecChildrenElement.clear();
     this->readXmlChildElement(this->xml, "route");
     this->readXmlAttributeValues("id");
-    return this->listAttributes;
+    return this->vecAttributes;
 }
 
-std::list<std::string> GCRSReadXml::readAllVehilceTypeIds(){
-/*    this->listAttributes.clear();
-    this->readXmlAttributeValue(this->xml, "vType", "id");
-    return this->listAttributes;*/
-    this->listAttributes.clear();
-    this->listChildrenElement.clear();
+std::vector<std::string> GCRSReadXml::readAllVehilceTypeIds(){
+    this->vecAttributes.clear();
+    this->vecChildrenElement.clear();
     this->readXmlChildElement(this->xml, "vType");
     this->readXmlAttributeValues("id");
-    return this->listAttributes;
+    return this->vecAttributes;
 }
 
-std::list<std::string> GCRSReadXml::readLaneIdsOfEdge(std::string edgeId){
-    this->listAttributes.clear();
-    this->listChildrenElement.clear();
-
+std::vector<std::string> GCRSReadXml::readLaneIdsOfEdge(std::string edgeId){
+    this->vecAttributes.clear();
+    this->vecChildrenElement.clear();
     this->readXmlChildElement(this->xml, "edge");
-    std::list<cXMLElement*> listElement = this->listChildrenElement;
-    std::list<cXMLElement*>::iterator iter;
-    for(iter = listElement.begin(); iter != listElement.end(); ++iter){
+    std::vector<cXMLElement*> vecElement = this->vecChildrenElement;
+
+    std::vector<cXMLElement*>::iterator iter;
+    for(iter = vecElement.begin(); iter != vecElement.end(); ++iter){
         ASSERT((*iter)->getAttribute("id"));
         std::string id = (*iter)->getAttribute("id");
         if(edgeId.compare(id) == 0){
+            this->vecChildrenElement.clear();
             this->readXmlChildElement((*iter), "lane");
             break;
         }
     }
+    this->vecAttributes.clear();
     this->readXmlAttributeValues("id");
-    return this->listAttributes;
+    return this->vecAttributes;
+}
+
+std::vector<std::string> GCRSReadXml::readEdgeIdsOfRoute(std::string routeId){
+    std::vector<std::string> vecEdges;
+    this->vecAttributes.clear();
+    this->vecChildrenElement.clear();
+    this->readXmlChildElement(this->xml, "route");
+    std::vector<cXMLElement*> vecElement = this->vecChildrenElement;
+
+    std::vector<cXMLElement*>::iterator iter;
+    for(iter = vecElement.begin(); iter != vecElement.end(); ++iter){
+        ASSERT((*iter)->getAttribute("id"));
+        std::string id = (*iter)->getAttribute("id");
+        if(routeId.compare(id) == 0){
+            std::string edges = (*iter)->getAttribute("edges");
+            vecEdges = GCRSBaseString::strSplit(edges, ' ');
+            break;
+        }
+    }
+    return vecEdges;
 }
 
 void GCRSReadXml::readXmlChildElement(cXMLElement* e, std::string tag){
@@ -89,7 +106,7 @@ void GCRSReadXml::readXmlChildElement(cXMLElement* e, std::string tag){
         return;
     std::string eTag = e->getTagName();
     if (eTag.compare(tag) == 0) {
-        this->listChildrenElement.push_back(e);
+        this->vecChildrenElement.push_back(e);
         return;
     }
     cXMLElementList list = e->getChildren();
@@ -100,18 +117,18 @@ void GCRSReadXml::readXmlChildElement(cXMLElement* e, std::string tag){
 }
 
 void GCRSReadXml::readXmlAttributeValues(std::string attr){
-    std::list<cXMLElement*>::iterator iter;
-    for(iter = this->listChildrenElement.begin(); iter != this->listChildrenElement.end(); ++iter){
+    std::vector<cXMLElement*>::iterator iter;
+    for(iter = this->vecChildrenElement.begin(); iter != this->vecChildrenElement.end(); ++iter){
         ASSERT((*iter)->getAttribute(attr.c_str()));
         std::string value = std::string((*iter)->getAttribute(attr.c_str()));
-        this->listAttributes.push_back(value);
+        this->vecAttributes.push_back(value);
     }
 }
 
 std::string GCRSReadXml::readXmlAttributeValue(std::string attr, std::string id){
     std::string value = "";
-    std::list<cXMLElement*>::iterator iter;
-    for(iter = this->listChildrenElement.begin(); iter != this->listChildrenElement.end(); ++iter){
+    std::vector<cXMLElement*>::iterator iter;
+    for(iter = this->vecChildrenElement.begin(); iter != this->vecChildrenElement.end(); ++iter){
         ASSERT((*iter)->getAttribute("id"));
         std::string eId = std::string((*iter)->getAttribute("id"));
         if(eId.compare(id) == 0){
@@ -132,7 +149,7 @@ std::string GCRSReadXml::readXmlAttributeValue(cXMLElement* e, std::string tag,
         if (id.compare("") == 0) {
             ASSERT(e->getAttribute(attr.c_str()));
             std::string attrV = std::string(e->getAttribute(attr.c_str()));
-            this->listAttributes.push_back(attrV);
+            this->vecAttributes.push_back(attrV);
             return "";
         } else {
             ASSERT(e->getAttribute("id"));

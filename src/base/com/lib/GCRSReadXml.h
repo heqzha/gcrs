@@ -16,7 +16,7 @@
 #ifndef GCRSREADXML_H_
 #define GCRSREADXML_H_
 #include <omnetpp.h>
-#include <list>
+#include <vector>
 
 class GCRSReadXml {
 public:
@@ -25,9 +25,10 @@ public:
     virtual ~GCRSReadXml();
 
     std::string readAttribute(std::string tag, std::string attr, std::string id);
-    std::list<std::string> readAllRouteIds();
-    std::list<std::string> readAllVehilceTypeIds();
-    std::list<std::string> readLaneIdsOfEdge(std::string edgeId);
+    std::vector<std::string> readAllRouteIds();
+    std::vector<std::string> readAllVehilceTypeIds();
+    std::vector<std::string> readLaneIdsOfEdge(std::string edgeId);
+    std::vector<std::string> readEdgeIdsOfRoute(std::string routeId);
 
 protected:
     void readXmlChildElement(cXMLElement* e, std::string tag);
@@ -39,8 +40,8 @@ protected:
     std::string rootTag;
     cXMLElement* xml;
 
-    std::list<cXMLElement*> listChildrenElement;
-    std::list<std::string> listAttributes;
+    std::vector<cXMLElement*> vecChildrenElement;
+    std::vector<std::string> vecAttributes;
 };
 
 #endif /* GCRSREADXML_H_ */

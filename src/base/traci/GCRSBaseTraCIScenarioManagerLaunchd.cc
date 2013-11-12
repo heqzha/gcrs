@@ -16,6 +16,8 @@
 #include "GCRSBaseTraCIScenarioManagerLaunchd.h"
 #include "GCRSBaseComMath.h"
 #include "mobility/traci/TraCIConstants.h"
+#include "GCRSBaseString.h"
+#include "Convert.h"
 
 Define_Module(GCRSBaseTraCIScenarioManagerLaunchd)
 ;
@@ -25,27 +27,40 @@ void GCRSBaseTraCIScenarioManagerLaunchd::initialize(int stage) {
     if (stage == 0) {
         this->numJunctions = 0;
 
-        //Test Code
         this->xmlRoutes = par("XML_ROUTES");
         this->xmlNetwork = par("XML_NETWORK");
 
         this->xmlRoutesReader = new GCRSReadXml("routes", this->xmlRoutes);
         this->xmlNetworkReader = new GCRSReadXml("net", this->xmlNetwork);
 
-        std::string edge = this->xmlRoutesReader->readAttribute("route", "edges",
-                "rou_1");
-        this->listVehicleTypeIds = this->xmlRoutesReader->readAllVehilceTypeIds();
-        this->listRouteIds = this->xmlRoutesReader->readAllRouteIds();
+        this->vecVehicleTypeIds = this->xmlRoutesReader->readAllVehilceTypeIds();
+        this->vecRouteIds = this->xmlRoutesReader->readAllRouteIds();
 
-        std::list<std::string>::iterator iter;
-        for (iter = this->listRouteIds.begin(); iter != this->listRouteIds.end(); ++iter) {
-            EV<<*iter<<endl;
-        }
-        for (iter = this->listVehicleTypeIds.begin(); iter != this->listVehicleTypeIds.end(); ++iter) {
-            EV<<*iter<<endl;
-        }
-        EV<<edge<<endl;
-        //Test Code
+        this->vehicleIdIndex = 0;
+        this->vehicleTypeIdsIndex = 0;
+        this->routeIdsIndex = 0;
+        this->laneIdsIndex = 0;
+//        //Test Code
+//        std::string edge = this->xmlRoutesReader->readAttribute("route", "edges",
+//                "rou_1");
+//        std::vector<std::string> edges = GCRSBaseString::strSplit(edge, ' ');
+//        this->vecVehicleTypeIds = this->xmlRoutesReader->readAllVehilceTypeIds();
+//        this->vecRouteIds = this->xmlRoutesReader->readAllRouteIds();
+//        this->vecLandIds = this->xmlNetworkReader->readLaneIdsOfEdge(edges[0]);
+//
+//        std::vector<std::string>::iterator iter;
+//        for (iter = this->vecRouteIds.begin(); iter != this->vecRouteIds.end(); ++iter) {
+//            EV<<*iter<<endl;
+//        }
+//        for (iter = this->vecVehicleTypeIds.begin(); iter != this->vecVehicleTypeIds.end(); ++iter) {
+//            EV<<*iter<<endl;
+//        }
+//        for (iter = this->vecLandIds.begin(); iter != this->vecLandIds.end(); ++iter) {
+//            EV<<*iter<<endl;
+//        }
+//
+//        EV<<edge<<endl;
+//        //Test Code
     }
 }
 
@@ -136,25 +151,42 @@ Coord GCRSBaseTraCIScenarioManagerLaunchd::getNearbyCrossRoadLocation(Coord loc,
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::addNewVehicle(){
-    std::string vehicleId;
-    std::string randVehicleTypeId;
-    std::string randRouteId;
-    std::string randLaneId;
-    double emitPosition;
-    double emitSpeed;
-    this->commandAddVehicle(vehicleId,randVehicleTypeId, randRouteId, randLaneId, emitPosition, emitSpeed);
+    std::string vehicleId = "veh_rt_" + Convert::LongToString(this->vehicleIdIndex++);
+    std::string vehicleTypeId = this->getVehicleTypeId();
+    std::string routeId = this->getRouteId();
+    std::string edgeId = this->getEdgeId(routeId);
+    std::string laneId = this->getLaneId(edgeId);
+    double emitPosition = 0.0f;
+    double emitSpeed = this->commandGetLaneMaxSpeed(laneId);
+    this->commandAddVehicle(vehicleId,vehicleTypeId, routeId, laneId, emitPosition, emitSpeed);
 }
 
-std::string GCRSBaseTraCIScenarioManagerLaunchd::getRandVehicleTypeId(){
-
+std::string GCRSBaseTraCIScenarioManagerLaunchd::getVehicleTypeId(){
+    if(this->vecVehicleTypeIds.empty()) return "";
+    this->vehicleTypeIdsIndex++;
+    this->vehicleTypeIdsIndex = this->vehicleTypeIdsIndex % this->vecVehicleTypeIds.size();
+    return this->vecVehicleTypeIds[this->vehicleTypeIdsIndex];
 }
 
-std::string GCRSBaseTraCIScenarioManagerLaunchd::getRandRouteId(){
-
+std::string GCRSBaseTraCIScenarioManagerLaunchd::getRouteId(){
+    if(this->vecRouteIds.empty()) return "";
+    this->routeIdsIndex++;
+    this->routeIdsIndex = this->routeIdsIndex % this->vecRouteIds.size();
+    return this->vecRouteIds[this->routeIdsIndex];
 }
 
-std::string GCRSBaseTraCIScenarioManagerLaunchd::getRandLaneId(){
+std::string GCRSBaseTraCIScenarioManagerLaunchd::getEdgeId(std::string route){
+    std::vector<std::string> edges = this->xmlRoutesReader->readEdgeIdsOfRoute(route);
+    if(edges.empty()) return "";
+    return edges[0];
+}
 
+std::string GCRSBaseTraCIScenarioManagerLaunchd::getLaneId(std::string edge){
+    std::vector<std::string> landIds = this->xmlNetworkReader->readLaneIdsOfEdge(edge);
+    if(landIds.empty()) return "";
+    this->laneIdsIndex++;
+    this->laneIdsIndex = this->laneIdsIndex % landIds.size();
+    return landIds[this->laneIdsIndex];
 }
 
 bool GCRSBaseTraCIScenarioManagerLaunchd::isInJunction(Coord loc,

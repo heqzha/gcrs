@@ -207,4 +207,5 @@ void GCRSBaseVehicleManager::vehicleOutCity(GCRSBaseComVin::VinL3Type vin){
     /*
      * TODO add a vehicle
      */
+    this->traciManager->addNewVehicle();
 }
