@@ -21,6 +21,9 @@
 
 class GCRSBaseTraCIScenarioManagerLaunchd: public TraCIScenarioManagerLaunchd {
 public:
+    enum msg_category{
+        MC_ADD_VEHICLE = 1
+    };
     GCRSBaseTraCIScenarioManagerLaunchd(){
         this->isInitialized = false;
     }
@@ -37,10 +40,12 @@ public:
     int getNumPolygonsInEachBlock();
     std::list<Coord> getCrossRoads();
     Coord getNearbyCrossRoadLocation(Coord loc, double roadWidth);
-    void addNewVehicle();
+    void aVehicleWaitingToAdd();
 protected:
+    virtual void handleMessage(cMessage *msg);
     bool isInJunction(Coord loc, Coord locJunction, double roadWidth);
     int calcNumCrossRoads(int j);
+    bool addNewVehicle();
 
     std::string getVehicleTypeId();
     std::string getRouteId();
@@ -64,6 +69,9 @@ protected:
     unsigned int vehicleTypeIdsIndex;
     unsigned int routeIdsIndex;
     unsigned int laneIdsIndex;
+
+    long numVehicleWaitingToAdd;
+    cMessage* selfMsg;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {
