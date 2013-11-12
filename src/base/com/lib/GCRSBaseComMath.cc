@@ -87,6 +87,14 @@ unsigned GCRSBaseComMath::geUnsignedRandomNumer(unsigned a, unsigned b, int seed
     return static_cast<unsigned>(floor(geDoubleRandomNumber(da, db, seed)));
 }
 
+std::list<int> GCRSBaseComMath::geRandomIndex(int size, int seed){
+    std::list<int> listIndex;
+    for(int i = 0; i < size; i++){
+        listIndex.push_back(GCRSBaseComMath::geIntRandomNumber(0, size, seed));
+    }
+    return listIndex;
+}
+
 double GCRSBaseComMath::calcDistance(Coord a, Coord b) {
     return sqrt(pow(a.x - b.x, 2.0) + pow(a.y - b.y, 2.0) + pow(a.z - b.z, 2.0));
 }

@@ -39,6 +39,8 @@ public:
     static int geIntRandomNumber(int a, int b, int seed = 0);
     static unsigned geUnsignedRandomNumer(unsigned a, unsigned b, int seed = 0);
 
+    static std::list<int> geRandomIndex(int size, int seed = 0);
+
     /*
      * Calculate distance between two points
      */

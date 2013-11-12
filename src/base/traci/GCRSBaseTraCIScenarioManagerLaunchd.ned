@@ -18,5 +18,6 @@ import org.mixim.modules.mobility.traci.TraCIScenarioManagerLaunchd;
 simple GCRSBaseTraCIScenarioManagerLaunchd extends TraCIScenarioManagerLaunchd{
     parameters:
         xml XML_ROUTES = default(xml("<routes/>"));
+        xml XML_NETWORK = default(xml("<net/>"));
         @class(GCRSBaseTraCIScenarioManagerLaunchd);
 }

@@ -37,15 +37,31 @@ public:
     int getNumPolygonsInEachBlock();
     std::list<Coord> getCrossRoads();
     Coord getNearbyCrossRoadLocation(Coord loc, double roadWidth);
+    void addNewVehicle();
 protected:
     bool isInJunction(Coord loc, Coord locJunction, double roadWidth);
     int calcNumCrossRoads(int j);
+
+    std::string getRandVehicleTypeId();
+    std::string getRandRouteId();
+    std::string getRandLaneId();
+
 protected:
     int numJunctions;
     bool isInitialized;
 
     cXMLElement* xmlRoutes;
-    GCRSReadXml* xmlReader;
+    cXMLElement* xmlNetwork;
+    GCRSReadXml* xmlRoutesReader;
+    GCRSReadXml* xmlNetworkReader;
+
+    std::list<std::string> listVehicleTypeIds;
+    std::list<std::string> listRouteIds;
+    std::list<std::string> listLandIds;
+
+    std::list<int> listVehicleTypeIdsIndex;
+    std::list<int> listRouteIdsIndex;
+    std::list<int> listLandIdsIndex;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {

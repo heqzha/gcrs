@@ -25,14 +25,21 @@ public:
     virtual ~GCRSReadXml();
 
     std::string readAttribute(std::string tag, std::string attr, std::string id);
-    std::list<std::string> readAllIdsByTag(std::string tag);
+    std::list<std::string> readAllRouteIds();
+    std::list<std::string> readAllVehilceTypeIds();
+    std::list<std::string> readLaneIdsOfEdge(std::string edgeId);
+
 protected:
-    std::string readXml(cXMLElement* e, std::string tag, std::string attr, std::string id = "");
+    void readXmlChildElement(cXMLElement* e, std::string tag);
+    void readXmlAttributeValues(std::string attr);
+    std::string readXmlAttributeValue(std::string attr, std::string id);
+    std::string readXmlAttributeValue(cXMLElement* e, std::string tag, std::string attr, std::string id = "");
 
 protected:
     std::string rootTag;
     cXMLElement* xml;
 
+    std::list<cXMLElement*> listChildrenElement;
     std::list<std::string> listAttributes;
 };
 
