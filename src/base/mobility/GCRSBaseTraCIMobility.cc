@@ -67,9 +67,6 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
             vP.direction = this->getDirection();
             vP.laneIndex = this->getCurrentLaneIndex();
             std::string name = this->getId();
-            if(name.compare("veh_rt_0") == 0){
-                EV<<name<<endl;
-            }
             this->vManager->updateVehicleParams(this->vin,vP);
             //Check if the event happens
             long eventId = this->vManager->isEventOccur(this->vin);
