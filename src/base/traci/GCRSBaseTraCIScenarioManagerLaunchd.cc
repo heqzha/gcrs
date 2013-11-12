@@ -43,9 +43,17 @@ void GCRSBaseTraCIScenarioManagerLaunchd::initialize(int stage) {
         this->laneIdsIndex = 0;
 
         this->numVehicleWaitingToAdd = 0;
+        double minimalWarmupTime = ceil(firstStepAt.dbl());
+        this->warnUpTime = (int) par("WARN_UP_TIME").doubleValue();
+        if(this->warnUpTime < minimalWarmupTime){
+            this->warnUpTime =  simulation.getWarmupPeriod().dbl();
+            if(this->warnUpTime < minimalWarmupTime){
+                this->warnUpTime = minimalWarmupTime;
+            }
+        }
 
         this->selfMsg = new cMessage("Add Vehicle", MC_ADD_VEHICLE);
-        scheduleAt(simTime() + 10.0, this->selfMsg);
+        scheduleAt(simTime() + this->warnUpTime, this->selfMsg);
     }
 }
 
@@ -142,15 +150,22 @@ Coord GCRSBaseTraCIScenarioManagerLaunchd::getNearbyCrossRoadLocation(Coord loc,
 
 bool GCRSBaseTraCIScenarioManagerLaunchd::addNewVehicle() {
     std::string vehicleId = "veh_rt_"
-            + Convert::LongToString(this->vehicleIdIndex++);
+            + Convert::LongToString(this->vehicleIdIndex);
     std::string vehicleTypeId = this->getVehicleTypeId();
     std::string routeId = this->getRouteId();
     std::string edgeId = this->getEdgeId(routeId);
     std::string laneId = this->getLaneId(edgeId);
     double emitPosition = 0.0f;
     double emitSpeed = this->commandGetLaneMaxSpeed(laneId);
-    return this->commandAddVehicle(vehicleId, vehicleTypeId, routeId, laneId,
-            emitPosition, emitSpeed);
+    if(this->commandAddVehicle(vehicleId, vehicleTypeId, routeId, laneId,
+            emitPosition, emitSpeed)){
+        this->vehicleIdIndex++;
+        this->vehicleTypeIdsIndex++;
+        this->routeIdsIndex++;
+        this->laneIdsIndex++;
+        return true;
+    }
+    return false;
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::aVehicleWaitingToAdd() {
@@ -160,7 +175,6 @@ void GCRSBaseTraCIScenarioManagerLaunchd::aVehicleWaitingToAdd() {
 std::string GCRSBaseTraCIScenarioManagerLaunchd::getVehicleTypeId() {
     if (this->vecVehicleTypeIds.empty())
         return "";
-    this->vehicleTypeIdsIndex++;
     this->vehicleTypeIdsIndex = this->vehicleTypeIdsIndex
             % this->vecVehicleTypeIds.size();
     return this->vecVehicleTypeIds[this->vehicleTypeIdsIndex];
@@ -169,7 +183,6 @@ std::string GCRSBaseTraCIScenarioManagerLaunchd::getVehicleTypeId() {
 std::string GCRSBaseTraCIScenarioManagerLaunchd::getRouteId() {
     if (this->vecRouteIds.empty())
         return "";
-    this->routeIdsIndex++;
     this->routeIdsIndex = this->routeIdsIndex % this->vecRouteIds.size();
     return this->vecRouteIds[this->routeIdsIndex];
 }
@@ -187,7 +200,6 @@ std::string GCRSBaseTraCIScenarioManagerLaunchd::getLaneId(std::string edge) {
             this->xmlNetworkReader->readLaneIdsOfEdge(edge);
     if (landIds.empty())
         return "";
-    this->laneIdsIndex++;
     this->laneIdsIndex = this->laneIdsIndex % landIds.size();
     return landIds[this->laneIdsIndex];
 }
@@ -200,7 +212,7 @@ void GCRSBaseTraCIScenarioManagerLaunchd::handleMessage(cMessage *msg) {
                 this->numVehicleWaitingToAdd--;
             }
         }
-        scheduleAt(simTime() + 0.1, msg);
+        scheduleAt(simTime() + this->warnUpTime, msg);
         break;
     default:
         TraCIScenarioManagerLaunchd::handleMessage(msg);

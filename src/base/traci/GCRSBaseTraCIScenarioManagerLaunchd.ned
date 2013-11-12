@@ -19,5 +19,6 @@ simple GCRSBaseTraCIScenarioManagerLaunchd extends TraCIScenarioManagerLaunchd{
     parameters:
         xml XML_ROUTES = default(xml("<routes/>"));
         xml XML_NETWORK = default(xml("<net/>"));
+        double WARN_UP_TIME = default(-1.0);
         @class(GCRSBaseTraCIScenarioManagerLaunchd);
 }

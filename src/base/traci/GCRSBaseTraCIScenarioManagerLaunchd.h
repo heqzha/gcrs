@@ -72,6 +72,7 @@ protected:
 
     long numVehicleWaitingToAdd;
     cMessage* selfMsg;
+    double warnUpTime;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {
