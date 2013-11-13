@@ -39,6 +39,7 @@ public:
     virtual simtime_t getEventDurationTime(long eventId);
     virtual unsigned int getNumEventDurationTime(long eventId);
 
+    virtual unsigned int getNumRestEvents();
     virtual unsigned int getBufferSize();
 protected:
     class SearchEvent{

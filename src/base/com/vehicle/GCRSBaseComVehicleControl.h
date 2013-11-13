@@ -41,7 +41,8 @@ public:
     virtual long getVehicleEventId(GCRSBaseComVin::VinL3Type vin);
     virtual double getVehicleEventOccurRatio(GCRSBaseComVin::VinL3Type vin);
 
-    virtual int getNumAccidentVehicle();
+    virtual int getNumEventVehicle();
+    virtual int getNumInCityVehicle();
     int getVehicleNum(){return this->mapVehicle.size();}
 protected:
     virtual void cleanUp();

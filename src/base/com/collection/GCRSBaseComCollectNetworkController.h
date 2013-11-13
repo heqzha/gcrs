@@ -33,7 +33,7 @@ public:
             GCRSBaseComCollectNode::range_category rc);
     void cancelRelayNode(GCRSBaseComNin::NinL3Type nin,
             GCRSBaseComVin::VinL3Type vin);
-    void checkNetworksState();
+    unsigned int checkNetworksState();
     void updateTTL(GCRSBaseComNin::NinL3Type nin, simtime_t ttl);
     void updateVersion(GCRSBaseComNin::NinL3Type nin);
 

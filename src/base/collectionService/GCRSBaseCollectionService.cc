@@ -17,7 +17,6 @@
 #include "GCRSBaseConst.h"
 #include "Convert.h"
 #include <algorithm>//std::remove_if std::find_if std::sort
-
 Define_Module(GCRSBaseCollectionService)
 ;
 #define EV_HEAD "GCRSBaseCollectionService: "
@@ -57,15 +56,16 @@ void GCRSBaseCollectionService::initialize(int stage) {
 
         double laneWidth =
                 hasPar("LANE_WIDTH") ? par("LANE_WIDTH").doubleValue() : 0.0f;
-        this->buildingInterval = hasPar("BUILDINGINTERVAL")?par("BUILDINGINTERVAL").doubleValue():0.0f;
-
-
+        this->buildingInterval =
+                hasPar("BUILDINGINTERVAL") ?
+                        par("BUILDINGINTERVAL").doubleValue() : 0.0f;
 
         this->roadWidth = zofWidth;
 
         this->networkCtrl = new GCRSBaseComCollectNetworkController();
         this->networkRangeCtrl = new GCRSBaseComCollectNetworkRangeController(
-                zorShape, zofShape, zorLength, zofLength, zorWidth, zofWidth,laneWidth);
+                zorShape, zofShape, zorLength, zofLength, zorWidth, zofWidth,
+                laneWidth);
 
         this->traciManager = GCRSBaseTraCIScenarioManagerLaunchdAccess().get();
         this->vManager = GCRSBaseVehicleManagerAccess().get();
@@ -81,10 +81,13 @@ void GCRSBaseCollectionService::initialize(int stage) {
         this->selfMsg_Update = new cMessage("Update", SC_UPDATE);
         scheduleAt(simTime() + updateInterval, this->selfMsg_Update);
 
-        std::string protocolName = hasPar("PROTOCOL")?par("PROTOCOL").stringValue():"";
-        if(protocolName.size() > 0){
-            this->printOutProtocol = new GCRSBaseComCollectPrintOut(protocolName);
-            this->printOutVehicleInCity = new GCRSBaseComCollectPrintOut(protocolName + "VehicleInCity");
+        std::string protocolName =
+                hasPar("PROTOCOL") ? par("PROTOCOL").stringValue() : "";
+        if (protocolName.size() > 0) {
+            this->printOutProtocol = new GCRSBaseComCollectPrintOut(
+                    protocolName);
+            this->printOutVehicleInCity = new GCRSBaseComCollectPrintOut(
+                    protocolName + "VehicleInCity");
         }
     }
 }
@@ -105,11 +108,11 @@ void GCRSBaseCollectionService::finish() {
     /*
      * Calculate Statistics and print out
      */
-    if(this->printOutProtocol != NULL){
+    if (this->printOutProtocol != NULL) {
         this->conclusion();
         delete this->printOutProtocol;
     }
-    if(this->printOutVehicleInCity != NULL){
+    if (this->printOutVehicleInCity != NULL) {
         this->printOutVehicleInCity->PrintOut();
         delete this->printOutVehicleInCity;
     }
@@ -137,7 +140,15 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
     case SC_UPDATE: {
         this->numVehicle = this->vManager->getNumVehicles();
         this->checkVehicleState();
-        this->networkCtrl->checkNetworksState();
+        if (this->vManager->isVehicleDensityStable()) {
+            unsigned int restNetwork = this->networkCtrl->checkNetworksState();
+            unsigned int restEvents = this->vManager->getNumResetEvent();
+            if (restNetwork == 0 && restEvents == 0) {
+                //simulation.endRun();
+                simulation.callFinish();
+                break;
+            }
+        }
         scheduleAt(simTime() + updateInterval, this->selfMsg_Update);
         break;
     }
@@ -148,12 +159,15 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
     }
 }
 
-double GCRSBaseCollectionService::calcRoadBuidingDensityRatio(double roadLength, int numPolygons, double interval){
-    if(numPolygons <= 0 || interval <= 0.0f)return 0.0f;
+double GCRSBaseCollectionService::calcRoadBuidingDensityRatio(double roadLength,
+        int numPolygons, double interval) {
+    if (numPolygons <= 0 || interval <= 0.0f)
+        return 0.0f;
     //Calculate the width between different sides buildings.
     double dNumPolygons = static_cast<double>(numPolygons);
-    double widthBetweenBuildings = roadLength/(2*sqrt(dNumPolygons)*interval);
-    return widthBetweenBuildings/roadLength;
+    double widthBetweenBuildings = roadLength
+            / (2 * sqrt(dNumPolygons) * interval);
+    return widthBetweenBuildings / roadLength;
 }
 
 void GCRSBaseCollectionService::checkVehicleState() {
@@ -164,12 +178,21 @@ void GCRSBaseCollectionService::checkVehicleState() {
     std::list<GCRSBaseComVin::VinL3Type>::iterator iter;
     for (iter = listVin.begin(); iter != listVin.end(); ++iter) {
         //Check vehicles in city
-        if(this->vManager->getVehicleState((*iter)) == GCRSBaseComVehicleState::SC_OUT_CITY){
-            if(this->searchVehicleOutCity((*iter)) == GCRSBaseComVin::VINL3NULL){
+        if (this->vManager->getVehicleState((*iter))
+                == GCRSBaseComVehicleState::SC_OUT_CITY) {
+            if (this->searchVehicleOutCity((*iter))
+                    == GCRSBaseComVin::VINL3NULL) {
                 this->vecVehicleOutCity.push_back((*iter));
-                TiXmlElement* networkElement = this->printOutVehicleInCity->addElement("CheckPoint", this->printOutVehicleInCity->getRootElement());
-                this->printOutProtocol->setElementAttribute(networkElement, "Sim_Time", Convert::DoubleToString(simTime().dbl()));
-                this->printOutProtocol->setElementAttribute(networkElement, "NumVehicleInCity", Convert::IntegerToString(listVin.size() - this->vecVehicleOutCity.size()));
+                TiXmlElement* networkElement =
+                        this->printOutVehicleInCity->addElement("CheckPoint",
+                                this->printOutVehicleInCity->getRootElement());
+                this->printOutProtocol->setElementAttribute(networkElement,
+                        "Sim_Time", Convert::DoubleToString(simTime().dbl()));
+                this->printOutProtocol->setElementAttribute(networkElement,
+                        "NumVehicleInCity",
+                        Convert::IntegerToString(
+                                listVin.size()
+                                        - this->vecVehicleOutCity.size()));
             }
             //Check vehicles passing through network
             Coord loc = this->vManager->getLocation((*iter));
@@ -178,11 +201,14 @@ void GCRSBaseCollectionService::checkVehicleState() {
     }
 }
 
-GCRSBaseComVin::VinL3Type GCRSBaseCollectionService::searchVehicleOutCity(GCRSBaseComVin::VinL3Type vin){
-    if(this->vecVehicleOutCity.empty())return GCRSBaseComVin::VINL3NULL;
+GCRSBaseComVin::VinL3Type GCRSBaseCollectionService::searchVehicleOutCity(
+        GCRSBaseComVin::VinL3Type vin) {
+    if (this->vecVehicleOutCity.empty())
+        return GCRSBaseComVin::VINL3NULL;
     std::vector<GCRSBaseComVin::VinL3Type>::iterator iter;
-    iter = std::find_if(this->vecVehicleOutCity.begin(), this->vecVehicleOutCity.end(),SearchVehicleOutCity(vin));
-    if(iter == this->vecVehicleOutCity.end()){
+    iter = std::find_if(this->vecVehicleOutCity.begin(),
+            this->vecVehicleOutCity.end(), SearchVehicleOutCity(vin));
+    if (iter == this->vecVehicleOutCity.end()) {
         return GCRSBaseComVin::VINL3NULL;
     }
     return (*iter);
@@ -194,64 +220,140 @@ GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::getUniqueNin() {
 void GCRSBaseCollectionService::conclusion() {
     char str_simStart[100];
     char str_simEnd[100];
-    GCRSBaseRealWorldTimer::convert(str_simStart, sizeof(str_simStart), this->simStart);
-    GCRSBaseRealWorldTimer::convert(str_simEnd, sizeof(str_simEnd), this->simEnd);
-    this->printOutProtocol->addElement("The_Simulation_Start_at", str_simStart,this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("The_Simulation_End_at", str_simEnd,this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Playground_X", Convert::DoubleToString(this->playgroundX),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Playground_Y", Convert::DoubleToString(this->playgroundY),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Road_Length", Convert::DoubleToString(this->roadLength),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Road_Building_Density_Ratio", Convert::DoubleToString(this->calcRoadBuidingDensityRatio(this->roadLength,this->numPolygon,this->buildingInterval)),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Number_of_CrossRoads", Convert::IntegerToString(this->numCrossRoads),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Number_of_Polygons", Convert::IntegerToString(this->numPolygon),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Number_of_Vehicles", Convert::IntegerToString(this->numVehicle),this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("The_Range_of_Transmission", Convert::DoubleToString(this->txRange),this->printOutProtocol->getRootElement());
+    GCRSBaseRealWorldTimer::convert(str_simStart, sizeof(str_simStart),
+            this->simStart);
+    GCRSBaseRealWorldTimer::convert(str_simEnd, sizeof(str_simEnd),
+            this->simEnd);
+    this->printOutProtocol->addElement("The_Simulation_Start_at", str_simStart,
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("The_Simulation_End_at", str_simEnd,
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Playground_X",
+            Convert::DoubleToString(this->playgroundX),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Playground_Y",
+            Convert::DoubleToString(this->playgroundY),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Road_Length",
+            Convert::DoubleToString(this->roadLength),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Road_Building_Density_Ratio",
+            Convert::DoubleToString(
+                    this->calcRoadBuidingDensityRatio(this->roadLength,
+                            this->numPolygon, this->buildingInterval)),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Number_of_CrossRoads",
+            Convert::IntegerToString(this->numCrossRoads),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Number_of_Polygons",
+            Convert::IntegerToString(this->numPolygon),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("Number_of_Vehicles",
+            Convert::IntegerToString(this->numVehicle),
+            this->printOutProtocol->getRootElement());
+    this->printOutProtocol->addElement("The_Range_of_Transmission",
+            Convert::DoubleToString(this->txRange),
+            this->printOutProtocol->getRootElement());
 
-    for(GCRSBaseComNin::NinL3Type nin = 0; nin < this->ninCounter; nin++) {
+    for (GCRSBaseComNin::NinL3Type nin = 0; nin < this->ninCounter; nin++) {
         int numRxNodesInZor = this->networkCtrl->getNumRxNodesInZor(nin);
         int numRxNodesInZof = this->networkCtrl->getNumRxNodesInZof(nin);
         simtime_t createTime = this->networkCtrl->getNetworkCreateTime(nin);
         simtime_t ttl = this->networkCtrl->getTTL(nin);
         int maxHops = this->networkCtrl->getMaxHops(nin);
         simtime_t maxDelayTime = this->networkCtrl->getMaxDelayTime(nin);
-        int numPassThroughZorNodes = this->networkRangeCtrl->getNumPassThroughZorNodes(nin);
-        int numPassThroughZofNodes = this->networkRangeCtrl->getNumPassThroughZofNodes(nin);
-        double lhopi = this->networkRangeCtrl->getLengthZor(nin) / this->txRange;
+        int numPassThroughZorNodes =
+                this->networkRangeCtrl->getNumPassThroughZorNodes(nin);
+        int numPassThroughZofNodes =
+                this->networkRangeCtrl->getNumPassThroughZofNodes(nin);
+        double lhopi = this->networkRangeCtrl->getLengthZor(nin)
+                / this->txRange;
         double whopi = this->networkRangeCtrl->getWidthZor(nin) / this->txRange;
         double hopi = ceil(lhopi + whopi);
-        double efficiency = GCRSBaseComCollectStatistics::calcEfficiency(numRxNodesInZor, numPassThroughZorNodes, maxDelayTime, maxHops, hopi,this->networkRangeCtrl->getLengthZor(nin));
-        TiXmlElement* networkElement = this->printOutProtocol->addElement("Network_Identification_Number", this->printOutProtocol->getRootElement());
-        this->printOutProtocol->setElementAttribute(networkElement, "ID", Convert::LongToString(nin));
-        this->printOutProtocol->addElement("Network_Created_by", Convert::LongToString(this->networkCtrl->getRootNodeVin(nin)), networkElement);
-        this->printOutProtocol->addElement("Network_Creating_Time", Convert::DoubleToString(createTime.dbl()), networkElement);
-        this->printOutProtocol->addElement("Network_Time_to_live", Convert::DoubleToString(ttl.dbl()), networkElement);
-        this->printOutProtocol->addElement("The_Location_of_ZOR", Convert::CoordToString(this->networkRangeCtrl->getLocationZor(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Shape_of_ZOR", Convert::IntegerToString(this->networkRangeCtrl->getShapeZor(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Length_of_ZOR", Convert::DoubleToString(this->networkRangeCtrl->getLengthZor(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Width_of_ZOR", Convert::DoubleToString(this->networkRangeCtrl->getWidthZor(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Location_of_ZOF", Convert::CoordToString(this->networkRangeCtrl->getLocationZof(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Shape_of_ZOF", Convert::IntegerToString(this->networkRangeCtrl->getShapeZof(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Length_of_ZOF", Convert::DoubleToString(this->networkRangeCtrl->getLengthZof(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Width_of_ZOF", Convert::DoubleToString(this->networkRangeCtrl->getWidthZof(nin)), networkElement);
-        this->printOutProtocol->addElement("The_Number_of_Received_Message_Nodes_ZOR", Convert::IntegerToString(numRxNodesInZor), networkElement);
-        this->printOutProtocol->addElement("The_Number_of_Received_Message_Nodes_ZOF", Convert::IntegerToString(numRxNodesInZof), networkElement);
-        this->printOutProtocol->addElement("The_Max_Hops", Convert::IntegerToString(maxHops), networkElement);
-        this->printOutProtocol->addElement("The_Max_Delay_Time", Convert::DoubleToString(maxDelayTime.dbl()), networkElement);
-        this->printOutProtocol->addElement("The_Number_of_Nodes_Which_Passing_Through_ZOR", Convert::IntegerToString(numPassThroughZorNodes), networkElement);
-        this->printOutProtocol->addElement("The_Number_of_Nodes_Which_Passing_Through_ZOF", Convert::IntegerToString(numPassThroughZofNodes), networkElement);
-        this->printOutProtocol->addElement("The_Packet_Delivery_Ratio", Convert::DoubleToString(GCRSBaseComCollectStatistics::calcPDR(numRxNodesInZor, numPassThroughZorNodes)), networkElement);
-        this->printOutProtocol->addElement("The_Efficiency", Convert::DoubleToString(efficiency), networkElement);
+        double efficiency = GCRSBaseComCollectStatistics::calcEfficiency(
+                numRxNodesInZor, numPassThroughZorNodes, maxDelayTime, maxHops,
+                hopi, this->networkRangeCtrl->getLengthZor(nin));
+        TiXmlElement* networkElement = this->printOutProtocol->addElement(
+                "Network_Identification_Number",
+                this->printOutProtocol->getRootElement());
+        this->printOutProtocol->setElementAttribute(networkElement, "ID",
+                Convert::LongToString(nin));
+        this->printOutProtocol->addElement("Network_Created_by",
+                Convert::LongToString(this->networkCtrl->getRootNodeVin(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("Network_Creating_Time",
+                Convert::DoubleToString(createTime.dbl()), networkElement);
+        this->printOutProtocol->addElement("Network_Time_to_live",
+                Convert::DoubleToString(ttl.dbl()), networkElement);
+        this->printOutProtocol->addElement("The_Location_of_ZOR",
+                Convert::CoordToString(
+                        this->networkRangeCtrl->getLocationZor(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Shape_of_ZOR",
+                Convert::IntegerToString(
+                        this->networkRangeCtrl->getShapeZor(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Length_of_ZOR",
+                Convert::DoubleToString(
+                        this->networkRangeCtrl->getLengthZor(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Width_of_ZOR",
+                Convert::DoubleToString(
+                        this->networkRangeCtrl->getWidthZor(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Location_of_ZOF",
+                Convert::CoordToString(
+                        this->networkRangeCtrl->getLocationZof(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Shape_of_ZOF",
+                Convert::IntegerToString(
+                        this->networkRangeCtrl->getShapeZof(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Length_of_ZOF",
+                Convert::DoubleToString(
+                        this->networkRangeCtrl->getLengthZof(nin)),
+                networkElement);
+        this->printOutProtocol->addElement("The_Width_of_ZOF",
+                Convert::DoubleToString(
+                        this->networkRangeCtrl->getWidthZof(nin)),
+                networkElement);
+        this->printOutProtocol->addElement(
+                "The_Number_of_Received_Message_Nodes_ZOR",
+                Convert::IntegerToString(numRxNodesInZor), networkElement);
+        this->printOutProtocol->addElement(
+                "The_Number_of_Received_Message_Nodes_ZOF",
+                Convert::IntegerToString(numRxNodesInZof), networkElement);
+        this->printOutProtocol->addElement("The_Max_Hops",
+                Convert::IntegerToString(maxHops), networkElement);
+        this->printOutProtocol->addElement("The_Max_Delay_Time",
+                Convert::DoubleToString(maxDelayTime.dbl()), networkElement);
+        this->printOutProtocol->addElement(
+                "The_Number_of_Nodes_Which_Passing_Through_ZOR",
+                Convert::IntegerToString(numPassThroughZorNodes),
+                networkElement);
+        this->printOutProtocol->addElement(
+                "The_Number_of_Nodes_Which_Passing_Through_ZOF",
+                Convert::IntegerToString(numPassThroughZofNodes),
+                networkElement);
+        this->printOutProtocol->addElement("The_Packet_Delivery_Ratio",
+                Convert::DoubleToString(
+                        GCRSBaseComCollectStatistics::calcPDR(numRxNodesInZor,
+                                numPassThroughZorNodes)), networkElement);
+        this->printOutProtocol->addElement("The_Efficiency",
+                Convert::DoubleToString(efficiency), networkElement);
     }
     this->printOutProtocol->PrintOut();
 }
 GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
         GCRSBaseComVin::VinL3Type vin, simtime_t ttl, Coord loc, double offset,
-        double direct,int landIndex) {
+        double direct, int landIndex) {
     GCRSBaseComNin::NinL3Type nin = this->networkCtrl->createNetwork(
             this->getUniqueNin(), ttl);
     this->networkCtrl->setRootNode(nin, vin);
-    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,this->roadWidth);
-    this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,landIndex,junction);
+    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
+            this->roadWidth);
+    this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,
+            landIndex, junction);
     return nin;
 }
 
@@ -276,20 +378,24 @@ bool GCRSBaseCollectionService::isInZofNetworkRange(
     return this->networkRangeCtrl->isInZofRange(nin, loc);
 }
 
-void GCRSBaseCollectionService::updateNetworkTTL(GCRSBaseComNin::NinL3Type nin, simtime_t ttl){
-    this->networkCtrl->updateTTL(nin,ttl);
-    this->networkRangeCtrl->updateTTL(nin,ttl);
+void GCRSBaseCollectionService::updateNetworkTTL(GCRSBaseComNin::NinL3Type nin,
+        simtime_t ttl) {
+    this->networkCtrl->updateTTL(nin, ttl);
+    this->networkRangeCtrl->updateTTL(nin, ttl);
 }
 
-void GCRSBaseCollectionService::updateNetworkVersion(GCRSBaseComNin::NinL3Type nin){
+void GCRSBaseCollectionService::updateNetworkVersion(
+        GCRSBaseComNin::NinL3Type nin) {
     this->networkCtrl->updateVersion(nin);
 }
 
-simtime_t GCRSBaseCollectionService::getNetworkCreateTime(GCRSBaseComNin::NinL3Type nin){
+simtime_t GCRSBaseCollectionService::getNetworkCreateTime(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkCtrl->getCreateTime(nin);
 }
 
-simtime_t GCRSBaseCollectionService::getNetworkUpdateTime(GCRSBaseComNin::NinL3Type nin){
+simtime_t GCRSBaseCollectionService::getNetworkUpdateTime(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkCtrl->getUpdateTime(nin);
 }
 
@@ -298,17 +404,20 @@ simtime_t GCRSBaseCollectionService::getNetworkTTL(
     return this->networkCtrl->getTTL(nin);
 }
 
-simtime_t GCRSBaseCollectionService::getNetworkExipreTime(GCRSBaseComNin::NinL3Type nin){
+simtime_t GCRSBaseCollectionService::getNetworkExipreTime(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkCtrl->getExpireTime(nin);
 }
 
-long GCRSBaseCollectionService::getNetworkVersion(GCRSBaseComNin::NinL3Type nin){
+long GCRSBaseCollectionService::getNetworkVersion(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkCtrl->getVersion(nin);
 }
 
-GCRSBaseCollectionService::NetworkParams GCRSBaseCollectionService::getNetworkParameters(GCRSBaseComNin::NinL3Type nin, int networkType){
+GCRSBaseCollectionService::NetworkParams GCRSBaseCollectionService::getNetworkParameters(
+        GCRSBaseComNin::NinL3Type nin, int networkType) {
     GCRSBaseCollectionService::NetworkParams nPars;
-    switch(networkType){
+    switch (networkType) {
     case GCRSBaseComCollectNode::RC_ZOR:
         nPars.location = this->networkRangeCtrl->getLocationZor(nin);
         nPars.shape = this->networkRangeCtrl->getShapeZor(nin);
@@ -327,10 +436,12 @@ GCRSBaseCollectionService::NetworkParams GCRSBaseCollectionService::getNetworkPa
     return nPars;
 }
 
-int GCRSBaseCollectionService::getNumVehiclePassThroughZor(GCRSBaseComNin::NinL3Type nin){
+int GCRSBaseCollectionService::getNumVehiclePassThroughZor(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkRangeCtrl->getNumPassThroughZorNodes(nin);
 }
 
-int GCRSBaseCollectionService::getNumVehiclePassThroughZof(GCRSBaseComNin::NinL3Type nin){
+int GCRSBaseCollectionService::getNumVehiclePassThroughZof(
+        GCRSBaseComNin::NinL3Type nin) {
     return this->networkRangeCtrl->getNumPassThroughZofNodes(nin);
 }

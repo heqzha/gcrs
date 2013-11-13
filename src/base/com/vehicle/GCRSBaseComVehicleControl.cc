@@ -127,17 +127,30 @@ double GCRSBaseComVehicleControl::getVehicleEventOccurRatio(GCRSBaseComVin::VinL
     return this->getVehicle(vin)->getEventOccurRatio();
 }
 
-int GCRSBaseComVehicleControl::getNumAccidentVehicle(){
-    int numAccidentVehicle = 0;
+int GCRSBaseComVehicleControl::getNumEventVehicle(){
+    int numEventVehicle = 0;
     std::map<GCRSBaseComVin::VinL3Type, GCRSBaseComVehicleState*>::iterator iter;
     for(iter = this->mapVehicle.begin(); iter != this->mapVehicle.end();){
         GCRSBaseComVehicleState::state_category sc = (*iter).second->getState();
-        if(sc != GCRSBaseComVehicleState::SC_NORMAL){
-            numAccidentVehicle++;
+        if(sc == GCRSBaseComVehicleState::SC_EVENT_INITIAL || sc == GCRSBaseComVehicleState::SC_EVENT_HANDLING){
+            numEventVehicle++;
         }
         iter++;
     }
-    return numAccidentVehicle;
+    return numEventVehicle;
+}
+
+int GCRSBaseComVehicleControl::getNumInCityVehicle(){
+    int numInCityVehicle = 0;
+    std::map<GCRSBaseComVin::VinL3Type, GCRSBaseComVehicleState*>::iterator iter;
+    for(iter = this->mapVehicle.begin(); iter != this->mapVehicle.end();){
+        GCRSBaseComVehicleState::state_category sc = (*iter).second->getState();
+        if(sc != GCRSBaseComVehicleState::SC_OUT_CITY){
+            numInCityVehicle++;
+        }
+        iter++;
+    }
+    return numInCityVehicle;
 }
 
 void GCRSBaseComVehicleControl::cleanUp() {

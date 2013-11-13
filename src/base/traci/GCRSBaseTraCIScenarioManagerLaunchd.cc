@@ -58,12 +58,12 @@ void GCRSBaseTraCIScenarioManagerLaunchd::initialize(int stage) {
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::finish() {
-    TraCIScenarioManagerLaunchd::finish();
     if (this->selfMsg->isScheduled()) {
         cancelAndDelete(this->selfMsg);
     } else {
         delete (this->selfMsg);
     }
+    TraCIScenarioManagerLaunchd::finish();
 }
 
 Coord GCRSBaseTraCIScenarioManagerLaunchd::calcPlayGround() {
@@ -152,17 +152,16 @@ bool GCRSBaseTraCIScenarioManagerLaunchd::addNewVehicle() {
     std::string vehicleId = "veh_rt_"
             + Convert::LongToString(this->vehicleIdIndex);
     std::string vehicleTypeId = this->getVehicleTypeId();
+
     std::string routeId = this->getRouteId();
     std::string edgeId = this->getEdgeId(routeId);
     std::string laneId = this->getLaneId(edgeId);
+
     double emitPosition = 0.0f;
     double emitSpeed = this->commandGetLaneMaxSpeed(laneId);
     if(this->commandAddVehicle(vehicleId, vehicleTypeId, routeId, laneId,
             emitPosition, emitSpeed)){
         this->vehicleIdIndex++;
-        this->vehicleTypeIdsIndex++;
-        this->routeIdsIndex++;
-        this->laneIdsIndex++;
         return true;
     }
     return false;
@@ -177,14 +176,14 @@ std::string GCRSBaseTraCIScenarioManagerLaunchd::getVehicleTypeId() {
         return "";
     this->vehicleTypeIdsIndex = this->vehicleTypeIdsIndex
             % this->vecVehicleTypeIds.size();
-    return this->vecVehicleTypeIds[this->vehicleTypeIdsIndex];
+    return this->vecVehicleTypeIds[this->vehicleTypeIdsIndex++];
 }
 
 std::string GCRSBaseTraCIScenarioManagerLaunchd::getRouteId() {
     if (this->vecRouteIds.empty())
         return "";
     this->routeIdsIndex = this->routeIdsIndex % this->vecRouteIds.size();
-    return this->vecRouteIds[this->routeIdsIndex];
+    return this->vecRouteIds[this->routeIdsIndex++];
 }
 
 std::string GCRSBaseTraCIScenarioManagerLaunchd::getEdgeId(std::string route) {
@@ -201,22 +200,30 @@ std::string GCRSBaseTraCIScenarioManagerLaunchd::getLaneId(std::string edge) {
     if (landIds.empty())
         return "";
     this->laneIdsIndex = this->laneIdsIndex % landIds.size();
-    return landIds[this->laneIdsIndex];
+    return landIds[this->laneIdsIndex++];
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::handleMessage(cMessage *msg) {
     switch (msg->getKind()) {
-    case MC_ADD_VEHICLE:
-        if (this->numVehicleWaitingToAdd > 0) {
+    case MC_ADD_VEHICLE:{
+        int cancelAdding = this->numVehicleWaitingToAdd;
+        while(this->numVehicleWaitingToAdd > 0){
             if (this->addNewVehicle()) {
                 this->numVehicleWaitingToAdd--;
+            }
+            if(cancelAdding > 0){
+                cancelAdding--;
+            }else{
+                break;
             }
         }
         scheduleAt(simTime() + this->warnUpTime, msg);
         break;
-    default:
+    }
+    default:{
         TraCIScenarioManagerLaunchd::handleMessage(msg);
         break;
+    }
     }
 }
 

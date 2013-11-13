@@ -30,7 +30,10 @@ protected:
         EC_ACCIDENT = 0, EC_EMERGENCY = 1
     };
     enum message_category {
-        MC_SELFMSG_EVENT_INITIALIZE=0
+        MC_SELFMSG_EVENT_INITIALIZE=0, MC_SELFMSG_VEHICLE_DENSITY_STATE = 1
+    };
+    enum vehicle_density_state_category{
+        VDSC_UNSTABLE = 0, VDSC_STABLE = 1
     };
 public:
     typedef struct tagVehicleParams{
@@ -60,10 +63,13 @@ public:
     virtual bool isAccidentEvent(GCRSBaseComVin::VinL3Type vin);
     virtual bool isEmergencyEvent(GCRSBaseComVin::VinL3Type vin);
     virtual void vehicleOutCity(GCRSBaseComVin::VinL3Type vin);
+    virtual unsigned int getNumResetEvent();
     int getNumVehicles(){
         return this->vCtrl.getVehicleNum();
     }
-
+    bool isVehicleDensityStable(){
+        return this->vdState == VDSC_STABLE? true:false;
+    }
 
 protected:
     /** @brief handle self messages */
@@ -84,7 +90,10 @@ protected:
 
     int rand_seed;
     std::map<GCRSBaseComVin::VinL3Type, double> mapVEventTriggerRatio;
-
+    long numVehicles;
+    int numVehiclesInCity;
+    int numVehiclesOutCity;
+    GCRSBaseVehicleManager::vehicle_density_state_category vdState;
 };
 
 class GCRSBaseVehicleManagerAccess {

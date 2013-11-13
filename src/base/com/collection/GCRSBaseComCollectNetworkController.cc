@@ -64,17 +64,19 @@ void GCRSBaseComCollectNetworkController::cancelRelayNode(
     network->cancelRelayNode(vin);
 }
 
-void GCRSBaseComCollectNetworkController::checkNetworksState() {
+unsigned int GCRSBaseComCollectNetworkController::checkNetworksState() {
+    unsigned int numRestNetwork = 0;
     std::map<GCRSBaseComNin::NinL3Type, GCRSBaseComCollectNetwork*>::iterator iter;
     for (iter = this->mapNetworks.begin(); iter != this->mapNetworks.end();
             ++iter) {
         GCRSBaseComCollectNetwork* network = (*iter).second;
-        if (network != NULL
-                && network->getState()
-                        != GCRSBaseComCollectNetwork::SC_EXPIRED) {
-            network->isFinished();
+        if (network != NULL ) {
+            if(!network->isFinished()){
+                numRestNetwork++;
+            }
         }
     }
+    return numRestNetwork;
 }
 
 void GCRSBaseComCollectNetworkController::updateTTL(
