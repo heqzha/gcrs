@@ -138,9 +138,18 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
         break;
     }
     case SC_UPDATE: {
-        this->numVehicle = this->vManager->getNumVehicles();
-        this->checkVehicleState();
+        //Check vehicles in city
+        TiXmlElement* networkElement =
+                this->printOutVehicleInCity->addElement("CheckPoint",
+                        this->printOutVehicleInCity->getRootElement());
+        this->printOutProtocol->setElementAttribute(networkElement,
+                "Sim_Time", Convert::DoubleToString(simTime().dbl()));
+        this->printOutProtocol->setElementAttribute(networkElement,
+                               "NumVehicleInCity",
+                               Convert::IntegerToString(this->vManager->getNumVehiclesInCity()));
+
         if (this->vManager->isVehicleDensityStable()) {
+            this->checkVehicleState();
             unsigned int restNetwork = this->networkCtrl->checkNetworksState();
             unsigned int restEvents = this->vManager->getNumResetEvent();
             if (restNetwork == 0 && restEvents == 0) {
@@ -175,43 +184,15 @@ void GCRSBaseCollectionService::checkVehicleState() {
     if (listVin.empty()) {
         return;
     }
+
     std::list<GCRSBaseComVin::VinL3Type>::iterator iter;
     for (iter = listVin.begin(); iter != listVin.end(); ++iter) {
-        //Check vehicles in city
-        if (this->vManager->getVehicleState((*iter))
-                == GCRSBaseComVehicleState::SC_OUT_CITY) {
-            if (this->searchVehicleOutCity((*iter))
-                    == GCRSBaseComVin::VINL3NULL) {
-                this->vecVehicleOutCity.push_back((*iter));
-                TiXmlElement* networkElement =
-                        this->printOutVehicleInCity->addElement("CheckPoint",
-                                this->printOutVehicleInCity->getRootElement());
-                this->printOutProtocol->setElementAttribute(networkElement,
-                        "Sim_Time", Convert::DoubleToString(simTime().dbl()));
-                this->printOutProtocol->setElementAttribute(networkElement,
-                        "NumVehicleInCity",
-                        Convert::IntegerToString(
-                                listVin.size()
-                                        - this->vecVehicleOutCity.size()));
-            }
             //Check vehicles passing through network
+        if(this->vManager->getVehicleState(*iter) != GCRSBaseComVehicleState::SC_OUT_CITY){
             Coord loc = this->vManager->getLocation((*iter));
             this->networkRangeCtrl->checkPassThroughNode((*iter), loc);
         }
     }
-}
-
-GCRSBaseComVin::VinL3Type GCRSBaseCollectionService::searchVehicleOutCity(
-        GCRSBaseComVin::VinL3Type vin) {
-    if (this->vecVehicleOutCity.empty())
-        return GCRSBaseComVin::VINL3NULL;
-    std::vector<GCRSBaseComVin::VinL3Type>::iterator iter;
-    iter = std::find_if(this->vecVehicleOutCity.begin(),
-            this->vecVehicleOutCity.end(), SearchVehicleOutCity(vin));
-    if (iter == this->vecVehicleOutCity.end()) {
-        return GCRSBaseComVin::VINL3NULL;
-    }
-    return (*iter);
 }
 
 GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::getUniqueNin() {
@@ -248,8 +229,8 @@ void GCRSBaseCollectionService::conclusion() {
     this->printOutProtocol->addElement("Number_of_Polygons",
             Convert::IntegerToString(this->numPolygon),
             this->printOutProtocol->getRootElement());
-    this->printOutProtocol->addElement("Number_of_Vehicles",
-            Convert::IntegerToString(this->numVehicle),
+    this->printOutProtocol->addElement("Vehicle_In_City",
+            Convert::IntegerToString(this->vManager->getNumVehiclesInCity()),
             this->printOutProtocol->getRootElement());
     this->printOutProtocol->addElement("The_Range_of_Transmission",
             Convert::DoubleToString(this->txRange),

@@ -136,6 +136,7 @@ OBJS = \
     $O/src/modules/net/GCRSDRGNetLayer.o \
     $O/src/modules/net/GCRSDTSGNetLayer.o \
     $O/src/modules/net/GCRSFloodingNetLayer.o \
+    $O/src/modules/net/GCRSDummyNetLayer.o \
     $O/src/base/pkt/GCRSBasePkt_m.o \
     $O/src/base/pkt/GCRSBaseNetPkt_m.o \
     $O/src/modules/pkt/GCRSDTSGNetPkt_m.o
@@ -1136,6 +1137,67 @@ $O/src/modules/net/GCRSDTSGNetLayer.o: src/modules/net/GCRSDTSGNetLayer.cc \
 	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
 	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
 	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
+	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+$O/src/modules/net/GCRSDummyNetLayer.o: src/modules/net/GCRSDummyNetLayer.cc \
+	src/base/collectionService/GCRSBaseCollectionService.h \
+	src/base/com/collection/GCRSBaseComCollectNetwork.h \
+	src/base/com/collection/GCRSBaseComCollectNetworkController.h \
+	src/base/com/collection/GCRSBaseComCollectNetworkRange.h \
+	src/base/com/collection/GCRSBaseComCollectNetworkRangeController.h \
+	src/base/com/collection/GCRSBaseComCollectNode.h \
+	src/base/com/collection/GCRSBaseComCollectPrintOut.h \
+	src/base/com/collection/GCRSBaseComCollectStatistics.h \
+	src/base/com/collection/GCRSBaseComNin.h \
+	src/base/com/lib/GCRSBaseComNetwControlInfo.h \
+	src/base/com/lib/GCRSBaseComTTL.h \
+	src/base/com/lib/GCRSBaseRealWorldTimer.h \
+	src/base/com/lib/GCRSReadXml.h \
+	src/base/com/lib/tinyxml/tinystr.h \
+	src/base/com/lib/tinyxml/tinyxml.h \
+	src/base/com/task/GCRSBaseComTask.h \
+	src/base/com/task/GCRSBaseComTaskManager.h \
+	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
+	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
+	src/base/com/vehicle/GCRSBaseComVehicleEventControl.h \
+	src/base/com/vehicle/GCRSBaseComVehicleState.h \
+	src/base/com/vehicle/GCRSBaseComVin.h \
+	src/base/com/zone/GCRSBaseComBaseShape.h \
+	src/base/com/zone/GCRSBaseComCircle.h \
+	src/base/com/zone/GCRSBaseComEllipse.h \
+	src/base/com/zone/GCRSBaseComRectangle.h \
+	src/base/com/zone/GCRSBaseComZone.h \
+	src/base/connectionManager/GCRSBaseConnectionManager.h \
+	src/base/mobility/GCRSBaseTraCIMobility.h \
+	src/base/net/GCRSBaseNetLayer.h \
+	src/base/pkt/GCRSBaseNetPkt_m.h \
+	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
+	src/base/vehicleManager/GCRSBaseVehicleManager.h \
+	src/modules/com/task/flooding/GCRSFloodingComTask.h \
+	src/modules/com/task/flooding/GCRSFloodingComTaskManager.h \
+	src/modules/net/GCRSDummyNetLayer.h \
+	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
+	$(MIXIM_PROJ)/src/base/utils/Coord.h \
+	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
+	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
+	$(MIXIM_PROJ)/src/base/utils/HostState.h \
+	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(MIXIM_PROJ)/src/base/utils/Move.h \
+	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
+	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
+	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
 	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/net/GCRSFloodingNetLayer.o: src/modules/net/GCRSFloodingNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \

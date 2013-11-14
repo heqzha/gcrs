@@ -126,10 +126,6 @@ void GCRSBaseAppLayer::handleSelfMsg(cMessage* msg) {
                     double offset =
                     hasPar("OFFSET") ? par("OFFSET").doubleValue() : 0.0f;
                     simtime_t ttl = this->vManager->getEventDuration(this->vin);
-                    double simulationTime = Convert::StringToDouble(ev.getConfig()->getConfigValue("sim-time-limit"));
-                    if(simTime() + ttl >= simulationTime){
-                        ttl = simulationTime - simTime() - 1.0f;
-                    }
                     GCRSBaseVehicleManager::VehicleParams vParams = this->vManager->getVehicleParams(this->vin);
                     double angle = GCRSBaseComMath::calcAngleWithDirection(Coord(1.0f,0.0f,0.0f), vParams.direction);
                     if(this->vManager->isAccidentEvent(this->vin)) {
@@ -154,10 +150,6 @@ void GCRSBaseAppLayer::handleSelfMsg(cMessage* msg) {
                         simtime_t oldTtl = this->collectionService->getNetworkTTL(this->nin);
                         simtime_t newTtl = this->vManager->getEventDuration(this->vin);
                         if(newTtl > 0.0f && newTtl != oldTtl){
-                            double simulationTime = Convert::StringToDouble(ev.getConfig()->getConfigValue("sim-time-limit"));
-                            if(simTime() + newTtl >= simulationTime){
-                                newTtl = simulationTime - simTime() - 1.0f;
-                            }
                             this->collectionService->updateNetworkTTL(this->nin,newTtl);
                             this->collectionService->updateNetworkVersion(this->nin);
                             if(this->vManager->isAccidentEvent(this->vin)) {

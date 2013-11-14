@@ -44,7 +44,7 @@ void GCRSDRGNetLayer::initialize(int stage) {
     }
 }
 
-void GCRSDRGNetLayer::handleTaskFromUpper(long taskId) {
+void GCRSDRGNetLayer::handleNewTask(long taskId) {
     GCRSBaseNetPkt* pkt = this->drgTaskManager->getPkt(taskId);
     if (pkt == NULL)
         return;

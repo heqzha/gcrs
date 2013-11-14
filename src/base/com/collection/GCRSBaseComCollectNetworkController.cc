@@ -70,7 +70,7 @@ unsigned int GCRSBaseComCollectNetworkController::checkNetworksState() {
     for (iter = this->mapNetworks.begin(); iter != this->mapNetworks.end();
             ++iter) {
         GCRSBaseComCollectNetwork* network = (*iter).second;
-        if (network != NULL ) {
+        if(network->getState() != GCRSBaseComCollectNetwork::SC_EXPIRED){
             if(!network->isFinished()){
                 numRestNetwork++;
             }

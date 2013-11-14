@@ -67,6 +67,9 @@ public:
     int getNumVehicles(){
         return this->vCtrl.getVehicleNum();
     }
+    int getNumVehiclesInCity(){
+        return this->vCtrl.getNumInCityVehicle();
+    }
     bool isVehicleDensityStable(){
         return this->vdState == VDSC_STABLE? true:false;
     }

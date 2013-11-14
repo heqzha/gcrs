@@ -43,26 +43,10 @@ void GCRSBaseTraCIScenarioManagerLaunchd::initialize(int stage) {
         this->laneIdsIndex = 0;
 
         this->numVehicleWaitingToAdd = 0;
-        double minimalWarmupTime = ceil(firstStepAt.dbl());
-        this->warnUpTime = (int) par("WARN_UP_TIME").doubleValue();
-        if(this->warnUpTime < minimalWarmupTime){
-            this->warnUpTime =  simulation.getWarmupPeriod().dbl();
-            if(this->warnUpTime < minimalWarmupTime){
-                this->warnUpTime = minimalWarmupTime;
-            }
-        }
-
-        this->selfMsg = new cMessage("Add Vehicle", MC_ADD_VEHICLE);
-        scheduleAt(simTime() + this->warnUpTime, this->selfMsg);
     }
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::finish() {
-    if (this->selfMsg->isScheduled()) {
-        cancelAndDelete(this->selfMsg);
-    } else {
-        delete (this->selfMsg);
-    }
     TraCIScenarioManagerLaunchd::finish();
 }
 
@@ -204,26 +188,17 @@ std::string GCRSBaseTraCIScenarioManagerLaunchd::getLaneId(std::string edge) {
 }
 
 void GCRSBaseTraCIScenarioManagerLaunchd::handleMessage(cMessage *msg) {
-    switch (msg->getKind()) {
-    case MC_ADD_VEHICLE:{
-        int cancelAdding = this->numVehicleWaitingToAdd;
-        while(this->numVehicleWaitingToAdd > 0){
-            if (this->addNewVehicle()) {
-                this->numVehicleWaitingToAdd--;
-            }
-            if(cancelAdding > 0){
-                cancelAdding--;
-            }else{
-                break;
-            }
+    TraCIScenarioManagerLaunchd::handleMessage(msg);
+    int cancelAdding = this->numVehicleWaitingToAdd;
+    while (this->numVehicleWaitingToAdd > 0) {
+        if (this->addNewVehicle()) {
+            this->numVehicleWaitingToAdd--;
         }
-        scheduleAt(simTime() + this->warnUpTime, msg);
-        break;
-    }
-    default:{
-        TraCIScenarioManagerLaunchd::handleMessage(msg);
-        break;
-    }
+        if (cancelAdding > 0) {
+            cancelAdding--;
+        } else {
+            break;
+        }
     }
 }
 

@@ -34,7 +34,7 @@ void GCRSROVERNetLayer::initialize(int stage) {
     }
 }
 
-void GCRSROVERNetLayer::handleTaskFromUpper(long taskId) {
+void GCRSROVERNetLayer::handleNewTask(long taskId) {
     GCRSBaseNetPkt* reqPkt = this->roverTaskManager->getPkt(taskId);
     this->roverTaskManager->addData(taskId, PC_DATA,reqPkt);
     this->roverTaskManager->toRequest(taskId, PC_REQUEST);

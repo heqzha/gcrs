@@ -35,7 +35,7 @@ void GCRSFloodingNetLayer::initialize(int stage) {
     }
 }
 
-void GCRSFloodingNetLayer::handleTaskFromUpper(long taskId){
+void GCRSFloodingNetLayer::handleNewTask(long taskId){
     this->floodingTaskManager->setNextEventTime(taskId,0.1f);
 }
 
@@ -56,10 +56,7 @@ void GCRSFloodingNetLayer::handleTaskAck(long taskId, GCRSBaseComCollectNode::ra
 void GCRSFloodingNetLayer::handleRunningEvent(long runningEventId){
     long taskId = this->floodingTaskManager->getTaskIdByRunningEventId(runningEventId);
     if(taskId<0)return;
-    if(!this->floodingTaskManager->isRxAck(taskId)){
-        this->handleSendDown(runningEventId);
-        this->floodingTaskManager->setNextEventTime(taskId, this->calcBackoffTime());
-    }
+    this->handleSendDown(runningEventId);//Send Once
 }
 
 double GCRSFloodingNetLayer::calcBackoffTime(){

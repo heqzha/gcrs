@@ -27,7 +27,7 @@ protected:
 public:
     virtual void initialize(int);
 protected:
-    virtual void handleTaskFromUpper(long taskId);
+    virtual void handleNewTask(long taskId);
     virtual void handleScheduleTask(long taskId, GCRSBaseComCollectNode::range_category zone);
     virtual bool handleSendUp(GCRSBaseNetPkt* pkt, GCRSBaseComCollectNode::range_category zone);
     virtual bool handleIsAck(GCRSBaseNetPkt* pkt, GCRSBaseComCollectNode::range_category zone);

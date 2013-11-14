@@ -21,9 +21,6 @@
 
 class GCRSBaseTraCIScenarioManagerLaunchd: public TraCIScenarioManagerLaunchd {
 public:
-    enum msg_category{
-        MC_ADD_VEHICLE = 1
-    };
     GCRSBaseTraCIScenarioManagerLaunchd(){
         this->isInitialized = false;
     }
@@ -71,8 +68,6 @@ protected:
     unsigned int laneIdsIndex;
 
     long numVehicleWaitingToAdd;
-    cMessage* selfMsg;
-    double warnUpTime;
 };
 
 class GCRSBaseTraCIScenarioManagerLaunchdAccess {

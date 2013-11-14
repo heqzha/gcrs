@@ -231,7 +231,9 @@ void GCRSBaseNetLayer::handleUpdateTask(GCRSBaseNetPkt* pkt){
 void GCRSBaseNetLayer::handleScheduleRunningEvent(long taskId) {
     long eventId = this->tManager->getRunningEventId(taskId);
     simtime_t t = this->tManager->getNextEventTime(taskId);
-    this->handleSchedule(eventId, simTime() + t);
+    if(t > 0){
+        this->handleSchedule(eventId, simTime() + t);
+    }
 }
 
 void GCRSBaseNetLayer::handleScheduleExpireEvent(long taskId) {
@@ -324,13 +326,13 @@ GCRSBaseNetPkt* GCRSBaseNetLayer::packetBaseNetPkt(const char *name, int kind,
 
 void GCRSBaseNetLayer::handleSendDown(long eventId) {
     long taskId = this->tManager->getTaskIdByRunningEventId(eventId);
-    GCRSBaseVehicleManager::VehicleParams vParams =
-            this->vManager->getVehicleParams(this->vin);
     if (taskId < 0)
         return;
     GCRSBaseNetPkt* pkt = this->tManager->getPkt(taskId);
     if (pkt != NULL) {
         GCRSBaseNetPkt* cpNetPkt = check_and_cast<GCRSBaseNetPkt*>(pkt->dup());
+        GCRSBaseVehicleManager::VehicleParams vParams =
+                this->vManager->getVehicleParams(this->vin);
         cpNetPkt->setVinForwardSrc(this->vin);
         cpNetPkt->setLocForwad(vParams.location);
         cpNetPkt->setSpeedForwad(vParams.speed);
