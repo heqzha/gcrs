@@ -172,8 +172,8 @@ GCRSBaseVehicleManager::VehicleParams GCRSBaseVehicleManager::getVehicleParams(
 }
 
 long GCRSBaseVehicleManager::isEventOccur(GCRSBaseComVin::VinL3Type vin) {
-//    if (this->vdState == VDSC_UNSTABLE)
-//        return -1;
+    if (this->vdState == VDSC_UNSTABLE)
+        return -1;
     if (this->vCtrl.isEventOccurred(vin))
         return -1;
 
