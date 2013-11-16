@@ -93,7 +93,6 @@ void GCRSBaseCollectionService::initialize(int stage) {
 }
 
 void GCRSBaseCollectionService::finish() {
-    this->simEnd = time(NULL);
     if (this->selfMsg_CollectBasicInfo->isScheduled()) {
         cancelAndDelete(this->selfMsg_CollectBasicInfo);
     } else {
@@ -153,7 +152,7 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
             unsigned int restNetwork = this->networkCtrl->checkNetworksState();
             unsigned int restEvents = this->vManager->getNumResetEvent();
             if (restNetwork == 0 && restEvents == 0) {
-                //simulation.endRun();
+                this->simEnd = time(NULL);
                 simulation.callFinish();
                 break;
             }
