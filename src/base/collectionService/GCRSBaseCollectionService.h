@@ -77,7 +77,7 @@ public:
 
 
 protected:
-    double calcRoadBuidingDensityRatio(double roadLength, int numPolygons, double interval);
+    double calcRoadBuidingDensityRatio(double roadLength, double interval);
     void checkVehicleState();
     GCRSBaseComNin::NinL3Type getUniqueNin();
     void conclusion();

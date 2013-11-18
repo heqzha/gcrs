@@ -167,15 +167,9 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
     }
 }
 
-double GCRSBaseCollectionService::calcRoadBuidingDensityRatio(double roadLength,
-        int numPolygons, double interval) {
-    if (numPolygons <= 0 || interval <= 0.0f)
-        return 0.0f;
-    //Calculate the width between different sides buildings.
-    double dNumPolygons = static_cast<double>(numPolygons);
-    double widthBetweenBuildings = roadLength
-            / (2 * sqrt(dNumPolygons) * interval);
-    return widthBetweenBuildings / roadLength;
+double GCRSBaseCollectionService::calcRoadBuidingDensityRatio(double roadLength, double interval) {
+    //WidthBetweenBuilding / RoadLength
+    return (2.0f * interval) / roadLength;
 }
 
 void GCRSBaseCollectionService::checkVehicleState() {
@@ -219,8 +213,7 @@ void GCRSBaseCollectionService::conclusion() {
             this->printOutProtocol->getRootElement());
     this->printOutProtocol->addElement("Road_Building_Density_Ratio",
             Convert::DoubleToString(
-                    this->calcRoadBuidingDensityRatio(this->roadLength,
-                            this->numPolygon, this->buildingInterval)),
+                    this->calcRoadBuidingDensityRatio(this->roadLength, this->buildingInterval)),
             this->printOutProtocol->getRootElement());
     this->printOutProtocol->addElement("Number_of_CrossRoads",
             Convert::IntegerToString(this->numCrossRoads),
