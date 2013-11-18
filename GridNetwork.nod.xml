@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Data/GridNetwork/GridNetwork.nod.xml">
 	
-		<node id="nod_0_1" x="-333.000000" y="999.000000" type="priority"		/>
-		<node id="nod_0_2" x="333.000000" y="999.000000" type="priority"		/>
-		<node id="nod_1_0" x="-999.000000" y="333.000000" type="priority"		/>
-		<node id="nod_1_1" x="-333.000000" y="333.000000" type="traffic_light"		/>
-		<node id="nod_1_2" x="333.000000" y="333.000000" type="traffic_light"		/>
-		<node id="nod_1_3" x="999.000000" y="333.000000" type="priority"		/>
-		<node id="nod_2_0" x="-999.000000" y="-333.000000" type="priority"		/>
-		<node id="nod_2_1" x="-333.000000" y="-333.000000" type="traffic_light"		/>
-		<node id="nod_2_2" x="333.000000" y="-333.000000" type="traffic_light"		/>
-		<node id="nod_2_3" x="999.000000" y="-333.000000" type="priority"		/>
-		<node id="nod_3_1" x="-333.000000" y="-999.000000" type="priority"		/>
-		<node id="nod_3_2" x="333.000000" y="-999.000000" type="priority"		/>
+		<node id="nod_0_1" x="-500.000000" y="1000.000000" type="priority"		/>
+		<node id="nod_0_2" x="0.000000" y="1000.000000" type="priority"		/>
+		<node id="nod_0_3" x="500.000000" y="1000.000000" type="priority"		/>
+		<node id="nod_1_0" x="-1000.000000" y="500.000000" type="priority"		/>
+		<node id="nod_1_1" x="-500.000000" y="500.000000" type="traffic_light"		/>
+		<node id="nod_1_2" x="0.000000" y="500.000000" type="traffic_light"		/>
+		<node id="nod_1_3" x="500.000000" y="500.000000" type="traffic_light"		/>
+		<node id="nod_1_4" x="1000.000000" y="500.000000" type="priority"		/>
+		<node id="nod_2_0" x="-1000.000000" y="0.000000" type="priority"		/>
+		<node id="nod_2_1" x="-500.000000" y="0.000000" type="traffic_light"		/>
+		<node id="nod_2_2" x="0.000000" y="0.000000" type="traffic_light"		/>
+		<node id="nod_2_3" x="500.000000" y="0.000000" type="traffic_light"		/>
+		<node id="nod_2_4" x="1000.000000" y="0.000000" type="priority"		/>
+		<node id="nod_3_0" x="-1000.000000" y="-500.000000" type="priority"		/>
+		<node id="nod_3_1" x="-500.000000" y="-500.000000" type="traffic_light"		/>
+		<node id="nod_3_2" x="0.000000" y="-500.000000" type="traffic_light"		/>
+		<node id="nod_3_3" x="500.000000" y="-500.000000" type="traffic_light"		/>
+		<node id="nod_3_4" x="1000.000000" y="-500.000000" type="priority"		/>
+		<node id="nod_4_1" x="-500.000000" y="-1000.000000" type="priority"		/>
+		<node id="nod_4_2" x="0.000000" y="-1000.000000" type="priority"		/>
+		<node id="nod_4_3" x="500.000000" y="-1000.000000" type="priority"		/>
 </nodes>

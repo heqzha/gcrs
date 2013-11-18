@@ -3,6 +3,7 @@
 	
 		<edge id="edg_0_1_S" from="nod_0_1" to="nod_1_1" type="secondary.urban"		/>
 		<edge id="edg_0_2_S" from="nod_0_2" to="nod_1_2" type="secondary.urban"		/>
+		<edge id="edg_0_3_S" from="nod_0_3" to="nod_1_3" type="secondary.urban"		/>
 		<edge id="edg_1_0_E" from="nod_1_0" to="nod_1_1" type="secondary.urban"		/>
 		<edge id="edg_1_1_N" from="nod_1_1" to="nod_0_1" type="secondary.urban"		/>
 		<edge id="edg_1_1_S" from="nod_1_1" to="nod_2_1" type="secondary.urban"		/>
@@ -12,7 +13,11 @@
 		<edge id="edg_1_2_S" from="nod_1_2" to="nod_2_2" type="secondary.urban"		/>
 		<edge id="edg_1_2_W" from="nod_1_2" to="nod_1_1" type="secondary.urban"		/>
 		<edge id="edg_1_2_E" from="nod_1_2" to="nod_1_3" type="secondary.urban"		/>
+		<edge id="edg_1_3_N" from="nod_1_3" to="nod_0_3" type="secondary.urban"		/>
+		<edge id="edg_1_3_S" from="nod_1_3" to="nod_2_3" type="secondary.urban"		/>
 		<edge id="edg_1_3_W" from="nod_1_3" to="nod_1_2" type="secondary.urban"		/>
+		<edge id="edg_1_3_E" from="nod_1_3" to="nod_1_4" type="secondary.urban"		/>
+		<edge id="edg_1_4_W" from="nod_1_4" to="nod_1_3" type="secondary.urban"		/>
 		<edge id="edg_2_0_E" from="nod_2_0" to="nod_2_1" type="secondary.urban"		/>
 		<edge id="edg_2_1_N" from="nod_2_1" to="nod_1_1" type="secondary.urban"		/>
 		<edge id="edg_2_1_S" from="nod_2_1" to="nod_3_1" type="secondary.urban"		/>
@@ -22,7 +27,26 @@
 		<edge id="edg_2_2_S" from="nod_2_2" to="nod_3_2" type="secondary.urban"		/>
 		<edge id="edg_2_2_W" from="nod_2_2" to="nod_2_1" type="secondary.urban"		/>
 		<edge id="edg_2_2_E" from="nod_2_2" to="nod_2_3" type="secondary.urban"		/>
+		<edge id="edg_2_3_N" from="nod_2_3" to="nod_1_3" type="secondary.urban"		/>
+		<edge id="edg_2_3_S" from="nod_2_3" to="nod_3_3" type="secondary.urban"		/>
 		<edge id="edg_2_3_W" from="nod_2_3" to="nod_2_2" type="secondary.urban"		/>
+		<edge id="edg_2_3_E" from="nod_2_3" to="nod_2_4" type="secondary.urban"		/>
+		<edge id="edg_2_4_W" from="nod_2_4" to="nod_2_3" type="secondary.urban"		/>
+		<edge id="edg_3_0_E" from="nod_3_0" to="nod_3_1" type="secondary.urban"		/>
 		<edge id="edg_3_1_N" from="nod_3_1" to="nod_2_1" type="secondary.urban"		/>
+		<edge id="edg_3_1_S" from="nod_3_1" to="nod_4_1" type="secondary.urban"		/>
+		<edge id="edg_3_1_W" from="nod_3_1" to="nod_3_0" type="secondary.urban"		/>
+		<edge id="edg_3_1_E" from="nod_3_1" to="nod_3_2" type="secondary.urban"		/>
 		<edge id="edg_3_2_N" from="nod_3_2" to="nod_2_2" type="secondary.urban"		/>
+		<edge id="edg_3_2_S" from="nod_3_2" to="nod_4_2" type="secondary.urban"		/>
+		<edge id="edg_3_2_W" from="nod_3_2" to="nod_3_1" type="secondary.urban"		/>
+		<edge id="edg_3_2_E" from="nod_3_2" to="nod_3_3" type="secondary.urban"		/>
+		<edge id="edg_3_3_N" from="nod_3_3" to="nod_2_3" type="secondary.urban"		/>
+		<edge id="edg_3_3_S" from="nod_3_3" to="nod_4_3" type="secondary.urban"		/>
+		<edge id="edg_3_3_W" from="nod_3_3" to="nod_3_2" type="secondary.urban"		/>
+		<edge id="edg_3_3_E" from="nod_3_3" to="nod_3_4" type="secondary.urban"		/>
+		<edge id="edg_3_4_W" from="nod_3_4" to="nod_3_3" type="secondary.urban"		/>
+		<edge id="edg_4_1_N" from="nod_4_1" to="nod_3_1" type="secondary.urban"		/>
+		<edge id="edg_4_2_N" from="nod_4_2" to="nod_3_2" type="secondary.urban"		/>
+		<edge id="edg_4_3_N" from="nod_4_3" to="nod_3_3" type="secondary.urban"		/>
 </edges>
