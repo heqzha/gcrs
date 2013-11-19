@@ -23,6 +23,7 @@ Define_Module(GCRSBaseVehicleManager)
 
 void GCRSBaseVehicleManager::initialize(int stage) {
     if (stage == 0) {
+        this->vinCounter = 0;
         this->traciManager = GCRSBaseTraCIScenarioManagerLaunchdAccess().get();
         this->rand_seed =
                 hasPar("RAND_SEED") ? par("RAND_SEED").longValue() : 0;
