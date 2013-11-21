@@ -153,6 +153,7 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
             unsigned int restEvents = this->vManager->getNumResetEvent();
             if (restNetwork == 0 && restEvents == 0) {
                 this->simEnd = time(NULL);
+                this->numVehiclesInCity = this->vManager->getNumVehiclesInCity();
                 simulation.callFinish();
                 break;
             }
@@ -222,7 +223,7 @@ void GCRSBaseCollectionService::conclusion() {
             Convert::IntegerToString(this->numPolygon),
             this->printOutProtocol->getRootElement());
     this->printOutProtocol->addElement("Vehicle_In_City",
-            Convert::IntegerToString(this->vManager->getNumVehiclesInCity()),
+            Convert::IntegerToString(this->numVehiclesInCity),
             this->printOutProtocol->getRootElement());
     this->printOutProtocol->addElement("The_Range_of_Transmission",
             Convert::DoubleToString(this->txRange),
