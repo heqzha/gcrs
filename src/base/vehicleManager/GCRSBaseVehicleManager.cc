@@ -140,11 +140,13 @@ std::map<GCRSBaseComVin::VinL3Type, double> GCRSBaseVehicleManager::generateRand
 GCRSBaseComVin::VinL3Type GCRSBaseVehicleManager::addVehicle(std::string id) {
     GCRSBaseComVin::VinL3Type vin = this->geUniqueVin();
     double eventOccurRatio = 0.0f;
-    std::map<GCRSBaseComVin::VinL3Type, double>::iterator iter;
+/*    std::map<GCRSBaseComVin::VinL3Type, double>::iterator iter;
     iter = this->mapVEventTriggerRatio.find(vin);
     if (iter != this->mapVEventTriggerRatio.end()) {
         eventOccurRatio = (*iter).second;
-    }
+    }*/
+    long key = vin % this->numVehicles;
+    eventOccurRatio = this->mapVEventTriggerRatio[key];
     GCRSBaseComVehicleState* vState = this->vCtrl.addVehicle(vin, id,
             eventOccurRatio);
     return vState->getVin();
