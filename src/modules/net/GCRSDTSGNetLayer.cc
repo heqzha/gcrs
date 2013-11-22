@@ -246,16 +246,26 @@ void GCRSDTSGNetLayer::setPreStableFlg(GCRSBaseNetPkt* pkt, bool flg){
     dtsgPkt->setPreStableFlg(flg);
 }
 
-simtime_t GCRSDTSGNetLayer::calcCompetitionBackoffTime(double txRange, Coord srcLoc, Coord myLoc){
+double GCRSDTSGNetLayer::calcCompetitionBackoffTime(double txRange, Coord srcLoc, Coord myLoc){
     if(GCRSBaseComMath::calcDistance(srcLoc, myLoc) > 0){
-        return this->calcBackoffTime() * (txRange/(GCRSBaseComMath::calcDistance(srcLoc, myLoc)));
+        double backoff = this->calcBackoffTime();
+        double distance = GCRSBaseComMath::calcDistance(srcLoc, myLoc);
+        double sleep = backoff * (txRange/distance);
+        if(sleep > MAXTIME.dbl()){
+            return 0.0f;
+        }
+        return sleep;
     }else{
-        return this->calcBackoffTime();
+        double backoff = this->calcBackoffTime();
+        if(backoff > MAXTIME.dbl()){
+            return 0.0f;
+        }
+        return backoff;
     }
 
 }
 
-simtime_t GCRSDTSGNetLayer::calcBackoffTime(){
+double GCRSDTSGNetLayer::calcBackoffTime(){
     GCRSBaseVehicleManager::VehicleParams vPars = this->vManager->getVehicleParams(this->vin);
     double speed = GCRSBaseComMath::convertVectorToScalar(vPars.speed);
     double speedMax = vPars.speedMax;

@@ -42,8 +42,8 @@ protected:
     virtual GCRSDTSGNetPkt* convertBasePktToDTSGPkt(GCRSBaseNetPkt* pkt);
     virtual bool getPreStableFlg(GCRSBaseNetPkt* pkt);
     virtual void setPreStableFlg(GCRSBaseNetPkt* pkt, bool flg);
-    virtual simtime_t calcCompetitionBackoffTime(double txRange, Coord srcLoc, Coord myLoc);
-    virtual simtime_t calcBackoffTime();
+    virtual double calcCompetitionBackoffTime(double txRange, Coord srcLoc, Coord myLoc);
+    virtual double calcBackoffTime();
     virtual double calcExtraRegionLength(double zoneLength, double vehicleDensity);
 protected:
     GCRSDTSGComTaskManager* dtsgTaskManager;

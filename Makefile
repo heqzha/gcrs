@@ -84,38 +84,38 @@ OBJS = \
     $O/src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.o \
     $O/src/base/app/GCRSBaseAppLayer.o \
     $O/src/base/collectionService/GCRSBaseCollectionService.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o \
     $O/src/base/com/collection/GCRSBaseComCollectStatistics.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o \
     $O/src/base/com/collection/GCRSBaseComCollectNetworkController.o \
-    $O/src/base/com/collection/GCRSBaseComCollectPrintOut.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNetwork.o \
     $O/src/base/com/collection/GCRSBaseComCollectNode.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNetwork.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o \
+    $O/src/base/com/collection/GCRSBaseComCollectPrintOut.o \
     $O/src/base/com/collection/GCRSBaseComNin.o \
-    $O/src/base/com/geoInfo/GCRSBaseComGeoInfo.o \
     $O/src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.o \
-    $O/src/base/com/lib/GCRSReadXml.o \
+    $O/src/base/com/geoInfo/GCRSBaseComGeoInfo.o \
     $O/src/base/com/lib/GCRSBaseComTTL.o \
-    $O/src/base/com/lib/GCRSBaseComMath.o \
     $O/src/base/com/lib/GCRSBaseRealWorldTimer.o \
+    $O/src/base/com/lib/GCRSBaseComMath.o \
+    $O/src/base/com/lib/GCRSReadXml.o \
     $O/src/base/com/lib/Convert.o \
     $O/src/base/com/lib/GCRSBaseString.o \
-    $O/src/base/com/lib/tinyxml/tinyxmlparser.o \
-    $O/src/base/com/lib/tinyxml/tinystr.o \
     $O/src/base/com/lib/tinyxml/tinyxmlerror.o \
+    $O/src/base/com/lib/tinyxml/tinystr.o \
+    $O/src/base/com/lib/tinyxml/tinyxmlparser.o \
     $O/src/base/com/lib/tinyxml/tinyxml.o \
     $O/src/base/com/task/GCRSBaseComTask.o \
     $O/src/base/com/task/GCRSBaseComTaskManager.o \
-    $O/src/base/com/vehicle/GCRSBaseComVehicleControl.o \
-    $O/src/base/com/vehicle/GCRSBaseComVehicleEventControl.o \
-    $O/src/base/com/vehicle/GCRSBaseComVehicleState.o \
     $O/src/base/com/vehicle/GCRSBaseComVehicleEvent.o \
+    $O/src/base/com/vehicle/GCRSBaseComVehicleState.o \
+    $O/src/base/com/vehicle/GCRSBaseComVehicleEventControl.o \
+    $O/src/base/com/vehicle/GCRSBaseComVehicleControl.o \
     $O/src/base/com/vehicle/GCRSBaseComVin.o \
-    $O/src/base/com/zone/GCRSBaseComBaseShape.o \
-    $O/src/base/com/zone/GCRSBaseComZone.o \
-    $O/src/base/com/zone/GCRSBaseComEllipse.o \
     $O/src/base/com/zone/GCRSBaseComCircle.o \
+    $O/src/base/com/zone/GCRSBaseComZone.o \
     $O/src/base/com/zone/GCRSBaseComRectangle.o \
+    $O/src/base/com/zone/GCRSBaseComEllipse.o \
+    $O/src/base/com/zone/GCRSBaseComBaseShape.o \
     $O/src/base/connectionManager/GCRSBaseConnectionManager.o \
     $O/src/base/mac/GCRSBaseMacLayer.o \
     $O/src/base/mobility/GCRSBaseTraCIMobility.o \
@@ -128,15 +128,15 @@ OBJS = \
     $O/src/modules/com/task/drg/GCRSDRGComTaskManager.o \
     $O/src/modules/com/task/dtsg/GCRSDTSGComTaskManager.o \
     $O/src/modules/com/task/dtsg/GCRSDTSGComTask.o \
-    $O/src/modules/com/task/flooding/GCRSFloodingComTaskManager.o \
     $O/src/modules/com/task/flooding/GCRSFloodingComTask.o \
-    $O/src/modules/com/task/rover/GCRSROVERComTask.o \
+    $O/src/modules/com/task/flooding/GCRSFloodingComTaskManager.o \
     $O/src/modules/com/task/rover/GCRSROVERComTaskManager.o \
-    $O/src/modules/net/GCRSDRGNetLayer.o \
-    $O/src/modules/net/GCRSDTSGNetLayer.o \
-    $O/src/modules/net/GCRSDummyNetLayer.o \
+    $O/src/modules/com/task/rover/GCRSROVERComTask.o \
     $O/src/modules/net/GCRSFloodingNetLayer.o \
     $O/src/modules/net/GCRSROVERNetLayer.o \
+    $O/src/modules/net/GCRSDRGNetLayer.o \
+    $O/src/modules/net/GCRSDummyNetLayer.o \
+    $O/src/modules/net/GCRSDTSGNetLayer.o \
     $O/src/base/pkt/GCRSBaseNetPkt_m.o \
     $O/src/base/pkt/GCRSBasePkt_m.o \
     $O/src/modules/pkt/GCRSDTSGNetPkt_m.o
