@@ -53,6 +53,7 @@ public:
     virtual bool updateVehicleParams(GCRSBaseComVin::VinL3Type vin, VehicleParams vParams);
     virtual VehicleParams getVehicleParams(GCRSBaseComVin::VinL3Type vin);
     virtual long isEventOccur(GCRSBaseComVin::VinL3Type vin);
+    virtual void eventExpire(GCRSBaseComVin::VinL3Type vin);
     virtual simtime_t isModifyEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual unsigned int getNumEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual int getEventType(GCRSBaseComVin::VinL3Type vin);

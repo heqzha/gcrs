@@ -84,11 +84,13 @@ void GCRSBaseNetLayer::handleLowerMsg(cMessage* msg) {
         delete pkt;
         return;
     }
+    //If this pkt is not for me
     if (!GCRSBaseComVin::isVinL3Broadcast(pkt->getVinDest())
             && this->vin != pkt->getVinDest()) {
         delete pkt;
         return;
     }
+
     GCRSBaseVehicleManager::VehicleParams vParams =
             this->vManager->getVehicleParams(this->vin);
     Coord location = vParams.location;

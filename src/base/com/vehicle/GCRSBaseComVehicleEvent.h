@@ -22,7 +22,7 @@
 class GCRSBaseComVehicleEvent {
 public:
     enum state_category{
-        SC_EVENT_ASSIGNED = 0, SC_EVENT_OCCURED = 1
+        SC_EVENT_ASSIGNED = 0, SC_EVENT_OCCURED = 1, SC_EVENT_EXPIRE = 2
     };
 public:
     GCRSBaseComVehicleEvent(long eventId);

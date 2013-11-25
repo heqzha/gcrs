@@ -38,6 +38,7 @@ public:
     virtual double getEventAreaRange(long eventId);
     virtual simtime_t getEventDurationTime(long eventId);
     virtual unsigned int getNumEventDurationTime(long eventId);
+    virtual void eventExpired(long eventId);
 
     virtual unsigned int getNumRestEvents();
     virtual unsigned int getBufferSize();
@@ -57,6 +58,20 @@ protected:
     private:
         long m_EventId;
     };
+    class SearchOccurredEventByLocation{
+    public:
+        SearchOccurredEventByLocation(Coord loc):m_Loc(loc){};
+        bool operator()(GCRSBaseComVehicleEvent* event){
+            if(event == NULL)return false;
+            if(this->m_Loc == event->getEventLocation()){
+                if(event->getEventState() == GCRSBaseComVehicleEvent::SC_EVENT_OCCURED)
+                    return true;
+            }
+            return false;
+        }
+    private:
+        Coord m_Loc;
+    };
 
     class CleanUp{
     public:
@@ -70,8 +85,10 @@ protected:
 protected:
     virtual double calcEventOccurRatio(double distance, double evetAreaRange);
     virtual GCRSBaseComVehicleEvent* searchEvent(long eventId);
+    virtual GCRSBaseComVehicleEvent* searchOccurredEventByLocation(Coord loc);
     virtual void cleanUp();
     virtual long getUniqueEventId();
+
 protected:
     std::vector<GCRSBaseComVehicleEvent*> m_EventBuffer;
     unsigned int m_MaxBufferSize;

@@ -101,6 +101,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
             //Event finished
             this->commandSetSpeed(-1);
             this->vManager->updateVehicleState(this->vin, GCRSBaseComVehicleState::SC_NORMAL);
+            this->vManager->eventExpire(this->vin);
             this->selfMsg_EVENT->setKind(MC_SELFMSG_UPDATE);
             scheduleAt(simTime() + this->eventInterval, this->selfMsg_EVENT);
             break;

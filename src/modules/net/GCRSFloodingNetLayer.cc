@@ -58,6 +58,8 @@ void GCRSFloodingNetLayer::handleRunningEvent(long runningEventId){
     if(taskId<0)return;
     if(!this->floodingTaskManager->isRxAck(taskId)){
         this->handleSendDown(runningEventId);
+    }else{
+        this->floodingTaskManager->setNextEventTime(taskId, -0.1f);
     }
 }
 

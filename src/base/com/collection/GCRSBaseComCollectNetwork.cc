@@ -135,6 +135,9 @@ void GCRSBaseComCollectNetwork::conclusion(GCRSBaseComCollectNode* node,
         int depth) {
     if (node == NULL)
         return;
+    if(node->getState() != GCRSBaseComCollectNode::SC_RELAY && node->getState() != GCRSBaseComCollectNode::SC_CANCEL)
+        return;
+
     if (node->getChildrenNodes() == NULL || node->getChildrenNodes()->empty()) {
         if (this->maxHops <= depth) {
             this->maxHops = depth;
@@ -165,7 +168,7 @@ simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
     if(this->rootNode == NULL){
         EV<<"NULL";
     }
-    simtime_t delay = simTime() - this->rootNode->getSendTime();
+    simtime_t delay = 0.0f;
 
 
     if (this->farthestNodes.empty()) {
@@ -177,7 +180,7 @@ simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
             iter != this->farthestNodes.end(); ++iter) {
         simtime_t delayTmp = (*iter)->getReceiveTime()
                 - this->rootNode->getSendTime();
-        if (delayTmp < delay) {
+        if (delayTmp > delay) {
             delay = delayTmp;
         }
     }

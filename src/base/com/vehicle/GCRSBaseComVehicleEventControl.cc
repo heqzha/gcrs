@@ -63,14 +63,17 @@ long GCRSBaseComVehicleEventControl::isEventOccur(GCRSBaseComVin::VinL3Type vin,
             ++iter) {
         if ((*iter) == NULL)
             continue;
-        if((*iter)->getEventState() == GCRSBaseComVehicleEvent::SC_EVENT_OCCURED)
+        if((*iter)->getEventState() != GCRSBaseComVehicleEvent::SC_EVENT_ASSIGNED)
             continue;
         Coord eventLoc = (*iter)->getEventLocation();
         double eventAreaRange = (*iter)->getEventAreaRange();
-        double eventOccurRatio = (*iter)->getEventOccurRatio();
         Coord local = GCRSBaseComMath::tranCoordWorldtoLocal(loc, eventLoc,
                 0.0f);
         if (GCRSBaseComMath::isInCircleRange(local, eventAreaRange)) {
+            if(this->searchOccurredEventByLocation(eventLoc) != NULL)
+                return -1;
+
+            double eventOccurRatio = (*iter)->getEventOccurRatio();
             double distance = GCRSBaseComMath::calcDistance(loc, eventLoc);
             if (eventOccurRatio
                     < (this->calcEventOccurRatio(distance, eventAreaRange) + ratio)) {
@@ -140,11 +143,17 @@ unsigned int GCRSBaseComVehicleEventControl::getNumEventDurationTime(long eventI
     return event->getNumEventDurationTime();
 }
 
+void GCRSBaseComVehicleEventControl::eventExpired(long eventId){
+    GCRSBaseComVehicleEvent* event = this->searchEvent(eventId);
+    if (event == NULL) return;
+    event->setEventState(GCRSBaseComVehicleEvent::SC_EVENT_EXPIRE);
+}
+
 unsigned int GCRSBaseComVehicleEventControl::getNumRestEvents(){
     unsigned int numRestEvents = 0;
     std::vector<GCRSBaseComVehicleEvent*>::iterator iter;
     for (iter = this->m_EventBuffer.begin(); iter != this->m_EventBuffer.end(); ++iter) {
-        if((*iter)->getEventState() != GCRSBaseComVehicleEvent::SC_EVENT_OCCURED){
+        if((*iter)->getEventState() == GCRSBaseComVehicleEvent::SC_EVENT_ASSIGNED){
             numRestEvents++;
         }
     }
@@ -170,6 +179,18 @@ GCRSBaseComVehicleEvent* GCRSBaseComVehicleEventControl::searchEvent(
     std::vector<GCRSBaseComVehicleEvent*>::iterator iter;
     iter = std::find_if(this->m_EventBuffer.begin(), this->m_EventBuffer.end(),
             SearchEvent(eventId));
+    if (iter == this->m_EventBuffer.end()) {
+        return NULL;
+    }
+    return (*iter);
+}
+
+GCRSBaseComVehicleEvent* GCRSBaseComVehicleEventControl::searchOccurredEventByLocation(Coord loc){
+    if (this->m_EventBuffer.empty())
+        return NULL;
+    std::vector<GCRSBaseComVehicleEvent*>::iterator iter;
+    iter = std::find_if(this->m_EventBuffer.begin(), this->m_EventBuffer.end(),
+            SearchOccurredEventByLocation(loc));
     if (iter == this->m_EventBuffer.end()) {
         return NULL;
     }

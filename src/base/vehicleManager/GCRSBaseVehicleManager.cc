@@ -184,6 +184,13 @@ long GCRSBaseVehicleManager::isEventOccur(GCRSBaseComVin::VinL3Type vin) {
     return eventId;
 }
 
+void GCRSBaseVehicleManager::eventExpire(GCRSBaseComVin::VinL3Type vin){
+    long eventId = this->vCtrl.getVehicleEventId(vin);
+    if(eventId < 0)
+        return;
+    this->eCtrl.eventExpired(eventId);
+}
+
 simtime_t GCRSBaseVehicleManager::isModifyEventDuration(
         GCRSBaseComVin::VinL3Type vin) {
     if (!this->vCtrl.isEventOccurred(vin))

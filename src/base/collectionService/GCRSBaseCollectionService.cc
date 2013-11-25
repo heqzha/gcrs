@@ -143,9 +143,13 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
                         this->printOutVehicleInCity->getRootElement());
         this->printOutProtocol->setElementAttribute(networkElement,
                 "Sim_Time", Convert::DoubleToString(simTime().dbl()));
+        int numV = this->vManager->getNumVehiclesInCity();
+        if(numV > this->numVehiclesInCity){
+            this->numVehiclesInCity = numV;
+        }
         this->printOutProtocol->setElementAttribute(networkElement,
                                "NumVehicleInCity",
-                               Convert::IntegerToString(this->vManager->getNumVehiclesInCity()));
+                               Convert::IntegerToString(numV));
 
         if (this->vManager->isVehicleDensityStable()) {
             this->checkVehicleState();
@@ -153,7 +157,6 @@ void GCRSBaseCollectionService::handleMessage(cMessage* msg) {
             unsigned int restEvents = this->vManager->getNumResetEvent();
             if (restNetwork == 0 && restEvents == 0) {
                 this->simEnd = time(NULL);
-                this->numVehiclesInCity = this->vManager->getNumVehiclesInCity();
                 simulation.callFinish();
                 break;
             }
@@ -325,7 +328,7 @@ GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
             this->getUniqueNin(), ttl);
     this->networkCtrl->setRootNode(nin, vin);
     Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
-            this->roadWidth);
+            this->roadWidth + 5.5f);
     this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,
             landIndex, junction);
     return nin;
