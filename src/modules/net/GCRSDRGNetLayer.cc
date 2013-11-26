@@ -128,7 +128,6 @@ void GCRSDRGNetLayer::handleRunningEvent(long runningEventId) {
     } else if (this->drgTaskManager->isKeepMessageAlive(taskId)) {
         //KEEP MESSAGE ALIVE
         this->handleSendDown(runningEventId);
-        this->drgTaskManager->setNextEventTime(taskId, -1.0f);
     }
 }
 

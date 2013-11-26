@@ -82,7 +82,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
         case MC_SELFMSG_EVENT_START: {
             //Event happened
             if(this->vManager->isAccidentEvent(this->vin)){
-                this->commandSetSpeed(2.0f);
+                this->commandSetSpeed(0.0f);
             }else if(this->vManager->isEmergencyEvent(this->vin)){
                 this->commandSetSpeed(this->getSpeedMax());
             }
@@ -99,7 +99,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
         }
         case MC_SELFMSG_EVENT_STOP: {
             //Event finished
-            this->commandSetSpeed(-1);
+            this->commandSetSpeed(-1.0f);
             this->vManager->updateVehicleState(this->vin, GCRSBaseComVehicleState::SC_NORMAL);
             this->vManager->eventExpire(this->vin);
             this->selfMsg_EVENT->setKind(MC_SELFMSG_UPDATE);

@@ -68,7 +68,6 @@ void GCRSBaseComCollectNetwork::setRootNode(GCRSBaseComVin::VinL3Type vin){
 void GCRSBaseComCollectNetwork::addRelayNode(
         GCRSBaseComVin::VinL3Type parentVin,
         GCRSBaseComVin::VinL3Type childVin, GCRSBaseComCollectNode::range_category rc) {
-
     GCRSBaseComCollectNode* parentNode = this->searchNodeInNetwork(parentVin);
     if(parentNode == NULL)
         return;
