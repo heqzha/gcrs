@@ -44,6 +44,7 @@ void GCRSBaseTraCIMobility::initialize(int stage) {
 
 void GCRSBaseTraCIMobility::finish() {
     this->vManager->vehicleOutCity(this->vin);
+    this->vManager->eventExpire(this->vin);
     TraCIMobility::finish();
     if (this->selfMsg_EVENT->isScheduled()) {
         cancelAndDelete(this->selfMsg_EVENT);
@@ -82,15 +83,16 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
         case MC_SELFMSG_EVENT_START: {
             //Event happened
             if(this->vManager->isAccidentEvent(this->vin)){
-                this->commandSetSpeed(0.0f);
+                this->commandSetSpeed(0);
             }else if(this->vManager->isEmergencyEvent(this->vin)){
                 this->commandSetSpeed(this->getSpeedMax());
             }
             simtime_t eventDuration = this->vManager->isModifyEventDuration(this->vin);
             unsigned int numEventDuration = this->vManager->getNumEventDuration(this->vin);
+
             if(eventDuration > 0.0f){
                 this->selfMsg_EVENT->setKind(MC_SELFMSG_EVENT_START);
-                scheduleAt(simTime() + (eventDuration/static_cast<double>(numEventDuration)), this->selfMsg_EVENT);
+                scheduleAt(simTime() + (eventDuration.dbl()/static_cast<double>(numEventDuration)), this->selfMsg_EVENT);
             }else{
                 this->selfMsg_EVENT->setKind(MC_SELFMSG_EVENT_STOP);
                 scheduleAt(simTime() + 0.1, this->selfMsg_EVENT);
@@ -99,7 +101,7 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
         }
         case MC_SELFMSG_EVENT_STOP: {
             //Event finished
-            this->commandSetSpeed(-1.0f);
+            this->commandSetSpeed(-1);
             this->vManager->updateVehicleState(this->vin, GCRSBaseComVehicleState::SC_NORMAL);
             this->vManager->eventExpire(this->vin);
             this->selfMsg_EVENT->setKind(MC_SELFMSG_UPDATE);

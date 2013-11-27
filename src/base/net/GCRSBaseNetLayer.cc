@@ -219,6 +219,8 @@ void GCRSBaseNetLayer::handleCreateTask(GCRSBaseNetPkt* pkt){
         this->handleNewTask(taskId); //Set task next event time
         this->handleScheduleExpireEvent(taskId);
         this->handleScheduleRunningEvent(taskId);
+        long eventId = this->tManager->getRunningEventId(taskId);
+        this->handleSendDown(eventId);
     }
 }
 

@@ -72,15 +72,15 @@ void GCRSBaseVehicleManager::handleMessage(cMessage* msg) {
             double eventAreaRange = hasPar("EVENT_AREA_RANGE")?par("EVENT_AREA_RANGE").doubleValue():0.0f;
             double maxEventOccurRatio = hasPar("MAX_EVENT_OCCUR_RATIO")?par("MAX_EVENT_OCCUR_RATIO").doubleValue():0.5f;
             std::list<Coord> listCrossRoads = this->traciManager->getCrossRoads();
+            std::list<Coord>::iterator iter = listCrossRoads.begin();
             for(unsigned int i=0; i < numEvent; ++i) {
                 double eventOccurRatio = GCRSBaseComMath::geDoubleRandomNumber(0.5f, maxEventOccurRatio, this->rand_seed);
                 double eventStart = 1.0f;
-                unsigned indexCrossRoad = GCRSBaseComMath::geUnsignedRandomNumer(0,listCrossRoads.size(), this->rand_seed);
-                std::list<Coord>::iterator iter = listCrossRoads.begin();
-                if(indexCrossRoad < listCrossRoads.size()) {
-                    std::advance(iter, indexCrossRoad);
+                //unsigned indexCrossRoad = GCRSBaseComMath::geUnsignedRandomNumer(0,listCrossRoads.size(), this->rand_seed);
+                if(iter == listCrossRoads.end()){
+                    iter = listCrossRoads.begin();
                 }
-                Coord eventLocation = (*iter);
+                Coord eventLocation = (*(iter++));
                 long eventId = this->eCtrl.addEvent(eventType,eventOccurRatio,eventLocation,eventAreaRange,eventStart);
                 if(eventId >= 0) {
                     int eventDurationModifyTimes = hasPar("EVENT_DURATION_MODIFY_TIMES")?par("EVENT_DURATION_MODIFY_TIMES").longValue():0;
@@ -109,7 +109,7 @@ void GCRSBaseVehicleManager::handleMessage(cMessage* msg) {
                     this->numVehiclesOutCity = this->vCtrl.getVehicleNum() - this->vCtrl.getNumInCityVehicle();
                 }
             }
-            scheduleAt(simTime() + 60.0f, this->selfMsg_Event_Initialize);
+            scheduleAt(simTime() + 1.0f, this->selfMsg_Event_Initialize);
             break;
         }
         default: {

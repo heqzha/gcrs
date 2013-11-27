@@ -22,7 +22,7 @@
 class GCRSBaseTraCIMobility: public TraCIMobility {
 protected:
     enum message_category {
-        MC_SELFMSG_UPDATE = 0, MC_SELFMSG_EVENT_START, MC_SELFMSG_EVENT_STOP
+        MC_SELFMSG_UPDATE = 0, MC_SELFMSG_EVENT_START = 1, MC_SELFMSG_EVENT_STOP = 2
     };
 public:
     virtual void initialize(int stage);
