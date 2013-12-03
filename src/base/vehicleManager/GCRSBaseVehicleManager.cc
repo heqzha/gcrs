@@ -28,8 +28,6 @@ void GCRSBaseVehicleManager::initialize(int stage) {
         this->rand_seed =
                 hasPar("RAND_SEED") ? par("RAND_SEED").longValue() : 0;
         this->vdState = VDSC_UNSTABLE;
-        this->numVehiclesInCity = 0;
-        this->numVehiclesOutCity = 0;
         /*
          *VehicleControl initialize
          */
@@ -97,17 +95,10 @@ void GCRSBaseVehicleManager::handleMessage(cMessage* msg) {
             break;
         }
         case MC_SELFMSG_VEHICLE_DENSITY_STATE: {
-            int currentNumVehiclesInCity = this->vinCounter;
-            int currentNumVehiclesOutCity = this->vCtrl.getVehicleNum() - this->vCtrl.getNumInCityVehicle();
-            if(currentNumVehiclesOutCity != 0) {
-                double InOutRatio = (static_cast<double>(currentNumVehiclesInCity - this->numVehiclesInCity)) / (static_cast<double>(currentNumVehiclesOutCity - this->numVehiclesOutCity));
-                if(InOutRatio > 0.9f && InOutRatio < 1.1f) {
-                    this->vdState = VDSC_STABLE;
-                    break;
-                } else {
-                    this->numVehiclesInCity = this->vinCounter;
-                    this->numVehiclesOutCity = this->vCtrl.getVehicleNum() - this->vCtrl.getNumInCityVehicle();
-                }
+            int currentNumVehiclesInCity = this->vCtrl.getNumInCityVehicle();
+            if(currentNumVehiclesInCity >= this->numVehicles){
+                this->vdState = VDSC_STABLE;
+                break;
             }
             scheduleAt(simTime() + 1.0f, this->selfMsg_Event_Initialize);
             break;

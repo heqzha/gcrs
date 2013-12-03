@@ -95,8 +95,6 @@ protected:
     int rand_seed;
     std::map<GCRSBaseComVin::VinL3Type, double> mapVEventTriggerRatio;
     long numVehicles;
-    int numVehiclesInCity;
-    int numVehiclesOutCity;
     GCRSBaseVehicleManager::vehicle_density_state_category vdState;
 };
 

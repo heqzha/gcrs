@@ -8,8 +8,8 @@
     <time>
         <begin value="0"/>
 	<step-length value="0.1"/>
-    </time>
-    <time-to-teleport value ="-1"/> <!--Disable the automatic removal of vehicles which waiting too long-->
+	</time>
+	<time-to-teleport value ="-1"/> <!--Disable the automatic removal of vehicles which waiting too long-->
     <report>
 	<no-step-log value="true"/>
     </report>
