@@ -327,10 +327,14 @@ GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
     GCRSBaseComNin::NinL3Type nin = this->networkCtrl->createNetwork(
             this->getUniqueNin(), ttl);
     this->networkCtrl->setRootNode(nin, vin);
-    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
+/*    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
             this->roadWidth + 5.5f);
     this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,
-            landIndex, junction);
+            landIndex, junction);*/
+    //Update: Don't need to make event occurred at junction.
+    //This is just fit for all shape of ZOR is square.
+    this->networkRangeCtrl->addNetworkRange(nin, loc, 0.0, direct, ttl,
+            0, Coord::ZERO);
     return nin;
 }
 
