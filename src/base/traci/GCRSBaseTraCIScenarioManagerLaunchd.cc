@@ -143,8 +143,16 @@ bool GCRSBaseTraCIScenarioManagerLaunchd::addNewVehicle() {
 
     double emitPosition = 0.0f;
     double emitSpeed = this->commandGetLaneMaxSpeed(laneId);
-    if(this->commandAddVehicle(vehicleId, vehicleTypeId, routeId, laneId,
+    /*For veins 2.1
+     * if(this->commandAddVehicle(vehicleId, vehicleTypeId, routeId, laneId,
             emitPosition, emitSpeed)){
+        this->vehicleIdIndex++;
+        return true;
+    }*/
+    //For veins 2.2
+    int intLaneId = atoi(&laneId[laneId.length()-1]);
+    if (this->commandAddVehicle(vehicleId, vehicleTypeId, routeId,
+            simTime() + 0.5f, emitPosition, emitSpeed, intLaneId)) {
         this->vehicleIdIndex++;
         return true;
     }

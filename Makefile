@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for GCRS
+# OMNeT++/OMNEST Makefile for gcrs
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I../mixim/src/base/messages -I../mixim/src/modules/utility -I../mixim/src/modules/phy -I../mixim/src/modules -I../mixim/src/base/connectionManager -I../mixim/src/modules/obstacle -I../mixim/src/modules/analogueModel -I../mixim/src/modules/messages -I../mixim/src/base/phyLayer -I../mixim/src/base/modules -I../mixim/src/modules/mac/ieee80211p -I../mixim/src/base/utils -I../mixim/src/modules/world/annotations -I../mixim/src/modules/mobility/traci -L/usr/lib/x86_64-linux-gnu -L../mixim/out/$(CONFIGNAME)/tests/testUtils -L../mixim/out/$(CONFIGNAME)/src/base -L../mixim/out/$(CONFIGNAME)/src/modules -lmiximtestUtils -lmiximbase -lmiximmodules -KMIXIM_PROJ=../mixim
+#  opp_makemake -f --deep -O out -I../veins-2.2/src/modules -I../veins-2.2/src/modules/analogueModel -I../veins-2.2/src/modules/world/annotations -I../veins-2.2/src/base/phyLayer -I../veins-2.2/src/modules/obstacle -I../veins-2.2/src/base/utils -I../veins-2.2/src/modules/mobility/traci -I../veins-2.2/src/base/modules -I../veins-2.2/src/base/messages -I../veins-2.2/src/modules/utility -I../veins-2.2/src/modules/phy -I../veins-2.2/src/modules/mac/ieee80211p -I../veins-2.2/src/base/connectionManager -I../veins-2.2/src/modules/messages -L../veins-2.2/out/$$\(CONFIGNAME\)/src/modules -L../veins-2.2/out/$$\(CONFIGNAME\)/src/base -L../veins-2.2/out/$$\(CONFIGNAME\)/tests/testUtils -lmiximmodules -lmiximbase -lmiximtestUtils -KVEINS_2_2_PROJ=../veins-2.2
 #
 
 # Name of target to be created (-o option)
-TARGET = GCRS$(EXE_SUFFIX)
+TARGET = gcrs$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
@@ -15,20 +15,20 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 
 # C++ include paths (with -I)
 INCLUDE_PATH = \
-    -I../mixim/src/base/messages \
-    -I../mixim/src/modules/utility \
-    -I../mixim/src/modules/phy \
-    -I../mixim/src/modules \
-    -I../mixim/src/base/connectionManager \
-    -I../mixim/src/modules/obstacle \
-    -I../mixim/src/modules/analogueModel \
-    -I../mixim/src/modules/messages \
-    -I../mixim/src/base/phyLayer \
-    -I../mixim/src/base/modules \
-    -I../mixim/src/modules/mac/ieee80211p \
-    -I../mixim/src/base/utils \
-    -I../mixim/src/modules/world/annotations \
-    -I../mixim/src/modules/mobility/traci \
+    -I../veins-2.2/src/modules \
+    -I../veins-2.2/src/modules/analogueModel \
+    -I../veins-2.2/src/modules/world/annotations \
+    -I../veins-2.2/src/base/phyLayer \
+    -I../veins-2.2/src/modules/obstacle \
+    -I../veins-2.2/src/base/utils \
+    -I../veins-2.2/src/modules/mobility/traci \
+    -I../veins-2.2/src/base/modules \
+    -I../veins-2.2/src/base/messages \
+    -I../veins-2.2/src/modules/utility \
+    -I../veins-2.2/src/modules/phy \
+    -I../veins-2.2/src/modules/mac/ieee80211p \
+    -I../veins-2.2/src/base/connectionManager \
+    -I../veins-2.2/src/modules/messages \
     -I. \
     -Iresults \
     -Isrc \
@@ -71,8 +71,8 @@ INCLUDE_PATH = \
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L/usr/lib/x86_64-linux-gnu -L../mixim/out/$(CONFIGNAME)/tests/testUtils -L../mixim/out/$(CONFIGNAME)/src/base -L../mixim/out/$(CONFIGNAME)/src/modules  -lmiximtestUtils -lmiximbase -lmiximmodules
-LIBS += -Wl,-rpath,`abspath /usr/lib/x86_64-linux-gnu` -Wl,-rpath,`abspath ../mixim/out/$(CONFIGNAME)/tests/testUtils` -Wl,-rpath,`abspath ../mixim/out/$(CONFIGNAME)/src/base` -Wl,-rpath,`abspath ../mixim/out/$(CONFIGNAME)/src/modules`
+LIBS = -L../veins-2.2/out/$(CONFIGNAME)/src/modules -L../veins-2.2/out/$(CONFIGNAME)/src/base -L../veins-2.2/out/$(CONFIGNAME)/tests/testUtils  -lmiximmodules -lmiximbase -lmiximtestUtils
+LIBS += -Wl,-rpath,`abspath ../veins-2.2/out/$(CONFIGNAME)/src/modules` -Wl,-rpath,`abspath ../veins-2.2/out/$(CONFIGNAME)/src/base` -Wl,-rpath,`abspath ../veins-2.2/out/$(CONFIGNAME)/tests/testUtils`
 
 # Output directory
 PROJECT_OUTPUT_DIR = out
@@ -84,38 +84,38 @@ OBJS = \
     $O/src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.o \
     $O/src/base/app/GCRSBaseAppLayer.o \
     $O/src/base/collectionService/GCRSBaseCollectionService.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o \
-    $O/src/base/com/collection/GCRSBaseComCollectStatistics.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o \
     $O/src/base/com/collection/GCRSBaseComCollectNetworkController.o \
     $O/src/base/com/collection/GCRSBaseComCollectPrintOut.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o \
     $O/src/base/com/collection/GCRSBaseComCollectNetwork.o \
-    $O/src/base/com/collection/GCRSBaseComCollectNode.o \
     $O/src/base/com/collection/GCRSBaseComNin.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o \
+    $O/src/base/com/collection/GCRSBaseComCollectStatistics.o \
+    $O/src/base/com/collection/GCRSBaseComCollectNode.o \
     $O/src/base/com/geoInfo/GCRSBaseComGeoInfo.o \
     $O/src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.o \
-    $O/src/base/com/lib/GCRSReadXml.o \
-    $O/src/base/com/lib/GCRSBaseComTTL.o \
     $O/src/base/com/lib/GCRSBaseComMath.o \
-    $O/src/base/com/lib/GCRSBaseRealWorldTimer.o \
+    $O/src/base/com/lib/GCRSReadXml.o \
     $O/src/base/com/lib/Convert.o \
     $O/src/base/com/lib/GCRSBaseString.o \
-    $O/src/base/com/lib/tinyxml/tinyxmlparser.o \
-    $O/src/base/com/lib/tinyxml/tinystr.o \
-    $O/src/base/com/lib/tinyxml/tinyxmlerror.o \
+    $O/src/base/com/lib/GCRSBaseRealWorldTimer.o \
+    $O/src/base/com/lib/GCRSBaseComTTL.o \
     $O/src/base/com/lib/tinyxml/tinyxml.o \
+    $O/src/base/com/lib/tinyxml/tinystr.o \
+    $O/src/base/com/lib/tinyxml/tinyxmlparser.o \
+    $O/src/base/com/lib/tinyxml/tinyxmlerror.o \
     $O/src/base/com/task/GCRSBaseComTask.o \
     $O/src/base/com/task/GCRSBaseComTaskManager.o \
+    $O/src/base/com/vehicle/GCRSBaseComVehicleEvent.o \
+    $O/src/base/com/vehicle/GCRSBaseComVehicleState.o \
+    $O/src/base/com/vehicle/GCRSBaseComVin.o \
     $O/src/base/com/vehicle/GCRSBaseComVehicleControl.o \
     $O/src/base/com/vehicle/GCRSBaseComVehicleEventControl.o \
-    $O/src/base/com/vehicle/GCRSBaseComVehicleState.o \
-    $O/src/base/com/vehicle/GCRSBaseComVehicleEvent.o \
-    $O/src/base/com/vehicle/GCRSBaseComVin.o \
-    $O/src/base/com/zone/GCRSBaseComBaseShape.o \
     $O/src/base/com/zone/GCRSBaseComZone.o \
-    $O/src/base/com/zone/GCRSBaseComEllipse.o \
     $O/src/base/com/zone/GCRSBaseComCircle.o \
+    $O/src/base/com/zone/GCRSBaseComBaseShape.o \
     $O/src/base/com/zone/GCRSBaseComRectangle.o \
+    $O/src/base/com/zone/GCRSBaseComEllipse.o \
     $O/src/base/connectionManager/GCRSBaseConnectionManager.o \
     $O/src/base/mac/GCRSBaseMacLayer.o \
     $O/src/base/mobility/GCRSBaseTraCIMobility.o \
@@ -124,18 +124,18 @@ OBJS = \
     $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o \
     $O/src/base/vehicleManager/GCRSBaseVehicleManager.o \
     $O/src/base/world/GCRSBaseWorldUtility.o \
-    $O/src/modules/com/task/drg/GCRSDRGComTask.o \
     $O/src/modules/com/task/drg/GCRSDRGComTaskManager.o \
+    $O/src/modules/com/task/drg/GCRSDRGComTask.o \
     $O/src/modules/com/task/dtsg/GCRSDTSGComTaskManager.o \
     $O/src/modules/com/task/dtsg/GCRSDTSGComTask.o \
     $O/src/modules/com/task/flooding/GCRSFloodingComTaskManager.o \
     $O/src/modules/com/task/flooding/GCRSFloodingComTask.o \
     $O/src/modules/com/task/rover/GCRSROVERComTask.o \
     $O/src/modules/com/task/rover/GCRSROVERComTaskManager.o \
-    $O/src/modules/net/GCRSDRGNetLayer.o \
-    $O/src/modules/net/GCRSDTSGNetLayer.o \
     $O/src/modules/net/GCRSDummyNetLayer.o \
     $O/src/modules/net/GCRSFloodingNetLayer.o \
+    $O/src/modules/net/GCRSDRGNetLayer.o \
+    $O/src/modules/net/GCRSDTSGNetLayer.o \
     $O/src/modules/net/GCRSROVERNetLayer.o \
     $O/src/base/pkt/GCRSBaseNetPkt_m.o \
     $O/src/base/pkt/GCRSBasePkt_m.o \
@@ -148,7 +148,7 @@ MSGFILES = \
     src/modules/pkt/GCRSDTSGNetPkt.msg
 
 # Other makefile variables (-K)
-MIXIM_PROJ=../mixim
+VEINS_2_2_PROJ=../veins-2.2
 
 #------------------------------------------------------------------------------
 
@@ -209,7 +209,7 @@ $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile
 $O/%.o: %.cc $(COPTS_FILE)
 	@$(MKPATH) $(dir $@)
 	$(qecho) "$<"
-	$(Q)$(CXX) -c $(COPTS) -o $@ $<
+	$(Q)$(CXX) -c $(CXXFLAGS) $(COPTS) -o $@ $<
 
 %_m.cc %_m.h: %.msg
 	$(qecho) MSGC: $<
@@ -220,7 +220,7 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 clean:
 	$(qecho) Cleaning...
 	$(Q)-rm -rf $O
-	$(Q)-rm -f GCRS GCRS.exe libGCRS.so libGCRS.a libGCRS.dll libGCRS.dylib
+	$(Q)-rm -f gcrs gcrs.exe libgcrs.so libgcrs.a libgcrs.dll libgcrs.dylib
 	$(Q)-rm -f ./*_m.cc ./*_m.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h
 	$(Q)-rm -f src/*_m.cc src/*_m.h
@@ -269,24 +269,24 @@ depend:
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.o: src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.cc \
 	src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.h \
-	$(MIXIM_PROJ)/src/base/messages/AirFrame_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/AnalogueModel.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Interpolation.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Mapping.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingBase.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingUtils.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Signal_.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/SimpleObstacleShadowing.h \
-	$(MIXIM_PROJ)/src/modules/obstacle/Obstacle.h \
-	$(MIXIM_PROJ)/src/modules/obstacle/ObstacleControl.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/messages/AirFrame_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/AnalogueModel.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Interpolation.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Mapping.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingBase.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingUtils.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Signal_.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/SimpleObstacleShadowing.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/app/GCRSBaseAppLayer.o: src/base/app/GCRSBaseAppLayer.cc \
 	src/base/app/GCRSBaseAppLayer.h \
 	src/base/collectionService/GCRSBaseCollectionService.h \
@@ -324,30 +324,33 @@ $O/src/base/app/GCRSBaseAppLayer.o: src/base/app/GCRSBaseAppLayer.cc \
 	src/base/pkt/GCRSBasePkt_m.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	src/base/vehicleManager/GCRSBaseVehicleManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseApplLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseApplLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/collectionService/GCRSBaseCollectionService.o: src/base/collectionService/GCRSBaseCollectionService.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -378,19 +381,22 @@ $O/src/base/collectionService/GCRSBaseCollectionService.o: src/base/collectionSe
 	src/base/const/GCRSBaseConst.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	src/base/vehicleManager/GCRSBaseVehicleManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/com/collection/GCRSBaseComCollectNetwork.o: src/base/com/collection/GCRSBaseComCollectNetwork.cc \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
 	src/base/com/collection/GCRSBaseComCollectNode.h \
@@ -401,10 +407,10 @@ $O/src/base/com/collection/GCRSBaseComCollectNetwork.o: src/base/com/collection/
 	src/base/com/zone/GCRSBaseComEllipse.h \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/collection/GCRSBaseComCollectNetworkController.o: src/base/com/collection/GCRSBaseComCollectNetworkController.cc \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
 	src/base/com/collection/GCRSBaseComCollectNetworkController.h \
@@ -417,10 +423,10 @@ $O/src/base/com/collection/GCRSBaseComCollectNetworkController.o: src/base/com/c
 	src/base/com/zone/GCRSBaseComEllipse.h \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o: src/base/com/collection/GCRSBaseComCollectNetworkRange.cc \
 	src/base/com/collection/GCRSBaseComCollectNetworkRange.h \
 	src/base/com/lib/GCRSBaseComTTL.h \
@@ -430,12 +436,12 @@ $O/src/base/com/collection/GCRSBaseComCollectNetworkRange.o: src/base/com/collec
 	src/base/com/zone/GCRSBaseComEllipse.h \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o: src/base/com/collection/GCRSBaseComCollectNetworkRangeController.cc \
 	src/base/com/collection/GCRSBaseComCollectNetworkRange.h \
 	src/base/com/collection/GCRSBaseComCollectNetworkRangeController.h \
@@ -448,12 +454,12 @@ $O/src/base/com/collection/GCRSBaseComCollectNetworkRangeController.o: src/base/
 	src/base/com/zone/GCRSBaseComEllipse.h \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/com/collection/GCRSBaseComCollectNode.o: src/base/com/collection/GCRSBaseComCollectNode.cc \
 	src/base/com/collection/GCRSBaseComCollectNode.h \
 	src/base/com/vehicle/GCRSBaseComVin.h
@@ -469,31 +475,31 @@ $O/src/base/com/geoInfo/GCRSBaseComGeoInfo.o: src/base/com/geoInfo/GCRSBaseComGe
 	src/base/com/collection/GCRSBaseComNin.h \
 	src/base/com/geoInfo/GCRSBaseComGeoInfo.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.o: src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.cc \
 	src/base/com/collection/GCRSBaseComNin.h \
 	src/base/com/geoInfo/GCRSBaseComGeoInfo.h \
 	src/base/com/geoInfo/GCRSBaseComGeoInfoBuffer.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/lib/Convert.o: src/base/com/lib/Convert.cc \
 	src/base/com/lib/Convert.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/lib/GCRSBaseComMath.o: src/base/com/lib/GCRSBaseComMath.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/lib/GCRSBaseComTTL.o: src/base/com/lib/GCRSBaseComTTL.cc \
 	src/base/com/lib/GCRSBaseComTTL.h
 $O/src/base/com/lib/GCRSBaseRealWorldTimer.o: src/base/com/lib/GCRSBaseRealWorldTimer.cc \
@@ -522,12 +528,12 @@ $O/src/base/com/task/GCRSBaseComTask.o: src/base/com/task/GCRSBaseComTask.cc \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/task/GCRSBaseComTaskManager.o: src/base/com/task/GCRSBaseComTaskManager.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/task/GCRSBaseComTaskManager.h \
@@ -537,75 +543,75 @@ $O/src/base/com/task/GCRSBaseComTaskManager.o: src/base/com/task/GCRSBaseComTask
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/vehicle/GCRSBaseComVehicleControl.o: src/base/com/vehicle/GCRSBaseComVehicleControl.cc \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
 	src/base/com/vehicle/GCRSBaseComVehicleState.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/vehicle/GCRSBaseComVehicleEvent.o: src/base/com/vehicle/GCRSBaseComVehicleEvent.cc \
 	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/vehicle/GCRSBaseComVehicleEventControl.o: src/base/com/vehicle/GCRSBaseComVehicleEventControl.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEvent.h \
 	src/base/com/vehicle/GCRSBaseComVehicleEventControl.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/vehicle/GCRSBaseComVehicleState.o: src/base/com/vehicle/GCRSBaseComVehicleState.cc \
 	src/base/com/vehicle/GCRSBaseComVehicleState.h \
 	src/base/com/vehicle/GCRSBaseComVin.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/vehicle/GCRSBaseComVin.o: src/base/com/vehicle/GCRSBaseComVin.cc \
 	src/base/com/vehicle/GCRSBaseComVin.h
 $O/src/base/com/zone/GCRSBaseComBaseShape.o: src/base/com/zone/GCRSBaseComBaseShape.cc \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/zone/GCRSBaseComCircle.o: src/base/com/zone/GCRSBaseComCircle.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComCircle.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/zone/GCRSBaseComEllipse.o: src/base/com/zone/GCRSBaseComEllipse.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComEllipse.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/zone/GCRSBaseComRectangle.o: src/base/com/zone/GCRSBaseComRectangle.cc \
 	src/base/com/lib/GCRSBaseComMath.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComRectangle.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/com/zone/GCRSBaseComZone.o: src/base/com/zone/GCRSBaseComZone.cc \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComCircle.h \
@@ -613,22 +619,22 @@ $O/src/base/com/zone/GCRSBaseComZone.o: src/base/com/zone/GCRSBaseComZone.cc \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/const/GCRSBaseConst.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h
 $O/src/base/connectionManager/GCRSBaseConnectionManager.o: src/base/connectionManager/GCRSBaseConnectionManager.cc \
 	src/base/connectionManager/GCRSBaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/mac/GCRSBaseMacLayer.o: src/base/mac/GCRSBaseMacLayer.cc \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComCircle.h \
@@ -638,55 +644,55 @@ $O/src/base/mac/GCRSBaseMacLayer.o: src/base/mac/GCRSBaseMacLayer.cc \
 	src/base/const/GCRSBaseConst.h \
 	src/base/mac/GCRSBaseMacLayer.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ChannelAccess.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/AirFrame_m.h \
-	$(MIXIM_PROJ)/src/base/messages/ChannelSenseRequest_m.h \
-	$(MIXIM_PROJ)/src/base/messages/MacPkt_m.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMacLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/AnalogueModel.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/BaseDecider.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/BasePhyLayer.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/ChannelInfo.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/ChannelState.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Decider.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/DeciderToPhyInterface.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Interpolation.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MacToPhyControlInfo.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MacToPhyInterface.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Mapping.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingBase.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingUtils.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/PhyUtils.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Signal_.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/JakesFading.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/LogNormalShadowing.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/SimplePathlossModel.h \
-	$(MIXIM_PROJ)/src/modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h \
-	$(MIXIM_PROJ)/src/modules/messages/Mac80211Pkt_m.h \
-	$(MIXIM_PROJ)/src/modules/phy/Decider80211p.h \
-	$(MIXIM_PROJ)/src/modules/phy/Decider80211pToPhy80211pInterface.h \
-	$(MIXIM_PROJ)/src/modules/phy/PhyLayer.h \
-	$(MIXIM_PROJ)/src/modules/phy/PhyLayer80211p.h \
-	$(MIXIM_PROJ)/src/modules/phy/SNRThresholdDecider.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ChannelAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/AirFrame_m.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/ChannelSenseRequest_m.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/MacPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMacLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/AnalogueModel.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/BaseDecider.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/BasePhyLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/ChannelInfo.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/ChannelState.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Decider.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/DeciderToPhyInterface.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Interpolation.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MacToPhyControlInfo.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MacToPhyInterface.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Mapping.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingBase.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingUtils.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/PhyUtils.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Signal_.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/JakesFading.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/LogNormalShadowing.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/SimplePathlossModel.h \
+	$(VEINS_2_2_PROJ)/src/modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h \
+	$(VEINS_2_2_PROJ)/src/modules/messages/Mac80211Pkt_m.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/Decider80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/Decider80211pToPhy80211pInterface.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/PhyLayer.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/PhyLayer80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/SNRThresholdDecider.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h
 $O/src/base/mobility/GCRSBaseTraCIMobility.o: src/base/mobility/GCRSBaseTraCIMobility.cc \
 	src/base/com/lib/GCRSReadXml.h \
 	src/base/com/vehicle/GCRSBaseComVehicleControl.h \
@@ -697,23 +703,27 @@ $O/src/base/mobility/GCRSBaseTraCIMobility.o: src/base/mobility/GCRSBaseTraCIMob
 	src/base/mobility/GCRSBaseTraCIMobility.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	src/base/vehicleManager/GCRSBaseVehicleManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/net/GCRSBaseNetLayer.o: src/base/net/GCRSBaseNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -750,79 +760,82 @@ $O/src/base/net/GCRSBaseNetLayer.o: src/base/net/GCRSBaseNetLayer.cc \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	src/base/vehicleManager/GCRSBaseVehicleManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/phy/GCRSBasePhyLayer.o: src/base/phy/GCRSBasePhyLayer.cc \
 	src/base/analogueModel/GCRSBaseSimpleObstacleShadowing.h \
 	src/base/phy/GCRSBasePhyLayer.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ChannelAccess.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/AirFrame_m.h \
-	$(MIXIM_PROJ)/src/base/messages/ChannelSenseRequest_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/AnalogueModel.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/BaseDecider.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/BasePhyLayer.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/ChannelInfo.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/ChannelState.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Decider.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/DeciderToPhyInterface.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Interpolation.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MacToPhyInterface.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Mapping.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingBase.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/MappingUtils.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/PhyUtils.h \
-	$(MIXIM_PROJ)/src/base/phyLayer/Signal_.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/JakesFading.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/LogNormalShadowing.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/SimpleObstacleShadowing.h \
-	$(MIXIM_PROJ)/src/modules/analogueModel/SimplePathlossModel.h \
-	$(MIXIM_PROJ)/src/modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h \
-	$(MIXIM_PROJ)/src/modules/obstacle/Obstacle.h \
-	$(MIXIM_PROJ)/src/modules/obstacle/ObstacleControl.h \
-	$(MIXIM_PROJ)/src/modules/phy/Decider80211p.h \
-	$(MIXIM_PROJ)/src/modules/phy/Decider80211pToPhy80211pInterface.h \
-	$(MIXIM_PROJ)/src/modules/phy/PhyLayer.h \
-	$(MIXIM_PROJ)/src/modules/phy/PhyLayer80211p.h \
-	$(MIXIM_PROJ)/src/modules/phy/SNRThresholdDecider.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ChannelAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/AirFrame_m.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/ChannelSenseRequest_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/AnalogueModel.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/BaseDecider.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/BasePhyLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/ChannelInfo.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/ChannelState.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Decider.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/DeciderToPhyInterface.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Interpolation.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MacToPhyInterface.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Mapping.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingBase.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/MappingUtils.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/PhyUtils.h \
+	$(VEINS_2_2_PROJ)/src/base/phyLayer/Signal_.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/JakesFading.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/LogNormalShadowing.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/SimpleObstacleShadowing.h \
+	$(VEINS_2_2_PROJ)/src/modules/analogueModel/SimplePathlossModel.h \
+	$(VEINS_2_2_PROJ)/src/modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/Decider80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/Decider80211pToPhy80211pInterface.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/PhyLayer.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/PhyLayer80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/phy/SNRThresholdDecider.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/pkt/GCRSBaseNetPkt_m.o: src/base/pkt/GCRSBaseNetPkt_m.cc \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComCircle.h \
@@ -830,12 +843,12 @@ $O/src/base/pkt/GCRSBaseNetPkt_m.o: src/base/pkt/GCRSBaseNetPkt_m.cc \
 	src/base/com/zone/GCRSBaseComRectangle.h \
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/base/pkt/GCRSBasePkt_m.o: src/base/pkt/GCRSBasePkt_m.cc \
 	src/base/pkt/GCRSBasePkt_m.h
 $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o: src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.cc \
@@ -844,17 +857,21 @@ $O/src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.o: src/base/traci/GCRSBase
 	src/base/com/lib/GCRSBaseString.h \
 	src/base/com/lib/GCRSReadXml.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIConstants.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIConstants.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/vehicleManager/GCRSBaseVehicleManager.o: src/base/vehicleManager/GCRSBaseVehicleManager.cc \
 	src/base/com/lib/Convert.h \
 	src/base/com/lib/GCRSBaseComMath.h \
@@ -866,23 +883,27 @@ $O/src/base/vehicleManager/GCRSBaseVehicleManager.o: src/base/vehicleManager/GCR
 	src/base/com/vehicle/GCRSBaseComVin.h \
 	src/base/traci/GCRSBaseTraCIScenarioManagerLaunchd.h \
 	src/base/vehicleManager/GCRSBaseVehicleManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/base/world/GCRSBaseWorldUtility.o: src/base/world/GCRSBaseWorldUtility.cc \
 	src/base/world/GCRSBaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/drg/GCRSDRGComTask.o: src/modules/com/task/drg/GCRSDRGComTask.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
@@ -892,12 +913,12 @@ $O/src/modules/com/task/drg/GCRSDRGComTask.o: src/modules/com/task/drg/GCRSDRGCo
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/drg/GCRSDRGComTask.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/drg/GCRSDRGComTaskManager.o: src/modules/com/task/drg/GCRSDRGComTaskManager.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/task/GCRSBaseComTaskManager.h \
@@ -909,12 +930,12 @@ $O/src/modules/com/task/drg/GCRSDRGComTaskManager.o: src/modules/com/task/drg/GC
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/drg/GCRSDRGComTask.h \
 	src/modules/com/task/drg/GCRSDRGComTaskManager.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/dtsg/GCRSDTSGComTask.o: src/modules/com/task/dtsg/GCRSDTSGComTask.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
@@ -924,12 +945,12 @@ $O/src/modules/com/task/dtsg/GCRSDTSGComTask.o: src/modules/com/task/dtsg/GCRSDT
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/dtsg/GCRSDTSGComTask.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/dtsg/GCRSDTSGComTaskManager.o: src/modules/com/task/dtsg/GCRSDTSGComTaskManager.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/task/GCRSBaseComTaskManager.h \
@@ -941,12 +962,12 @@ $O/src/modules/com/task/dtsg/GCRSDTSGComTaskManager.o: src/modules/com/task/dtsg
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/dtsg/GCRSDTSGComTask.h \
 	src/modules/com/task/dtsg/GCRSDTSGComTaskManager.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/flooding/GCRSFloodingComTask.o: src/modules/com/task/flooding/GCRSFloodingComTask.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
@@ -956,12 +977,12 @@ $O/src/modules/com/task/flooding/GCRSFloodingComTask.o: src/modules/com/task/flo
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/flooding/GCRSFloodingComTask.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/flooding/GCRSFloodingComTaskManager.o: src/modules/com/task/flooding/GCRSFloodingComTaskManager.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/task/GCRSBaseComTaskManager.h \
@@ -973,12 +994,12 @@ $O/src/modules/com/task/flooding/GCRSFloodingComTaskManager.o: src/modules/com/t
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/flooding/GCRSFloodingComTask.h \
 	src/modules/com/task/flooding/GCRSFloodingComTaskManager.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/rover/GCRSROVERComTask.o: src/modules/com/task/rover/GCRSROVERComTask.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
@@ -988,12 +1009,12 @@ $O/src/modules/com/task/rover/GCRSROVERComTask.o: src/modules/com/task/rover/GCR
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/rover/GCRSROVERComTask.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/com/task/rover/GCRSROVERComTaskManager.o: src/modules/com/task/rover/GCRSROVERComTaskManager.cc \
 	src/base/com/task/GCRSBaseComTask.h \
 	src/base/com/task/GCRSBaseComTaskManager.h \
@@ -1005,12 +1026,12 @@ $O/src/modules/com/task/rover/GCRSROVERComTaskManager.o: src/modules/com/task/ro
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/com/task/rover/GCRSROVERComTask.h \
 	src/modules/com/task/rover/GCRSROVERComTaskManager.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 $O/src/modules/net/GCRSDRGNetLayer.o: src/modules/net/GCRSDRGNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -1049,30 +1070,33 @@ $O/src/modules/net/GCRSDRGNetLayer.o: src/modules/net/GCRSDRGNetLayer.cc \
 	src/modules/com/task/drg/GCRSDRGComTask.h \
 	src/modules/com/task/drg/GCRSDRGComTaskManager.h \
 	src/modules/net/GCRSDRGNetLayer.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/net/GCRSDTSGNetLayer.o: src/modules/net/GCRSDTSGNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -1113,31 +1137,34 @@ $O/src/modules/net/GCRSDTSGNetLayer.o: src/modules/net/GCRSDTSGNetLayer.cc \
 	src/modules/com/task/dtsg/GCRSDTSGComTaskManager.h \
 	src/modules/net/GCRSDTSGNetLayer.h \
 	src/modules/pkt/GCRSDTSGNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/utility/Consts80211p.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/utility/Consts80211p.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/net/GCRSDummyNetLayer.o: src/modules/net/GCRSDummyNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -1175,30 +1202,33 @@ $O/src/modules/net/GCRSDummyNetLayer.o: src/modules/net/GCRSDummyNetLayer.cc \
 	src/modules/com/task/flooding/GCRSFloodingComTask.h \
 	src/modules/com/task/flooding/GCRSFloodingComTaskManager.h \
 	src/modules/net/GCRSDummyNetLayer.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/net/GCRSFloodingNetLayer.o: src/modules/net/GCRSFloodingNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -1237,30 +1267,33 @@ $O/src/modules/net/GCRSFloodingNetLayer.o: src/modules/net/GCRSFloodingNetLayer.
 	src/modules/com/task/flooding/GCRSFloodingComTask.h \
 	src/modules/com/task/flooding/GCRSFloodingComTaskManager.h \
 	src/modules/net/GCRSFloodingNetLayer.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/net/GCRSROVERNetLayer.o: src/modules/net/GCRSROVERNetLayer.cc \
 	src/base/collectionService/GCRSBaseCollectionService.h \
 	src/base/com/collection/GCRSBaseComCollectNetwork.h \
@@ -1299,30 +1332,33 @@ $O/src/modules/net/GCRSROVERNetLayer.o: src/modules/net/GCRSROVERNetLayer.cc \
 	src/modules/com/task/rover/GCRSROVERComTask.h \
 	src/modules/com/task/rover/GCRSROVERComTaskManager.h \
 	src/modules/net/GCRSROVERNetLayer.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/ConnectionManager.h \
-	$(MIXIM_PROJ)/src/base/connectionManager/NicEntry.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseBattery.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseMobility.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseModule.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseNetwLayer.h \
-	$(MIXIM_PROJ)/src/base/modules/BaseWorldUtility.h \
-	$(MIXIM_PROJ)/src/base/modules/BatteryAccess.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/FindModule.h \
-	$(MIXIM_PROJ)/src/base/utils/HostState.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/Move.h \
-	$(MIXIM_PROJ)/src/base/utils/PassedMessage.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
-	$(MIXIM_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
-	$(MIXIM_PROJ)/src/modules/world/annotations/AnnotationManager.h
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/BaseConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/ConnectionManager.h \
+	$(VEINS_2_2_PROJ)/src/base/connectionManager/NicEntry.h \
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseBattery.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseMobility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseModule.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseNetwLayer.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BaseWorldUtility.h \
+	$(VEINS_2_2_PROJ)/src/base/modules/BatteryAccess.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FindModule.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/HostState.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Move.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/PassedMessage.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIColor.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIMobility.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManager.h \
+	$(VEINS_2_2_PROJ)/src/modules/mobility/traci/TraCIScenarioManagerLaunchd.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/Obstacle.h \
+	$(VEINS_2_2_PROJ)/src/modules/obstacle/ObstacleControl.h \
+	$(VEINS_2_2_PROJ)/src/modules/world/annotations/AnnotationManager.h
 $O/src/modules/pkt/GCRSDTSGNetPkt_m.o: src/modules/pkt/GCRSDTSGNetPkt_m.cc \
 	src/base/com/zone/GCRSBaseComBaseShape.h \
 	src/base/com/zone/GCRSBaseComCircle.h \
@@ -1331,10 +1367,10 @@ $O/src/modules/pkt/GCRSDTSGNetPkt_m.o: src/modules/pkt/GCRSDTSGNetPkt_m.cc \
 	src/base/com/zone/GCRSBaseComZone.h \
 	src/base/pkt/GCRSBaseNetPkt_m.h \
 	src/modules/pkt/GCRSDTSGNetPkt_m.h \
-	$(MIXIM_PROJ)/src/base/messages/NetwPkt_m.h \
-	$(MIXIM_PROJ)/src/base/utils/Coord.h \
-	$(MIXIM_PROJ)/src/base/utils/FWMath.h \
-	$(MIXIM_PROJ)/src/base/utils/MiXiMDefs.h \
-	$(MIXIM_PROJ)/src/base/utils/SimpleAddress.h \
-	$(MIXIM_PROJ)/src/base/utils/miximkerneldefs.h
+	$(VEINS_2_2_PROJ)/src/base/messages/NetwPkt_m.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/Coord.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/FWMath.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/MiXiMDefs.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/SimpleAddress.h \
+	$(VEINS_2_2_PROJ)/src/base/utils/miximkerneldefs.h
 

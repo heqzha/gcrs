@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.3 from src/base/pkt/GCRSBaseNetPkt.msg.
+// Generated file, do not edit! Created by opp_msgc 4.4 from src/base/pkt/GCRSBaseNetPkt.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -11,6 +11,8 @@
 #include <iostream>
 #include <sstream>
 #include "GCRSBaseNetPkt_m.h"
+
+USING_NAMESPACE
 
 // Template rule which fires if a struct or class doesn't have operator<<
 template<typename T>
@@ -32,7 +34,7 @@ void doUnpacking(cCommBuffer *, T& t) {
 
 Register_Class(GCRSBaseNetPkt);
 
-GCRSBaseNetPkt::GCRSBaseNetPkt(const char *name, int kind) : NetwPkt(name,kind)
+GCRSBaseNetPkt::GCRSBaseNetPkt(const char *name, int kind) : ::NetwPkt(name,kind)
 {
     this->vinOriginSrc_var = -1;
     this->vinForwardSrc_var = -1;
@@ -49,7 +51,7 @@ GCRSBaseNetPkt::GCRSBaseNetPkt(const char *name, int kind) : NetwPkt(name,kind)
     this->version_var = 0;
 }
 
-GCRSBaseNetPkt::GCRSBaseNetPkt(const GCRSBaseNetPkt& other) : NetwPkt(other)
+GCRSBaseNetPkt::GCRSBaseNetPkt(const GCRSBaseNetPkt& other) : ::NetwPkt(other)
 {
     copy(other);
 }
@@ -61,7 +63,7 @@ GCRSBaseNetPkt::~GCRSBaseNetPkt()
 GCRSBaseNetPkt& GCRSBaseNetPkt::operator=(const GCRSBaseNetPkt& other)
 {
     if (this==&other) return *this;
-    NetwPkt::operator=(other);
+    ::NetwPkt::operator=(other);
     copy(other);
     return *this;
 }
@@ -89,7 +91,7 @@ void GCRSBaseNetPkt::copy(const GCRSBaseNetPkt& other)
 
 void GCRSBaseNetPkt::parsimPack(cCommBuffer *b)
 {
-    NetwPkt::parsimPack(b);
+    ::NetwPkt::parsimPack(b);
     doPacking(b,this->vinOriginSrc_var);
     doPacking(b,this->vinForwardSrc_var);
     doPacking(b,this->vinDest_var);
@@ -111,7 +113,7 @@ void GCRSBaseNetPkt::parsimPack(cCommBuffer *b)
 
 void GCRSBaseNetPkt::parsimUnpack(cCommBuffer *b)
 {
-    NetwPkt::parsimUnpack(b);
+    ::NetwPkt::parsimUnpack(b);
     doUnpacking(b,this->vinOriginSrc_var);
     doUnpacking(b,this->vinForwardSrc_var);
     doUnpacking(b,this->vinDest_var);

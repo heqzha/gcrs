@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.3 from src/base/pkt/GCRSBasePkt.msg.
+// Generated file, do not edit! Created by opp_msgc 4.4 from src/base/pkt/GCRSBasePkt.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -11,6 +11,8 @@
 #include <iostream>
 #include <sstream>
 #include "GCRSBasePkt_m.h"
+
+USING_NAMESPACE
 
 // Template rule which fires if a struct or class doesn't have operator<<
 template<typename T>
@@ -32,12 +34,12 @@ void doUnpacking(cCommBuffer *, T& t) {
 
 Register_Class(GCRSBasePkt);
 
-GCRSBasePkt::GCRSBasePkt(const char *name, int kind) : cPacket(name,kind)
+GCRSBasePkt::GCRSBasePkt(const char *name, int kind) : ::cPacket(name,kind)
 {
     this->priorityClass_var = 0;
 }
 
-GCRSBasePkt::GCRSBasePkt(const GCRSBasePkt& other) : cPacket(other)
+GCRSBasePkt::GCRSBasePkt(const GCRSBasePkt& other) : ::cPacket(other)
 {
     copy(other);
 }
@@ -49,7 +51,7 @@ GCRSBasePkt::~GCRSBasePkt()
 GCRSBasePkt& GCRSBasePkt::operator=(const GCRSBasePkt& other)
 {
     if (this==&other) return *this;
-    cPacket::operator=(other);
+    ::cPacket::operator=(other);
     copy(other);
     return *this;
 }
@@ -61,13 +63,13 @@ void GCRSBasePkt::copy(const GCRSBasePkt& other)
 
 void GCRSBasePkt::parsimPack(cCommBuffer *b)
 {
-    cPacket::parsimPack(b);
+    ::cPacket::parsimPack(b);
     doPacking(b,this->priorityClass_var);
 }
 
 void GCRSBasePkt::parsimUnpack(cCommBuffer *b)
 {
-    cPacket::parsimUnpack(b);
+    ::cPacket::parsimUnpack(b);
     doUnpacking(b,this->priorityClass_var);
 }
 
