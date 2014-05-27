@@ -107,6 +107,7 @@ protected:
     int numPolygon;
     double txRange;
     double roadWidth;
+    int roadNum;
     double buildingInterval;
 
     time_t simStart;

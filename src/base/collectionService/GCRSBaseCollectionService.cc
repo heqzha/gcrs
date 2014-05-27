@@ -56,11 +56,14 @@ void GCRSBaseCollectionService::initialize(int stage) {
 
         double laneWidth =
                 hasPar("LANE_WIDTH") ? par("LANE_WIDTH").doubleValue() : 0.0f;
+        int laneNum = hasPar("LANE_NUM") ? par("LANE_NUM").longValue() : 0;
+
         this->buildingInterval =
                 hasPar("BUILDINGINTERVAL") ?
                         par("BUILDINGINTERVAL").doubleValue() : 0.0f;
 
-        this->roadWidth = zofWidth;
+        //Two directions
+        this->roadWidth = 2.0f * laneWidth * (double)laneNum;
 
         this->networkCtrl = new GCRSBaseComCollectNetworkController();
         this->networkRangeCtrl = new GCRSBaseComCollectNetworkRangeController(
@@ -321,20 +324,32 @@ void GCRSBaseCollectionService::conclusion() {
     }
     this->printOutProtocol->PrintOut();
 }
+//Wrong
+//GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
+//        GCRSBaseComVin::VinL3Type vin, simtime_t ttl, Coord loc, double offset,
+//        double direct, int landIndex) {
+//    GCRSBaseComNin::NinL3Type nin = this->networkCtrl->createNetwork(
+//            this->getUniqueNin(), ttl);
+//    this->networkCtrl->setRootNode(nin, vin);
+///*    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
+//            this->roadWidth + 5.5f);
+//    this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,
+//            landIndex, junction);*/
+//    //Update: Don't need to make event occurred at junction.
+//    //This is just fit for all shape of ZOR is square.
+//    this->networkRangeCtrl->addNetworkRange(nin, loc, 0.0, direct, ttl,
+//            0, Coord::ZERO);
+//    return nin;
+//}
 GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
         GCRSBaseComVin::VinL3Type vin, simtime_t ttl, Coord loc, double offset,
         double direct, int landIndex) {
     GCRSBaseComNin::NinL3Type nin = this->networkCtrl->createNetwork(
             this->getUniqueNin(), ttl);
     this->networkCtrl->setRootNode(nin, vin);
-/*    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
-            this->roadWidth + 5.5f);
-    this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl,
-            landIndex, junction);*/
-    //Update: Don't need to make event occurred at junction.
-    //This is just fit for all shape of ZOR is square.
-    this->networkRangeCtrl->addNetworkRange(nin, loc, 0.0, direct, ttl,
-            0, Coord::ZERO);
+    Coord junction = this->traciManager->getNearbyCrossRoadLocation(loc,
+                this->roadWidth + 5.5f);
+    this->networkRangeCtrl->addNetworkRange(nin, loc, offset, direct, ttl, landIndex, this->roadWidth, junction);
     return nin;
 }
 

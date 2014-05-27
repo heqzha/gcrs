@@ -33,7 +33,7 @@ public:
     virtual ~GCRSBaseComCollectNetworkRangeController();
 
     void addNetworkRange(GCRSBaseComNin::NinL3Type nin, Coord loc, double offset,
-            double direct, simtime_t ttl,int landIndex, Coord locJunction);
+            double direct, simtime_t ttl,int landIndex, double roadWidth,Coord locJunction);
     void checkPassThroughNode(GCRSBaseComVin::VinL3Type vin, Coord loc);
     void updateTTL(GCRSBaseComNin::NinL3Type nin, simtime_t ttl);
 
@@ -55,7 +55,7 @@ public:
 protected:
 
     Coord calcZoneOffset(double horizontalOffset, double zoneWidth,
-            double landWith, int laneIndex);
+            double landWith, double maxLandNum, int laneIndex);
     void cleanUp();
     GCRSBaseComCollectNetworkRange* getNetworkRange(
             GCRSBaseComNin::NinL3Type nin);

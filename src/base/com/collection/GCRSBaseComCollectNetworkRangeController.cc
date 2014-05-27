@@ -22,29 +22,27 @@ GCRSBaseComCollectNetworkRangeController::~GCRSBaseComCollectNetworkRangeControl
 
 void GCRSBaseComCollectNetworkRangeController::addNetworkRange(
         GCRSBaseComNin::NinL3Type nin, Coord loc, double offset,
-                    double direct, simtime_t ttl, int landIndex, Coord locJunction) {
+                    double direct, simtime_t ttl, int landIndex, double roadWidth, Coord locJunction) {
     GCRSBaseComCollectNetworkRange* networkRange = this->getNetworkRange(nin);
     if (networkRange != NULL) {
         return;
     }
     networkRange = new GCRSBaseComCollectNetworkRange(ttl);
-    if (Coord::ZERO != locJunction) {
-        networkRange->setZof(this->zofShape, locJunction, 0.0f, this->zorLength,
-                this->zorLength);
-        networkRange->setZor(this->zorShape, locJunction, 0.0f, this->zorLength,
-                this->zorLength);
-    } else {
-        Coord zorOffset = this->calcZoneOffset(offset,
-                this->zorWidth, this->laneWidth, landIndex);
-        Coord zofOffset = this->calcZoneOffset(offset,
-                this->zofWidth, this->laneWidth, landIndex);
-        Coord zorLoc =GCRSBaseComMath::tranCoordLocaltoWorld(zorOffset, loc, direct);
-        Coord zofLoc =GCRSBaseComMath::tranCoordLocaltoWorld(zofOffset, loc, direct);
-        networkRange->setZof(this->zofShape, zofLoc, direct,
-                this->zofLength, this->zofWidth);
-        networkRange->setZor(this->zorShape, zorLoc, direct,
-                this->zorLength, this->zorWidth);
+    double rotate = 0.0f;
+    if (Coord::ZERO == locJunction) {
+        rotate = direct;
     }
+    double maxLaneNum = roadWidth / this->laneWidth;
+    Coord zorOffset = this->calcZoneOffset(offset,
+            this->zorWidth, this->laneWidth, maxLaneNum,landIndex);
+    Coord zofOffset = this->calcZoneOffset(offset,
+            this->zofWidth, this->laneWidth, maxLaneNum,landIndex);
+    Coord zorLoc =GCRSBaseComMath::tranCoordLocaltoWorld(zorOffset, loc, rotate);
+    Coord zofLoc =GCRSBaseComMath::tranCoordLocaltoWorld(zofOffset, loc, rotate);
+    networkRange->setZof(this->zofShape, zofLoc, rotate,
+            this->zofLength, this->zofWidth);
+    networkRange->setZor(this->zorShape, zorLoc, rotate,
+            this->zorLength, this->zorWidth);
 
     this->mapNetworkRange.insert(
             std::map<GCRSBaseComNin::NinL3Type, GCRSBaseComCollectNetworkRange*>::value_type(
@@ -213,12 +211,16 @@ GCRSBaseComCollectNetworkRange* GCRSBaseComCollectNetworkRangeController::getNet
 }
 
 Coord GCRSBaseComCollectNetworkRangeController::calcZoneOffset(
-        double horizontalOffset, double zoneWidth, double landWith,
+        double horizontalOffset, double zoneWidth, double maxLandNum, double landWith,
         int laneIndex) {
     if (landWith <= 0.0)
         return Coord::ZERO;
     double dLaneIndex = static_cast<double>(laneIndex);
-    double laneCenter = (zoneWidth / landWith) / 2.0f - (dLaneIndex + 0.5);
+    double coveredLane = (zoneWidth / landWith);
+    if(coveredLane > maxLandNum){
+        coveredLane = maxLandNum;
+    }
+    double laneCenter = coveredLane / 2.0f - (dLaneIndex + 0.5);
     double verticalOffset = (-laneCenter) * landWith;
     return Coord(horizontalOffset, verticalOffset, 0.0f);
 }

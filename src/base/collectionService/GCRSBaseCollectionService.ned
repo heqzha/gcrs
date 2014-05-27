@@ -25,6 +25,7 @@ simple GCRSBaseCollectionService{
         double ZOF_LENGTH = default(650);
         double ZOF_WIDTH = default(500);
         double LANE_WIDTH = default(0.0);
+        int LANE_NUM = default(2);
         double BUILDINGINTERVAL = default(0.0);
         double UPDATEINTERVAL @unit(s)= default(0.1s);
         @class(GCRSBaseCollectionService);   
