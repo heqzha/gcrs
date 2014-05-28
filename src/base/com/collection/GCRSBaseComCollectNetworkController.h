@@ -30,7 +30,7 @@ public:
             GCRSBaseComVin::VinL3Type vin);
     void addRelayNode(GCRSBaseComNin::NinL3Type nin,
             GCRSBaseComVin::VinL3Type parentVin, GCRSBaseComVin::VinL3Type vin,
-            GCRSBaseComCollectNode::range_category rc);
+            GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime);
     void cancelRelayNode(GCRSBaseComNin::NinL3Type nin,
             GCRSBaseComVin::VinL3Type vin);
     unsigned int checkNetworksState();
@@ -49,6 +49,7 @@ public:
     int getNumRelayNodes(GCRSBaseComNin::NinL3Type nin);
     int getMaxHops(GCRSBaseComNin::NinL3Type nin);
     simtime_t getMaxDelayTime(GCRSBaseComNin::NinL3Type nin);
+    std::vector<simtime_t> getDelayPerHop(GCRSBaseComNin::NinL3Type nin);
     simtime_t getNetworkCreateTime(GCRSBaseComNin::NinL3Type nin);
 
 protected:

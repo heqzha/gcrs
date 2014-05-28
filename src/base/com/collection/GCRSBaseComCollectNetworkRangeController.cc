@@ -29,9 +29,12 @@ void GCRSBaseComCollectNetworkRangeController::addNetworkRange(
     }
     networkRange = new GCRSBaseComCollectNetworkRange(ttl);
     double rotate = 0.0f;
-    if (Coord::ZERO == locJunction) {
+    if (Coord::ZERO != locJunction) {
+        rotate = floor(direct/(PI/2.0f)) * (PI/2.0f);
+    }else{
         rotate = direct;
     }
+
     double maxLaneNum = roadWidth / this->laneWidth;
     Coord zorOffset = this->calcZoneOffset(offset,
             this->zorWidth, this->laneWidth, maxLaneNum,landIndex);

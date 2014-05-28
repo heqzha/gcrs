@@ -250,9 +250,9 @@ void GCRSBaseCollectionService::conclusion() {
                 / this->txRange;
         double whopi = this->networkRangeCtrl->getWidthZor(nin) / this->txRange;
         double hopi = ceil(lhopi + whopi);
-        double efficiency = GCRSBaseComCollectStatistics::calcEfficiency(
+/*        double efficiency = GCRSBaseComCollectStatistics::calcEfficiency(
                 numRxNodesInZor, numPassThroughZorNodes, maxDelayTime, maxHops,
-                hopi, this->networkRangeCtrl->getLengthZor(nin));
+                hopi, this->networkRangeCtrl->getLengthZor(nin));*/
         TiXmlElement* networkElement = this->printOutProtocol->addElement(
                 "Network_Identification_Number",
                 this->printOutProtocol->getRootElement());
@@ -303,10 +303,6 @@ void GCRSBaseCollectionService::conclusion() {
         this->printOutProtocol->addElement(
                 "The_Number_of_Received_Message_Nodes_ZOF",
                 Convert::IntegerToString(numRxNodesInZof), networkElement);
-        this->printOutProtocol->addElement("The_Max_Hops",
-                Convert::IntegerToString(maxHops), networkElement);
-        this->printOutProtocol->addElement("The_Max_Delay_Time",
-                Convert::DoubleToString(maxDelayTime.dbl()), networkElement);
         this->printOutProtocol->addElement(
                 "The_Number_of_Nodes_Which_Passing_Through_ZOR",
                 Convert::IntegerToString(numPassThroughZorNodes),
@@ -319,8 +315,20 @@ void GCRSBaseCollectionService::conclusion() {
                 Convert::DoubleToString(
                         GCRSBaseComCollectStatistics::calcPDR(numRxNodesInZor,
                                 numPassThroughZorNodes)), networkElement);
-        this->printOutProtocol->addElement("The_Efficiency",
-                Convert::DoubleToString(efficiency), networkElement);
+        this->printOutProtocol->addElement("The_Max_Hops",
+                Convert::IntegerToString(maxHops), networkElement);
+        this->printOutProtocol->addElement("The_Max_Delay_Time",
+                Convert::DoubleToString(maxDelayTime.dbl()), networkElement);
+
+        TiXmlElement* delayTimePerhopList = this->printOutProtocol->addElement(
+                        "Delay_Time_Per_Hop", networkElement);
+        std::vector<simtime_t> delayT = this->networkCtrl->getDelayPerHop(nin);
+        std::vector<simtime_t>::iterator iter;
+        for (iter = delayT.begin();
+                    iter != delayT.end(); ++iter) {
+            this->printOutProtocol->addElement("Delay_Time",
+                            Convert::DoubleToString((*iter).dbl()), delayTimePerhopList);
+        }
     }
     this->printOutProtocol->PrintOut();
 }
@@ -355,8 +363,8 @@ GCRSBaseComNin::NinL3Type GCRSBaseCollectionService::createNetwork(
 
 void GCRSBaseCollectionService::addRelayNode(GCRSBaseComNin::NinL3Type nin,
         GCRSBaseComVin::VinL3Type parentVin, GCRSBaseComVin::VinL3Type vin,
-        GCRSBaseComCollectNode::range_category rc) {
-    this->networkCtrl->addRelayNode(nin, parentVin, vin, rc);
+        GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime) {
+    this->networkCtrl->addRelayNode(nin, parentVin, vin, rc, parentSendTime);
 }
 
 void GCRSBaseCollectionService::cancelRelayNode(GCRSBaseComNin::NinL3Type nin,

@@ -56,7 +56,7 @@ public:
             simtime_t ttl, Coord loc, double offset, double direct, int landIndex);
     void addRelayNode(GCRSBaseComNin::NinL3Type nin,
             GCRSBaseComVin::VinL3Type parentVin, GCRSBaseComVin::VinL3Type vin,
-            GCRSBaseComCollectNode::range_category rc);
+            GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime);
     void cancelRelayNode(GCRSBaseComNin::NinL3Type nin,
             GCRSBaseComVin::VinL3Type vin);
 

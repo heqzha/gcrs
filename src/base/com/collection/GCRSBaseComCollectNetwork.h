@@ -85,6 +85,10 @@ public:
         return this->maxDelayTime;
     }
 
+    std::vector<simtime_t> getDelayPerHop(){
+        return this->delayTimePerHop;
+    }
+
     void setState(state_category sc) {
         this->sc = sc;
     }
@@ -103,7 +107,7 @@ public:
 
     void setRootNode(GCRSBaseComVin::VinL3Type vin);
     void addRelayNode(GCRSBaseComVin::VinL3Type parentVin,
-            GCRSBaseComVin::VinL3Type childVin, GCRSBaseComCollectNode::range_category rc);
+            GCRSBaseComVin::VinL3Type childVin, GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime);
     void cancelRelayNode(GCRSBaseComVin::VinL3Type vin);
     bool isInNetwork(GCRSBaseComVin::VinL3Type vin);
 
@@ -116,7 +120,7 @@ protected:
     bool isExpired(simtime_t currentT);
     GCRSBaseComCollectNode* searchNode(GCRSBaseComCollectNode* node,
             GCRSBaseComVin::VinL3Type vin);
-    void conclusion(GCRSBaseComCollectNode* node, int depth);
+    void conclusion(GCRSBaseComCollectNode* node);
     simtime_t calcMaxDelayTime();
     void cleanUp();
 
@@ -125,13 +129,15 @@ protected:
     GCRSBaseComCollectNode* rootNode;
     GCRSBaseComTTL networkTime;
     long version;
-    std::vector<GCRSBaseComCollectNode*> farthestNodes;
+    std::vector<GCRSBaseComCollectNode*> nodeStack;
+    std::vector<GCRSBaseComCollectNode*> maxHopNodeStack;
 
     int numRxNodesInZor;
     int numRxNodesInZof;
     int numRelayNodes;
     int maxHops;
     simtime_t maxDelayTime;
+    std::vector<simtime_t> delayTimePerHop;
 };
 
 #endif /* GCRSBASECOMCOLLECTNETWORK_H_ */

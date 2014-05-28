@@ -236,7 +236,9 @@ void GCRSBaseNetLayer::handleScheduleRunningEvent(long taskId) {
     long eventId = this->tManager->getRunningEventId(taskId);
     simtime_t t = this->tManager->getNextEventTime(taskId);
     if(t > 0){
-        this->handleSchedule(eventId, simTime() + t);
+        if(this->handleSchedule(eventId, simTime() + t)){
+            this->tManager->setScheduleTime(taskId);
+        }
     }
 }
 
@@ -333,6 +335,7 @@ void GCRSBaseNetLayer::handleSendDown(long eventId) {
     if (taskId < 0)
         return;
     GCRSBaseNetPkt* pkt = this->tManager->getPkt(taskId);
+    simtime_t scheduleTime = this->tManager->getScheduleTime(taskId);
     if (pkt != NULL) {
         GCRSBaseNetPkt* cpNetPkt = check_and_cast<GCRSBaseNetPkt*>(pkt->dup());
         GCRSBaseVehicleManager::VehicleParams vParams =
@@ -341,7 +344,7 @@ void GCRSBaseNetLayer::handleSendDown(long eventId) {
         cpNetPkt->setLocForwad(vParams.location);
         cpNetPkt->setSpeedForwad(vParams.speed);
         cpNetPkt->setSpeedMaxForwarding(vParams.speedMax);
-        cpNetPkt->setTimestampForwarding(simTime());
+        cpNetPkt->setTimestampForwarding(scheduleTime);
         cpNetPkt->setHops(pkt->getHops() + 1);
         sendDown(cpNetPkt);
     }
@@ -359,8 +362,9 @@ void GCRSBaseNetLayer::handleTaskInZone(GCRSBaseNetPkt* pkt,
         if (taskId >= 0) {
             //Set Relay Node
             GCRSBaseComVin::VinL3Type parentVin = pkt->getVinForwardSrc();
+            simtime_t parentSendTime = pkt->getTimestampForwarding();
             this->collectionService->addRelayNode(nin, parentVin, this->vin,
-                    zone);
+                    zone, parentSendTime);
             EV<< EV_HEAD << "The message " << pkt->getVinOriginSrc()<< "-" << pkt->getTimestamp()<< " is added in message buffer"<<endl;
             EV<< EV_HEAD << "The size of Message Buffer is " << this->tManager->getBufferSize() <<"."<<endl;
             this->handleScheduleTask(taskId, zone); //Schedule task

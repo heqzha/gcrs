@@ -30,6 +30,7 @@ public:
             GCRSBaseNetPkt* pkt, simtime_t expireTime);
     virtual void setTaskState(long taskId, int state);
     virtual void setNextEventTime(long taskId, simtime_t t);
+    virtual void setScheduleTime(long taskId);
     virtual void deleteTask(long taskId)=0;
 
     virtual long getTaskIdByRunningEventId(long runningEventId);
@@ -38,6 +39,7 @@ public:
     virtual long getExpireEventId(long taskId);
     virtual simtime_t getNextEventTime(long taskId);
     virtual simtime_t getExpireEventTime(long taskId);
+    virtual simtime_t getScheduleTime(long taskId);
     virtual GCRSBaseNetPkt* getPkt(long taskId);
 
     virtual unsigned int getBufferSize();

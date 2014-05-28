@@ -60,6 +60,13 @@ void GCRSBaseComTaskManager::setNextEventTime(long taskId, simtime_t t) {
     task->setNextEventTime(t);
 }
 
+void GCRSBaseComTaskManager::setScheduleTime(long taskId) {
+    GCRSBaseComTask* task = this->searchTask(taskId);
+    if (task == NULL)
+        return;
+    task->setScheduleTime(simTime());
+}
+
 long GCRSBaseComTaskManager::getTaskIdByRunningEventId(long runningEventId){
     GCRSBaseComTask* task = this->searchTaskByRunningEventId(runningEventId);
     if(task == NULL)return -1;
@@ -94,6 +101,12 @@ simtime_t GCRSBaseComTaskManager::getExpireEventTime(long taskId) {
     GCRSBaseComTask* task = this->searchTask(taskId);
     if(task == NULL)return 0;
     return task->getExpireTime();
+}
+
+simtime_t GCRSBaseComTaskManager::getScheduleTime(long taskId){
+    GCRSBaseComTask* task = this->searchTask(taskId);
+    if(task == NULL)return 0;
+    return task->getScheduleTime();
 }
 
 GCRSBaseNetPkt* GCRSBaseComTaskManager::getPkt(long taskId) {

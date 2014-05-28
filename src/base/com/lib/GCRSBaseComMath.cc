@@ -158,7 +158,7 @@ std::list<Coord> GCRSBaseComMath::calcVertexes(double length, double width, int 
                 listTheta.push_back((di/dNumVertex)*PI);
             }
         }
-        radius = length / 2.0f;
+        radius = (length / 2.0f) * sqrt(2.0f);
     }
     std::list<double>::iterator iter;
     for(iter = listTheta.begin(); iter != listTheta.end(); ++iter){

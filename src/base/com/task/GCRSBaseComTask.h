@@ -36,6 +36,10 @@ public:
         this->m_ExpireTime = t;
     }
 
+    virtual void setScheduleTime(simtime_t t){
+        this->m_ScheduleTime = t;
+    }
+
     virtual long getTaskId(){
         return this->m_TaskId;
     }
@@ -63,6 +67,10 @@ public:
     virtual GCRSBaseNetPkt* getPkt(){
         return this->m_Pkt;
     }
+
+    virtual simtime_t getScheduleTime(){
+        return this->m_ScheduleTime;
+    }
 protected:
     long m_TaskId;
     long m_RunningEventId;
@@ -70,6 +78,8 @@ protected:
     int m_State;
     simtime_t m_NextEventTime;
     simtime_t m_ExpireTime;
+
+    simtime_t m_ScheduleTime;
     GCRSBaseNetPkt* m_Pkt;
 };
 

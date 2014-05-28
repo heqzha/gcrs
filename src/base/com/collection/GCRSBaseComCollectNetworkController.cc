@@ -47,12 +47,12 @@ void GCRSBaseComCollectNetworkController::setRootNode(
 void GCRSBaseComCollectNetworkController::addRelayNode(
         GCRSBaseComNin::NinL3Type nin, GCRSBaseComVin::VinL3Type parentVin,
         GCRSBaseComVin::VinL3Type vin,
-        GCRSBaseComCollectNode::range_category rc) {
+        GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime) {
     GCRSBaseComCollectNetwork* network = this->getNetworkByNin(nin);
     if (network == NULL) {
         return;
     }
-    network->addRelayNode(parentVin, vin, rc);
+    network->addRelayNode(parentVin, vin, rc, parentSendTime);
 }
 
 void GCRSBaseComCollectNetworkController::cancelRelayNode(
@@ -193,6 +193,11 @@ simtime_t GCRSBaseComCollectNetworkController::getMaxDelayTime(
         return -1;
     }
     return network->getMaxDelayTime();
+}
+
+std::vector<simtime_t> GCRSBaseComCollectNetworkController::getDelayPerHop(GCRSBaseComNin::NinL3Type nin){
+    GCRSBaseComCollectNetwork* network = this->getNetworkByNin(nin);
+    return network->getDelayPerHop();
 }
 
 simtime_t GCRSBaseComCollectNetworkController::getNetworkCreateTime(

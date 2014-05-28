@@ -22,6 +22,7 @@ GCRSBaseComTask::GCRSBaseComTask(){
     this->m_State = -1;
     this->m_NextEventTime = 0.0f;
     this->m_ExpireTime = 0.0f;
+    this->m_ScheduleTime = 0.0f;
     this->m_Pkt = NULL;
 }
 
@@ -32,6 +33,7 @@ GCRSBaseComTask::GCRSBaseComTask(long taskId, long runningEventId, long expireEv
     this->m_State = -1;
     this->m_NextEventTime = 0.0f;
     this->m_ExpireTime = 0.0f;
+    this->m_ScheduleTime = 0.0f;
 }
 
 GCRSBaseComTask::~GCRSBaseComTask(){

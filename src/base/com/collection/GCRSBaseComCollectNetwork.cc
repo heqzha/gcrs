@@ -62,19 +62,20 @@ GCRSBaseComCollectNode* GCRSBaseComCollectNetwork::createRelayNode(
 }
 
 void GCRSBaseComCollectNetwork::setRootNode(GCRSBaseComVin::VinL3Type vin){
-    this->rootNode = createRelayNode(vin, simTime(), 0.0f, GCRSBaseComCollectNode::RC_ZOR);
+    this->rootNode = createRelayNode(vin, 0.0f, 0.0f, GCRSBaseComCollectNode::RC_ZOR);
 }
 
 void GCRSBaseComCollectNetwork::addRelayNode(
         GCRSBaseComVin::VinL3Type parentVin,
-        GCRSBaseComVin::VinL3Type childVin, GCRSBaseComCollectNode::range_category rc) {
+        GCRSBaseComVin::VinL3Type childVin, GCRSBaseComCollectNode::range_category rc, simtime_t parentSendTime) {
     GCRSBaseComCollectNode* parentNode = this->searchNodeInNetwork(parentVin);
     if(parentNode == NULL)
         return;
     GCRSBaseComCollectNode* childNode = parentNode->getChildNodeByVin(childVin);
     if(childNode != NULL)
         return;
-    childNode = createRelayNode(childVin, 0.0f, simTime(), rc);
+    //Store the time of receiving message from parent node.
+    childNode = createRelayNode(childVin, parentSendTime, simTime(), rc);
     if(childNode == NULL)
         return;
     parentNode->addChildNode(childNode);
@@ -130,7 +131,7 @@ GCRSBaseComCollectNode* GCRSBaseComCollectNetwork::searchNode(
     return NULL;
 }
 
-void GCRSBaseComCollectNetwork::conclusion(GCRSBaseComCollectNode* node,
+/*void GCRSBaseComCollectNetwork::conclusion(GCRSBaseComCollectNode* node,
         int depth) {
     if (node == NULL)
         return;
@@ -160,9 +161,44 @@ void GCRSBaseComCollectNetwork::conclusion(GCRSBaseComCollectNode* node,
             this->numRxNodesInZof += 1;
         }
     }
+}*/
+
+void GCRSBaseComCollectNetwork::conclusion(GCRSBaseComCollectNode* node) {
+    if (node == NULL)
+        return;
+    if(node->getState() != GCRSBaseComCollectNode::SC_RELAY && node->getState() != GCRSBaseComCollectNode::SC_CANCEL)
+        return;
+
+    if (node->getChildrenNodes() == NULL || node->getChildrenNodes()->empty()) {
+        if(this->maxHopNodeStack.size() < this->nodeStack.size()){
+            this->maxHopNodeStack = this->nodeStack;
+            this->maxHops = this->maxHopNodeStack.size();
+        }
+        return;
+    }
+
+    std::vector<GCRSBaseComCollectNode*>::iterator iter;
+    for (iter = node->getChildrenNodes()->begin();
+            iter != node->getChildrenNodes()->end(); ++iter) {
+        this->nodeStack.push_back((*iter));
+        conclusion((*iter));
+
+        if ((*iter)->isRelayNode()) {
+            this->numRelayNodes += 1;
+        }
+        if((*iter)->isZorNode()){
+            this->numRxNodesInZor += 1;
+        }
+        if((*iter)->isZorNode() || (*iter)->isZofNode()){
+            this->numRxNodesInZof += 1;
+        }
+
+        this->nodeStack.pop_back();
+    }
+
 }
 
-simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
+/*simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
 
     if(this->rootNode == NULL){
         EV<<"NULL";
@@ -186,12 +222,32 @@ simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
 
     return delay;
 
+}*/
+
+simtime_t GCRSBaseComCollectNetwork::calcMaxDelayTime() {
+    if (this->rootNode == NULL) {
+        EV << "NULL";
+    }
+    simtime_t delay = 0.0f;
+    simtime_t maxDelay = 0.0f;
+
+    if (this->maxHopNodeStack.empty()) {
+        return delay;
+    }
+    std::vector<GCRSBaseComCollectNode*>::iterator iter;
+    for (iter = this->maxHopNodeStack.begin();
+            iter != this->maxHopNodeStack.end(); ++iter) {
+            delay = (*iter)->getReceiveTime() - (*iter)->getSendTime();
+            this->delayTimePerHop.push_back(delay);
+            maxDelay += delay;
+    }
+    return maxDelay;
 }
 
 bool GCRSBaseComCollectNetwork::isFinished() {
     if(this->networkTime.isExpires(simTime())){
         this->sc = SC_EXPIRED;
-        this->conclusion(this->rootNode, 0);
+        this->conclusion(this->rootNode);
         this->maxDelayTime = this->calcMaxDelayTime();
         return true;
     }
