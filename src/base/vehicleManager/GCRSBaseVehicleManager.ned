@@ -27,5 +27,6 @@ simple GCRSBaseVehicleManager{
 		int EVENT_DURATION_MODIFY_TIMES = default(1);
  	    double EVENT_DURATION_MIN = default(15.0);
  	    double EVENT_DURATION_MAX = default(60.0);
+ 	    bool EVENT_TRIGGER_MECHANISM = default(false)
         @class(GCRSBaseVehicleManager);
 }

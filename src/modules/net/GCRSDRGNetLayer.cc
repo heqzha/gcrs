@@ -52,8 +52,8 @@ void GCRSDRGNetLayer::handleNewTask(long taskId) {
     Coord loc = this->vManager->getLocation(this->vin);
     double dist = GCRSBaseComMath::calcDistance(locForward, loc);
     double rtx = this->connectionManager->getMaxIterferenceDistance();
-    this->drgTaskManager->setNextEventTime(taskId,
-            this->calcDistanceBOd(rtx, dist) + this->calcBackoffTime());
+    simtime_t backoff = this->calcDistanceBOd(rtx, dist) + this->calcBackoffTime();
+    this->drgTaskManager->setNextEventTime(taskId, backoff);
 }
 
 void GCRSDRGNetLayer::handleScheduleTask(long taskId, GCRSBaseComCollectNode::range_category zone){
@@ -64,8 +64,8 @@ void GCRSDRGNetLayer::handleScheduleTask(long taskId, GCRSBaseComCollectNode::ra
     Coord loc = this->vManager->getLocation(this->vin);
     double dist = GCRSBaseComMath::calcDistance(locForward, loc);
     double rtx = this->connectionManager->getMaxIterferenceDistance();
-    this->drgTaskManager->setNextEventTime(taskId,
-            this->calcDistanceBOd(rtx, dist) + this->calcBackoffTime());
+    simtime_t backoff = this->calcDistanceBOd(rtx, dist) + this->calcBackoffTime();
+    this->drgTaskManager->setNextEventTime(taskId, backoff);
 }
 bool GCRSDRGNetLayer::handleSendUp(GCRSBaseNetPkt* pkt, GCRSBaseComCollectNode::range_category zone){
     if(GCRSBaseComCollectNode::RC_ZOR == zone)

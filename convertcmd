@@ -1,6 +1,5 @@
-netconvert --node-files=GridNetwork.nod.xml --edge-files=GridNetwork.edg.xml --type-files=GridNetwork.typ.xml --output-file=GridNetwork.net.xml
-
-
+#generate road network
 netconvert -c GridNetwork.netccfg
+#Run sumo
 sumo-gui GridNetwork.sumocfg
 

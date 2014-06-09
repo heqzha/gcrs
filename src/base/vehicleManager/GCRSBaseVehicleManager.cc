@@ -39,6 +39,8 @@ void GCRSBaseVehicleManager::initialize(int stage) {
                 hasPar("NUM_VEHICLES") ? par("NUM_VEHICLES").longValue() : 0;
         this->mapVEventTriggerRatio = this->generateRandomEventTriggerRatio(
                 this->numVehicles);
+
+        this->event_trigger_mechanism = hasPar("EVENT_TRIGGER_MECHANISM") ? par("EVENT_TRIGGER_MECHANISM").boolValue() : false;
         /*
          * Event initialize
          */
@@ -165,6 +167,10 @@ long GCRSBaseVehicleManager::isEventOccur(GCRSBaseComVin::VinL3Type vin) {
         return -1;
     if (this->vCtrl.isEventOccurred(vin))
         return -1;
+    if(!this->event_trigger_mechanism){
+        if(this->eCtrl.getCurrentEventNum() > 0)
+            return -1;
+    }
 
     Coord loc = this->vCtrl.getVehicleLocation(vin);
     double ratio = this->vCtrl.getVehicleEventOccurRatio(vin);
@@ -173,6 +179,10 @@ long GCRSBaseVehicleManager::isEventOccur(GCRSBaseComVin::VinL3Type vin) {
         this->vCtrl.setEvent(vin, eventId);
     }
     return eventId;
+}
+
+unsigned int GCRSBaseVehicleManager::getCurrentEventNum(){
+    return this->eCtrl.getCurrentEventNum();
 }
 
 void GCRSBaseVehicleManager::eventExpire(GCRSBaseComVin::VinL3Type vin){

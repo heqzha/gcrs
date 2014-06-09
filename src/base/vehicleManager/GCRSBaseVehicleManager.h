@@ -53,6 +53,7 @@ public:
     virtual bool updateVehicleParams(GCRSBaseComVin::VinL3Type vin, VehicleParams vParams);
     virtual VehicleParams getVehicleParams(GCRSBaseComVin::VinL3Type vin);
     virtual long isEventOccur(GCRSBaseComVin::VinL3Type vin);
+    virtual unsigned int getCurrentEventNum();
     virtual void eventExpire(GCRSBaseComVin::VinL3Type vin);
     virtual simtime_t isModifyEventDuration(GCRSBaseComVin::VinL3Type vin);
     virtual unsigned int getNumEventDuration(GCRSBaseComVin::VinL3Type vin);
@@ -96,6 +97,7 @@ protected:
     std::map<GCRSBaseComVin::VinL3Type, double> mapVEventTriggerRatio;
     long numVehicles;
     GCRSBaseVehicleManager::vehicle_density_state_category vdState;
+    bool event_trigger_mechanism;
 };
 
 class GCRSBaseVehicleManagerAccess {

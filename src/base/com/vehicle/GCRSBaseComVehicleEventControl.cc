@@ -87,6 +87,17 @@ long GCRSBaseComVehicleEventControl::isEventOccur(GCRSBaseComVin::VinL3Type vin,
     return -1;
 }
 
+unsigned int GCRSBaseComVehicleEventControl::getCurrentEventNum(){
+    unsigned int numEvents = 0;
+    std::vector<GCRSBaseComVehicleEvent*>::iterator iter;
+    for (iter = this->m_EventBuffer.begin(); iter != this->m_EventBuffer.end(); ++iter) {
+        if((*iter)->getEventState() == GCRSBaseComVehicleEvent::SC_EVENT_OCCURED){
+            numEvents++;
+        }
+    }
+    return numEvents;
+}
+
 simtime_t GCRSBaseComVehicleEventControl::modifyEventDurationTime(long eventId){
     GCRSBaseComVehicleEvent* event = this->searchEvent(eventId);
     if (event == NULL)

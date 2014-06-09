@@ -76,6 +76,11 @@ void GCRSBaseTraCIMobility::handleSelfMsg(cMessage *msg) {
                 this->selfMsg_EVENT->setKind(MC_SELFMSG_EVENT_START);
                 scheduleAt(simTime() + 0.1, this->selfMsg_EVENT);
             }else{
+                if(this->vManager->getCurrentEventNum() > 0){
+                    this->commandSetSpeed(0);
+                }else{
+                    this->commandSetSpeed(-1);
+                }
                 scheduleAt(simTime() + this->eventInterval, this->selfMsg_EVENT);
             }
             break;

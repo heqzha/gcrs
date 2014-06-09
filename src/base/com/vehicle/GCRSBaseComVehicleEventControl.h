@@ -29,6 +29,7 @@ public:
             simtime_t eventStartTime);
     virtual void addEventDuration(long eventId, simtime_t duration);
     virtual long isEventOccur(GCRSBaseComVin::VinL3Type vin, Coord loc, double ratio);//If event occured, return eventId
+    virtual unsigned int getCurrentEventNum();
 
     virtual simtime_t modifyEventDurationTime(long eventId);
     virtual int getEventType(long eventId);
