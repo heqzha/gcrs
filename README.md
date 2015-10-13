@@ -7,3 +7,4 @@ To run GCRS, you need:
   2. import this project in OMNET++ IDE. 
   3. run sumo server python sumo-launchd.py -vv -c sumo(sumo-gui)
   4. run GCRS
+  5. all results are in results/
